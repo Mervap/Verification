@@ -1,0 +1,16 @@
+{
+  "modules": [
+    {
+      "name": "verifier",
+      "languageLevel": 17
+    },
+    {
+      "name": "verifier.test",
+      "languageLevel": 17
+    },
+    {
+      "name": "verifier.main",
+      "languageLevel": 17
+    }
+  ]
+}

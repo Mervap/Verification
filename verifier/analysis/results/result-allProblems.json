@@ -1,32 +1,156 @@
 {"version":"3","listProblem":[{
   "tool": "Code Inspection",
   "category": "Redundant constructs",
-  "type": "Unused import directive",
+  "type": "Unused symbol",
   "tags": [
     "kotlin"
   ],
   "severity": "High",
-  "comment": "Unused import directive",
-  "detailsInfo": "Reports redundant `import` statements.\n\nDefault and unused imports can be safely removed.\n\n**Example:**\n\n\n      import kotlin.*\n      import kotlin.collections.*\n      import kotlin.comparisons.*\n      import kotlin.io.*\n      import kotlin.ranges.*\n      import kotlin.sequences.*\n      import kotlin.text.*\n\n      // jvm specific\n      import java.lang.*\n      import kotlin.jvm.*\n\n      // js specific\n      import kotlin.js.*\n\n      import java.io.* // this import is unused and could be removed\n      import java.util.*\n\n      fun foo(list: ArrayList<String>) {\n          list.add(\"\")\n      }\n",
+  "comment": "Class \"Code\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
   "sources": [
     {
       "type": "file",
-      "path": "build.gradle.kts",
+      "path": "src/main/kotlin/itmo/verifier/Serialization.kt",
       "language": "kotlin",
-      "line": 1,
-      "offset": 1,
-      "length": 43,
+      "line": 73,
+      "offset": 12,
+      "length": 4,
       "code": {
-        "startLine": 1,
-        "length": 43,
-        "offset": 0,
-        "surroundingCode": "import kotlinx.kover.api.KoverTaskExtension\nimport org.jetbrains.kotlin.gradle.tasks.KotlinCompile\n"
+        "startLine": 71,
+        "length": 4,
+        "offset": 56,
+        "surroundingCode": "@Serializable\n@XmlSerialName(\"code\", \"\", \"\")\ndata class Code(@XmlValue(true) val code: String = \"\") : WidgetAttribute\n\n@Serializable"
       }
     }
   ],
   "attributes": {
-    "module": "verifier",
-    "inspectionName": "KotlinUnusedImport"
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
   },
-  "hash": "37123445a618e2a9bf7b77cc3201c086f7aec0511770efd7c5fec7436dea19d4"
+  "hash": "8791f1a2c96c63751ec42d824e302ab0fcc9db9e70b69770a8e8afe8338bb7ee"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Class \"Action\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/Serialization.kt",
+      "language": "kotlin",
+      "line": 69,
+      "offset": 12,
+      "length": 6,
+      "code": {
+        "startLine": 67,
+        "length": 6,
+        "offset": 58,
+        "surroundingCode": "@Serializable\n@XmlSerialName(\"action\", \"\", \"\")\ndata class Action(val name: String, val comment: String, val synchro: String) : WidgetAttribute\n\n@Serializable"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "b42e7e58f3d698936bdc31c28b35505dd1384f57302085c18778e089393b6f78"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Class \"Incoming\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/Serialization.kt",
+      "language": "kotlin",
+      "line": 81,
+      "offset": 12,
+      "length": 8,
+      "code": {
+        "startLine": 79,
+        "length": 8,
+        "offset": 60,
+        "surroundingCode": "@Serializable\n@XmlSerialName(\"incoming\", \"\", \"\")\ndata class Incoming(val id: String) : WidgetAttribute\n\n@Serializable"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "d3f3a6d6f662242ea6fb060ee74034a92d7d84050650baf683c56357432f8dac"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Class \"Guard\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/Serialization.kt",
+      "language": "kotlin",
+      "line": 77,
+      "offset": 12,
+      "length": 5,
+      "code": {
+        "startLine": 75,
+        "length": 5,
+        "offset": 57,
+        "surroundingCode": "@Serializable\n@XmlSerialName(\"guard\", \"\", \"\")\ndata class Guard(@XmlValue(true) val guard: String = \"\") : WidgetAttribute\n\n@Serializable"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "722de449231e5beaca52ef1e0d76b315bb93bba8e0875793059346ddfadc99ea"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Class \"Outgoing\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/Serialization.kt",
+      "language": "kotlin",
+      "line": 85,
+      "offset": 12,
+      "length": 8,
+      "code": {
+        "startLine": 83,
+        "length": 8,
+        "offset": 60,
+        "surroundingCode": "@Serializable\n@XmlSerialName(\"outgoing\", \"\", \"\")\ndata class Outgoing(val id: String) : WidgetAttribute\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "7e593ab9a090311183067eb28d0116fce42952ccb772a91091c63d6aadf6329e"
 }]}

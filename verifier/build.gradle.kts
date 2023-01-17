@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("io.github.pdvrieze.xmlutil:serialization:0.84.3")
+    implementation("io.github.pdvrieze.xmlutil:serialization-jvm:0.84.3")
 
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")

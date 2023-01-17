@@ -24,6 +24,7 @@ jobs:
           args: --project-dir,${{ github.workspace }}/verifier
 
       - name: Deploy Qodana to Pages
+        if: github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

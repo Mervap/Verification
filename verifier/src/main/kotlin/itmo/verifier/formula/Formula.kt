@@ -6,38 +6,68 @@ import com.github.h0tk3y.betterParse.lexer.literalToken
 import com.github.h0tk3y.betterParse.lexer.regexToken
 import com.github.h0tk3y.betterParse.parser.Parser
 
-sealed class CTLFormula
+sealed class CTLFormula {
+    abstract fun optimize():CTLFormula
 
-object TRUE: CTLFormula()
+}
 
-data class Element(val name: String): CTLFormula()
+object TRUE: CTLFormula() {
+    override fun optimize(): CTLFormula {
+        return this
+    }
+}
+
+data class Element(val name: String): CTLFormula() {
+    override fun optimize(): CTLFormula {
+        return this
+    }
+}
 
 data class Not(
     val formula: CTLFormula
-): CTLFormula()
+): CTLFormula() {
+    override fun optimize(): CTLFormula {
+        if (formula is Not) {
+            return formula.formula.optimize()
+        }
+        return Not(formula.optimize())
+    }
+}
 
 data class Or(
     val left: CTLFormula,
     val right: CTLFormula
-): CTLFormula()
+): CTLFormula() {
+    override fun optimize(): CTLFormula {
+        return Or(left.optimize(), right.optimize())
+    }
+}
 
 data class EX(
-    var formula: CTLFormula
-): CTLFormula()
+    val formula: CTLFormula
+): CTLFormula() {
+    override fun optimize(): CTLFormula {
+        return EX(formula.optimize())
+    }
+}
 
 data class AU(
     val left: CTLFormula,
     val right: CTLFormula
-): CTLFormula()
+): CTLFormula() {
+    override fun optimize(): CTLFormula {
+        return AU(left.optimize(), right.optimize())
+    }
+}
 
 data class EU(
     val left: CTLFormula,
     val right: CTLFormula
-): CTLFormula()
-
-
-
-
+): CTLFormula() {
+    override fun optimize(): CTLFormula {
+        return EU(left.optimize(), right.optimize())
+    }
+}
 
 
 object CTLGrammar: Grammar<CTLFormula>() {

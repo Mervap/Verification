@@ -79,4 +79,12 @@ class FormulaParserTest {
         assertEquals(CTLGrammar.parseToEnd(formulaString), Or(Not(TRUE), EX(Element("future"))))
     }
 
+
+    @Test
+    fun `optimization test`() {
+
+        assertEquals(Not(Or(Not(TRUE), Not(Not(TRUE)))).optimize(), Not(Or(Not(TRUE), TRUE)))
+        assertEquals(Not(Or(Not(Not(Not(TRUE))), Not(Not(TRUE)))).optimize(), Not(Or(Not(TRUE), TRUE)))
+        assertEquals(Not(Not(Not(Or(Not(Not(Not(TRUE))), Not(Not(TRUE)))))).optimize(), Not(Or(Not(TRUE), TRUE)))
+    }
 }

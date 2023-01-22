@@ -1,127 +1,158 @@
 {"version":"3","listProblem":[{
   "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
+  "category": "Redundant constructs",
+  "type": "Replace empty class body",
   "tags": [
     "kotlin"
   ],
   "severity": "Moderate",
-  "comment": "Property 'afOp' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "comment": "Redundant empty class body",
+  "detailsInfo": "Reports declarations of classes and objects with an empty body.\n\nUse the 'Remove redundant empty class body' quick-fix to clean up the code.\n\n**Examples:**\n\n\n      class EmptyA() {} // <== empty body\n\n      class EmptyB {\n          companion object {} // <== empty body\n      }\n\n      fun emptyC() {\n         object {} // <== anonymous object, it's ok (not reported)\n      }\n\nAfter the quick fix is applied:\n\n\n      class EmptyA()\n\n      class EmptyB {\n          companion object\n      }\n\n      fun emptyC() {\n         object {}\n      }\n",
   "sources": [
     {
       "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
       "language": "kotlin",
-      "line": 102,
-      "offset": 9,
+      "line": 133,
+      "offset": 60,
       "length": 4,
       "code": {
-        "startLine": 100,
+        "startLine": 131,
         "length": 4,
-        "offset": 144,
-        "surroundingCode": "    val axOp by -ax * parser(this::ctlExpr) map { f -> Not(EX(Not(f))) }\n    val exOp by -ex * parser(this::ctlExpr) map { f -> EX(f) }\n    val afOp by -af * parser(this::ctlExpr) map { f -> AU(TRUE, f) }\n    val efOp by -ef * parser(this::ctlExpr) map { f -> EU(TRUE, f) }\n    val agOp by -ag * parser(this::ctlExpr) map { f -> Not(EU(TRUE, Not(f))) }"
+        "offset": 62,
+        "surroundingCode": "}\n\nclass ActionKripke(val name: String, val synchro: Boolean) {\n\n}\n\nclass Variable(val name: String, val type: VariableType, var value: Boolean) {"
       }
     }
   ],
   "attributes": {
     "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
+    "inspectionName": "RemoveEmptyClassBody"
   },
-  "hash": "7fea784db978ae5840c3154051617dc837d0847914dba0cc4ecb5d467b20a0d3"
+  "hash": "9e55bb22bb5f7f5645047d664cfc02a571ace3aece4b7ae1775dacea728caa2e"
 },{
   "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
+  "category": "Redundant constructs",
+  "type": "Replace empty class body",
   "tags": [
     "kotlin"
   ],
   "severity": "Moderate",
-  "comment": "Property 'eu' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "comment": "Redundant empty class body",
+  "detailsInfo": "Reports declarations of classes and objects with an empty body.\n\nUse the 'Remove redundant empty class body' quick-fix to clean up the code.\n\n**Examples:**\n\n\n      class EmptyA() {} // <== empty body\n\n      class EmptyB {\n          companion object {} // <== empty body\n      }\n\n      fun emptyC() {\n         object {} // <== anonymous object, it's ok (not reported)\n      }\n\nAfter the quick fix is applied:\n\n\n      class EmptyA()\n\n      class EmptyB {\n          companion object\n      }\n\n      fun emptyC() {\n         object {}\n      }\n",
   "sources": [
     {
       "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
       "language": "kotlin",
-      "line": 92,
-      "offset": 9,
-      "length": 2,
-      "code": {
-        "startLine": 90,
-        "length": 2,
-        "offset": 76,
-        "surroundingCode": "    val eg by regexToken(\"EG\\\\b\")\n    val au by regexToken(\"AU\\\\b\")\n    val eu by regexToken(\"EU\\\\b\")\n    val name by regexToken(\"\\\\w+\")\n    val ws by regexToken(\"\\\\s+\", ignore = true)"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "b0434fe92a2480f10ab3bad2d5f19c376e716d00755931f880f658ac1c7b7ccb"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'eq' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 83,
-      "offset": 9,
-      "length": 2,
-      "code": {
-        "startLine": 81,
-        "length": 2,
-        "offset": 76,
-        "surroundingCode": "    val or by literalToken(\"||\")\n    val impl by literalToken(\"->\")\n    val eq by literalToken(\"==\")\n    val comma by literalToken(\",\")\n    val ax by regexToken(\"AX\\\\b\")"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "4bf397e3f9c266f37d2fa6045ec58ae44fea040be19b719e961faec8ae83c9e7"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'efOp' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 103,
-      "offset": 9,
+      "line": 113,
+      "offset": 138,
       "length": 4,
       "code": {
-        "startLine": 101,
+        "startLine": 111,
         "length": 4,
         "offset": 140,
-        "surroundingCode": "    val exOp by -ex * parser(this::ctlExpr) map { f -> EX(f) }\n    val afOp by -af * parser(this::ctlExpr) map { f -> AU(TRUE, f) }\n    val efOp by -ef * parser(this::ctlExpr) map { f -> EU(TRUE, f) }\n    val agOp by -ag * parser(this::ctlExpr) map { f -> Not(EU(TRUE, Not(f))) }\n    val egOp by -eg * parser(this::ctlExpr) map { f -> Not(AU(TRUE, Not(f))) }"
+        "surroundingCode": "}\n\nclass State(val id: String, val name: String, val type: Int, val incomingTransitions: Set<String>, val outgoingTransitions: Set<String>) {\n\n}\n\nclass Transition(val id: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {"
       }
     }
   ],
   "attributes": {
     "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
+    "inspectionName": "RemoveEmptyClassBody"
   },
-  "hash": "03a4d7bec0779ce8fc1419d6b834eff36dc934b0a09f8f26d7820adb9e0e46c0"
+  "hash": "884b46fabd067b3b702a8293d520614a0f85a3db3d824328284453f8751263ba"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Replace empty class body",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Redundant empty class body",
+  "detailsInfo": "Reports declarations of classes and objects with an empty body.\n\nUse the 'Remove redundant empty class body' quick-fix to clean up the code.\n\n**Examples:**\n\n\n      class EmptyA() {} // <== empty body\n\n      class EmptyB {\n          companion object {} // <== empty body\n      }\n\n      fun emptyC() {\n         object {} // <== anonymous object, it's ok (not reported)\n      }\n\nAfter the quick fix is applied:\n\n\n      class EmptyA()\n\n      class EmptyB {\n          companion object\n      }\n\n      fun emptyC() {\n         object {}\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 117,
+      "offset": 152,
+      "length": 3,
+      "code": {
+        "startLine": 115,
+        "length": 3,
+        "offset": 154,
+        "surroundingCode": "}\n\nclass Transition(val id: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {\n}\n\nclass EventKripke(val name: String) {"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "RemoveEmptyClassBody"
+  },
+  "hash": "97c6cf3385dde3ec876a2822fd655b4dd99ea6a866e199fff7c84fb609a4f6b0"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Replace empty class body",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Redundant empty class body",
+  "detailsInfo": "Reports declarations of classes and objects with an empty body.\n\nUse the 'Remove redundant empty class body' quick-fix to clean up the code.\n\n**Examples:**\n\n\n      class EmptyA() {} // <== empty body\n\n      class EmptyB {\n          companion object {} // <== empty body\n      }\n\n      fun emptyC() {\n         object {} // <== anonymous object, it's ok (not reported)\n      }\n\nAfter the quick fix is applied:\n\n\n      class EmptyA()\n\n      class EmptyB {\n          companion object\n      }\n\n      fun emptyC() {\n         object {}\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 137,
+      "offset": 78,
+      "length": 3,
+      "code": {
+        "startLine": 135,
+        "length": 3,
+        "offset": 80,
+        "surroundingCode": "}\n\nclass Variable(val name: String, val type: VariableType, var value: Boolean) {\n}\n\ndata class Assign(val t: Variable, val value: Boolean)"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "RemoveEmptyClassBody"
+  },
+  "hash": "bc70570ef9818b65a3cb655a2e1a691de9cc35c61ac123624f065e08eefebae4"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Replace empty class body",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Redundant empty class body",
+  "detailsInfo": "Reports declarations of classes and objects with an empty body.\n\nUse the 'Remove redundant empty class body' quick-fix to clean up the code.\n\n**Examples:**\n\n\n      class EmptyA() {} // <== empty body\n\n      class EmptyB {\n          companion object {} // <== empty body\n      }\n\n      fun emptyC() {\n         object {} // <== anonymous object, it's ok (not reported)\n      }\n\nAfter the quick fix is applied:\n\n\n      class EmptyA()\n\n      class EmptyB {\n          companion object\n      }\n\n      fun emptyC() {\n         object {}\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 120,
+      "offset": 37,
+      "length": 3,
+      "code": {
+        "startLine": 118,
+        "length": 3,
+        "offset": 39,
+        "surroundingCode": "}\n\nclass EventKripke(val name: String) {\n}\n\nclass GuardKripke(val text: String) {"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "RemoveEmptyClassBody"
+  },
+  "hash": "fd4ac3364fde2ef565d97216489447b8fec5931280bd6e924fc1ae9a3a83a7e0"
 },{
   "tool": "Code Inspection",
   "category": "Style issues",
@@ -130,21 +161,21 @@
     "kotlin"
   ],
   "severity": "Moderate",
-  "comment": "Property 'implChain' could be private",
+  "comment": "Property 'variables' could be private",
   "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
   "sources": [
     {
       "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
       "language": "kotlin",
-      "line": 129,
+      "line": 19,
       "offset": 9,
       "length": 9,
       "code": {
-        "startLine": 127,
+        "startLine": 17,
         "length": 9,
-        "offset": 170,
-        "surroundingCode": "    val andChain by leftAssociative(eqChain, and) { a, _, b -> Not(Or(Not(a), Not(b))) }\n    val orChain by leftAssociative(andChain, or) { a, _, b -> Or(a, b) }\n    val implChain by rightAssociative(orChain, impl) { a, _, b -> Or(Not(a), b) }\n\n"
+        "offset": 70,
+        "surroundingCode": "    val autoReject: Boolean\n    val events: List<EventKripke>\n    val variables: Map<String, Variable>\n    val states: Map<String, State>\n    val transitions: Map<String, Transition>"
       }
     }
   ],
@@ -152,7 +183,7 @@
     "module": "verifier.main",
     "inspectionName": "MemberVisibilityCanBePrivate"
   },
-  "hash": "fb316dd1dc4def925c93a08b4dd610ce5df9834bab90efd34f62a64056d84e57"
+  "hash": "78c8c84cde7ebb937fe0fa9c51782026a0dd714302754417e5d0f3dda346c0a2"
 },{
   "tool": "Code Inspection",
   "category": "Style issues",
@@ -161,21 +192,21 @@
     "kotlin"
   ],
   "severity": "Moderate",
-  "comment": "Property 'lpar' could be private",
+  "comment": "Property 'text' could be private",
   "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
   "sources": [
     {
       "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
       "language": "kotlin",
-      "line": 75,
-      "offset": 9,
+      "line": 123,
+      "offset": 23,
       "length": 4,
       "code": {
-        "startLine": 73,
+        "startLine": 121,
         "length": 4,
-        "offset": 73,
-        "surroundingCode": "    val tr by literalToken(\"1\")\n    val fal by literalToken(\"0\")\n    val lpar by literalToken(\"(\")\n    val rpar by literalToken(\")\")\n    val lspar by literalToken(\"[\")"
+        "offset": 25,
+        "surroundingCode": "}\n\nclass GuardKripke(val text: String) {\n\n    private val formula: CTLFormula = CTLGrammar.parseToEnd(text).optimize()"
       }
     }
   ],
@@ -183,7 +214,7 @@
     "module": "verifier.main",
     "inspectionName": "MemberVisibilityCanBePrivate"
   },
-  "hash": "dbc86b97a6b07fca9feb2301f4229ece9f51b965a2f6ba14b613f4b877484df2"
+  "hash": "f1b693f8007d134cde859634e5040d243672727623dc4a2a26935abdf2c45541"
 },{
   "tool": "Code Inspection",
   "category": "Style issues",
@@ -192,21 +223,21 @@
     "kotlin"
   ],
   "severity": "Moderate",
-  "comment": "Property 'agOp' could be private",
+  "comment": "Property 'transitions' could be private",
   "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
   "sources": [
     {
       "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
       "language": "kotlin",
-      "line": 104,
+      "line": 21,
       "offset": 9,
-      "length": 4,
+      "length": 11,
       "code": {
-        "startLine": 102,
-        "length": 4,
-        "offset": 146,
-        "surroundingCode": "    val afOp by -af * parser(this::ctlExpr) map { f -> AU(TRUE, f) }\n    val efOp by -ef * parser(this::ctlExpr) map { f -> EU(TRUE, f) }\n    val agOp by -ag * parser(this::ctlExpr) map { f -> Not(EU(TRUE, Not(f))) }\n    val egOp by -eg * parser(this::ctlExpr) map { f -> Not(AU(TRUE, Not(f))) }\n    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map {(a, b) -> AU(a, b)}"
+        "startLine": 19,
+        "length": 11,
+        "offset": 84,
+        "surroundingCode": "    val variables: Map<String, Variable>\n    val states: Map<String, State>\n    val transitions: Map<String, Transition>\n\n    init {"
       }
     }
   ],
@@ -214,7 +245,193 @@
     "module": "verifier.main",
     "inspectionName": "MemberVisibilityCanBePrivate"
   },
-  "hash": "e84b66f6da02f699306ad816b383ed2c7776613f06218d5cdb2d7568a5cfb65a"
+  "hash": "bcca50670acf8cf84710a8a03bab881850f57b5e05c8e3415834fb43976953b0"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Function 'parseDeclaration' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 97,
+      "offset": 9,
+      "length": 16,
+      "code": {
+        "startLine": 95,
+        "length": 16,
+        "offset": 15,
+        "surroundingCode": "    }\n\n    fun parseDeclaration(s: String):Variable {\n        val decl = s.replace(\";\", \"\")\n        val lexList = decl.split(\"(\\\\s)+\".toRegex())"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "82dfdab6f950c4d21b6df22c0e287162da6669d78c64fa933fbdf1722852b179"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Function 'parseCode' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 83,
+      "offset": 9,
+      "length": 9,
+      "code": {
+        "startLine": 81,
+        "length": 9,
+        "offset": 10,
+        "surroundingCode": "\n\n    fun parseCode(s: String, vars: Map<String, Variable>): List<Assign> {\n        val lines = s.split(\";(\\\\s)+\".toRegex())\n        val res = mutableListOf<Assign>()"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "1d86c75a6b2d31cb5cd5e926a57b2c4d32af5044d868743d388d3761b175aba7"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'states' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 20,
+      "offset": 9,
+      "length": 6,
+      "code": {
+        "startLine": 18,
+        "length": 6,
+        "offset": 83,
+        "surroundingCode": "    val events: List<EventKripke>\n    val variables: Map<String, Variable>\n    val states: Map<String, State>\n    val transitions: Map<String, Transition>\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "b346221f130c37a60508cdc9f76c391e170abe7c9ef2482fb6bfd7b14f4667ba"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'events' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 18,
+      "offset": 9,
+      "length": 6,
+      "code": {
+        "startLine": 16,
+        "length": 6,
+        "offset": 57,
+        "surroundingCode": "    val name: String\n    val autoReject: Boolean\n    val events: List<EventKripke>\n    val variables: Map<String, Variable>\n    val states: Map<String, State>"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "08f85e889760dd99a5242854f2f97642aeccdd8a0459e5e528b49ed2606e1896"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'autoReject' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 17,
+      "offset": 9,
+      "length": 10,
+      "code": {
+        "startLine": 15,
+        "length": 10,
+        "offset": 60,
+        "surroundingCode": "class Model(diagram:Diagram) {\n    val name: String\n    val autoReject: Boolean\n    val events: List<EventKripke>\n    val variables: Map<String, Variable>"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "5739d8348e1bb2e27b022ed7d933d9d33feaa722a591e4a825a25d7c0a136d1d"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'name' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 16,
+      "offset": 9,
+      "length": 4,
+      "code": {
+        "startLine": 14,
+        "length": 4,
+        "offset": 40,
+        "surroundingCode": "\nclass Model(diagram:Diagram) {\n    val name: String\n    val autoReject: Boolean\n    val events: List<EventKripke>"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "c81546fe5ca3e661beb2e8c517ce40e5a39764a4e8b4f596dbe85edcb528742d"
 },{
   "tool": "Code Inspection",
   "category": "Style issues",
@@ -230,11 +447,11 @@
       "type": "file",
       "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
       "language": "kotlin",
-      "line": 78,
+      "line": 97,
       "offset": 9,
       "length": 5,
       "code": {
-        "startLine": 76,
+        "startLine": 95,
         "length": 5,
         "offset": 77,
         "surroundingCode": "    val rpar by literalToken(\")\")\n    val lspar by literalToken(\"[\")\n    val rspar by literalToken(\"]\")\n    val not by literalToken(\"!\")\n    val and by literalToken(\"&&\")"
@@ -245,7 +462,7 @@
     "module": "verifier.main",
     "inspectionName": "MemberVisibilityCanBePrivate"
   },
-  "hash": "626722559ae474ac21bdcee6bd384def2645f5a3409927a4ca8baf725662354d"
+  "hash": "7c14d15a980da75b8d8a78dfa4bcb2d422d696473408d0ea11b20db82c35e1c6"
 },{
   "tool": "Code Inspection",
   "category": "Style issues",
@@ -254,176 +471,21 @@
     "kotlin"
   ],
   "severity": "Moderate",
-  "comment": "Property 'name' could be private",
+  "comment": "Property 'eq' could be private",
   "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
   "sources": [
     {
       "type": "file",
       "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
       "language": "kotlin",
-      "line": 93,
-      "offset": 9,
-      "length": 4,
-      "code": {
-        "startLine": 91,
-        "length": 4,
-        "offset": 76,
-        "surroundingCode": "    val au by regexToken(\"AU\\\\b\")\n    val eu by regexToken(\"EU\\\\b\")\n    val name by regexToken(\"\\\\w+\")\n    val ws by regexToken(\"\\\\s+\", ignore = true)\n"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "211cb82417b544704e1d61ca530b618ec573e90b457252ea738e81931333b52a"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'orChain' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 128,
-      "offset": 9,
-      "length": 7,
-      "code": {
-        "startLine": 126,
-        "length": 7,
-        "offset": 203,
-        "surroundingCode": "    val eqChain by leftAssociative(ctlExpr, eq) { a, _, b -> Or(Not(Or(a, b)), Not(Or(Not(a), Not(b)))) }\n    val andChain by leftAssociative(eqChain, and) { a, _, b -> Not(Or(Not(a), Not(b))) }\n    val orChain by leftAssociative(andChain, or) { a, _, b -> Or(a, b) }\n    val implChain by rightAssociative(orChain, impl) { a, _, b -> Or(Not(a), b) }\n"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "6ce2b7ee6289566888f9caa5b45964e6bb6703255e03ac3913a751e211c4d125"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'or' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 81,
+      "line": 102,
       "offset": 9,
       "length": 2,
       "code": {
-        "startLine": 79,
-        "length": 2,
-        "offset": 75,
-        "surroundingCode": "    val not by literalToken(\"!\")\n    val and by literalToken(\"&&\")\n    val or by literalToken(\"||\")\n    val impl by literalToken(\"->\")\n    val eq by literalToken(\"==\")"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "29a3bdbe5cb86a103959c5a3a8cae7f079fc986612fda980d730a2841d41f65b"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'rpar' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 76,
-      "offset": 9,
-      "length": 4,
-      "code": {
-        "startLine": 74,
-        "length": 4,
-        "offset": 75,
-        "surroundingCode": "    val fal by literalToken(\"0\")\n    val lpar by literalToken(\"(\")\n    val rpar by literalToken(\")\")\n    val lspar by literalToken(\"[\")\n    val rspar by literalToken(\"]\")"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "802f6d2e4d1beef74b6e112cafa568ab82eb10835d71ceddd224e546a5d3de71"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'lspar' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 77,
-      "offset": 9,
-      "length": 5,
-      "code": {
-        "startLine": 75,
-        "length": 5,
-        "offset": 76,
-        "surroundingCode": "    val lpar by literalToken(\"(\")\n    val rpar by literalToken(\")\")\n    val lspar by literalToken(\"[\")\n    val rspar by literalToken(\"]\")\n    val not by literalToken(\"!\")"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "bad7448593178a26ba651a476620d8bcd682fc7ff2a04ff38f4b7281a0568956"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'af' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 87,
-      "offset": 9,
-      "length": 2,
-      "code": {
-        "startLine": 85,
+        "startLine": 100,
         "length": 2,
         "offset": 76,
-        "surroundingCode": "    val ax by regexToken(\"AX\\\\b\")\n    val ex by regexToken(\"EX\\\\b\")\n    val af by regexToken(\"AF\\\\b\")\n    val ef by regexToken(\"EF\\\\b\")\n    val ag by regexToken(\"AG\\\\b\")"
+        "surroundingCode": "    val or by literalToken(\"||\")\n    val impl by literalToken(\"->\")\n    val eq by literalToken(\"==\")\n    val comma by literalToken(\",\")\n    val ax by regexToken(\"AX\\\\b\")"
       }
     }
   ],
@@ -431,565 +493,7 @@
     "module": "verifier.main",
     "inspectionName": "MemberVisibilityCanBePrivate"
   },
-  "hash": "bff989302fc4fc8b2ed5a2e7e4d52545f53e1bd9bd618d3009acbeac7033da3d"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'comma' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 84,
-      "offset": 9,
-      "length": 5,
-      "code": {
-        "startLine": 82,
-        "length": 5,
-        "offset": 76,
-        "surroundingCode": "    val impl by literalToken(\"->\")\n    val eq by literalToken(\"==\")\n    val comma by literalToken(\",\")\n    val ax by regexToken(\"AX\\\\b\")\n    val ex by regexToken(\"EX\\\\b\")"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "87e63f89d0c25de72dbd55907c627147e4536611b5a7ba45460d8d0df47026f3"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'ex' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 86,
-      "offset": 9,
-      "length": 2,
-      "code": {
-        "startLine": 84,
-        "length": 2,
-        "offset": 77,
-        "surroundingCode": "    val comma by literalToken(\",\")\n    val ax by regexToken(\"AX\\\\b\")\n    val ex by regexToken(\"EX\\\\b\")\n    val af by regexToken(\"AF\\\\b\")\n    val ef by regexToken(\"EF\\\\b\")"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "d0a55850c0a0703c0a964aa97f669f8b810e89e0bb13e2721bc8797827d3d072"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'impl' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 82,
-      "offset": 9,
-      "length": 4,
-      "code": {
-        "startLine": 80,
-        "length": 4,
-        "offset": 75,
-        "surroundingCode": "    val and by literalToken(\"&&\")\n    val or by literalToken(\"||\")\n    val impl by literalToken(\"->\")\n    val eq by literalToken(\"==\")\n    val comma by literalToken(\",\")"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "0152d6852de6a0770b4c6176a6d5c8d5250feb3a8e5a1eceab22fb7048ded44b"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'euOp' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 107,
-      "offset": 9,
-      "length": 4,
-      "code": {
-        "startLine": 105,
-        "length": 4,
-        "offset": 207,
-        "surroundingCode": "    val egOp by -eg * parser(this::ctlExpr) map { f -> Not(AU(TRUE, Not(f))) }\n    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map {(a, b) -> AU(a, b)}\n    val euOp by -eu * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -> EU(a, b)}\n\n"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "6c01ae262abcc5e6d70025a0ec41640c6524ceb40bfc2a10383bfc0c0cfd8a4f"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'eqChain' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 126,
-      "offset": 9,
-      "length": 7,
-      "code": {
-        "startLine": 124,
-        "length": 7,
-        "offset": 26,
-        "surroundingCode": "            euOp\n\n    val eqChain by leftAssociative(ctlExpr, eq) { a, _, b -> Or(Not(Or(a, b)), Not(Or(Not(a), Not(b)))) }\n    val andChain by leftAssociative(eqChain, and) { a, _, b -> Not(Or(Not(a), Not(b))) }\n    val orChain by leftAssociative(andChain, or) { a, _, b -> Or(a, b) }"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "086bb5efa57ddd1878dce1a69d23855c66c9ad18afa99bfb637d6ceb138ea189"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'negation' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 96,
-      "offset": 9,
-      "length": 8,
-      "code": {
-        "startLine": 94,
-        "length": 8,
-        "offset": 57,
-        "surroundingCode": "    val ws by regexToken(\"\\\\s+\", ignore = true)\n\n    val negation by -not * parser(this::ctlExpr) map { Not(it) }\n    val bracedExpression by -lpar * parser(this::implChain) * -rpar\n"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "be110a4cf0f16826acba9b5eddd3bba795d53d682d12f91e23bfcc0dce1e91ab"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'egOp' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 105,
-      "offset": 9,
-      "length": 4,
-      "code": {
-        "startLine": 103,
-        "length": 4,
-        "offset": 156,
-        "surroundingCode": "    val efOp by -ef * parser(this::ctlExpr) map { f -> EU(TRUE, f) }\n    val agOp by -ag * parser(this::ctlExpr) map { f -> Not(EU(TRUE, Not(f))) }\n    val egOp by -eg * parser(this::ctlExpr) map { f -> Not(AU(TRUE, Not(f))) }\n    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map {(a, b) -> AU(a, b)}\n    val euOp by -eu * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -> EU(a, b)}"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "da8ae4ca4cb48d422135d0a8c456f0f8f9209945861386b9487e9f1bda5d2b0d"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'eg' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 90,
-      "offset": 9,
-      "length": 2,
-      "code": {
-        "startLine": 88,
-        "length": 2,
-        "offset": 76,
-        "surroundingCode": "    val ef by regexToken(\"EF\\\\b\")\n    val ag by regexToken(\"AG\\\\b\")\n    val eg by regexToken(\"EG\\\\b\")\n    val au by regexToken(\"AU\\\\b\")\n    val eu by regexToken(\"EU\\\\b\")"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "37db997cf3eccb7fd61fe87572ab870542852f02f0e710116d447a2347f57c56"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'and' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 80,
-      "offset": 9,
-      "length": 3,
-      "code": {
-        "startLine": 78,
-        "length": 3,
-        "offset": 76,
-        "surroundingCode": "    val rspar by literalToken(\"]\")\n    val not by literalToken(\"!\")\n    val and by literalToken(\"&&\")\n    val or by literalToken(\"||\")\n    val impl by literalToken(\"->\")"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "6e3e95c201d5ac10a2f765ce984e2368404db37bf5079d74702ee572e27a1db5"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'fal' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 74,
-      "offset": 9,
-      "length": 3,
-      "code": {
-        "startLine": 72,
-        "length": 3,
-        "offset": 84,
-        "surroundingCode": "object CTLGrammar : Grammar<CTLFormula>() {\n    val tr by literalToken(\"1\")\n    val fal by literalToken(\"0\")\n    val lpar by literalToken(\"(\")\n    val rpar by literalToken(\")\")"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "6258c10e13e6a8f01dadbcc0434787c2163a9b4e0e4efc4432f4b54ae42e7f00"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'ef' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 88,
-      "offset": 9,
-      "length": 2,
-      "code": {
-        "startLine": 86,
-        "length": 2,
-        "offset": 76,
-        "surroundingCode": "    val ex by regexToken(\"EX\\\\b\")\n    val af by regexToken(\"AF\\\\b\")\n    val ef by regexToken(\"EF\\\\b\")\n    val ag by regexToken(\"AG\\\\b\")\n    val eg by regexToken(\"EG\\\\b\")"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "dd60447758bed2238326aa3b1433874bdef939015819a652468d208ab71cfdcd"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'andChain' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 127,
-      "offset": 9,
-      "length": 8,
-      "code": {
-        "startLine": 125,
-        "length": 8,
-        "offset": 115,
-        "surroundingCode": "\n    val eqChain by leftAssociative(ctlExpr, eq) { a, _, b -> Or(Not(Or(a, b)), Not(Or(Not(a), Not(b)))) }\n    val andChain by leftAssociative(eqChain, and) { a, _, b -> Not(Or(Not(a), Not(b))) }\n    val orChain by leftAssociative(andChain, or) { a, _, b -> Or(a, b) }\n    val implChain by rightAssociative(orChain, impl) { a, _, b -> Or(Not(a), b) }"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "7d725fcdf84d708842dde277aea5f79c3f3082b87e1b9415692adaf89eb9c9a4"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'exOp' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 101,
-      "offset": 9,
-      "length": 4,
-      "code": {
-        "startLine": 99,
-        "length": 4,
-        "offset": 82,
-        "surroundingCode": "\n    val axOp by -ax * parser(this::ctlExpr) map { f -> Not(EX(Not(f))) }\n    val exOp by -ex * parser(this::ctlExpr) map { f -> EX(f) }\n    val afOp by -af * parser(this::ctlExpr) map { f -> AU(TRUE, f) }\n    val efOp by -ef * parser(this::ctlExpr) map { f -> EU(TRUE, f) }"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "181f81f4139c4774fcc0f468a45e4b9d1c04b2b8f4cdea4ae74be63f655d865a"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'axOp' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 100,
-      "offset": 9,
-      "length": 4,
-      "code": {
-        "startLine": 98,
-        "length": 4,
-        "offset": 10,
-        "surroundingCode": "\n\n    val axOp by -ax * parser(this::ctlExpr) map { f -> Not(EX(Not(f))) }\n    val exOp by -ex * parser(this::ctlExpr) map { f -> EX(f) }\n    val afOp by -af * parser(this::ctlExpr) map { f -> AU(TRUE, f) }"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "9ff477c5c7d045dc7d3cbd3228f4228ed09c1289ecb66b924cab0f08b7cfd76c"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'ag' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 89,
-      "offset": 9,
-      "length": 2,
-      "code": {
-        "startLine": 87,
-        "length": 2,
-        "offset": 76,
-        "surroundingCode": "    val af by regexToken(\"AF\\\\b\")\n    val ef by regexToken(\"EF\\\\b\")\n    val ag by regexToken(\"AG\\\\b\")\n    val eg by regexToken(\"EG\\\\b\")\n    val au by regexToken(\"AU\\\\b\")"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "465fed39fcd5178a5f599eda7de24eb5ace06484261caeb35c55bfb9680aebb8"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'ctlExpr' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 111,
-      "offset": 9,
-      "length": 7,
-      "code": {
-        "startLine": 109,
-        "length": 7,
-        "offset": 10,
-        "surroundingCode": "\n\n    val ctlExpr: Parser<CTLFormula> by\n            (tr asJust TRUE) or\n            (fal asJust Not(TRUE)) or"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "24057e0bdb26c3112a6dafa83ad1134b44a33e4f46e114a32c6c7fa5a4984f49"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'au' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 91,
-      "offset": 9,
-      "length": 2,
-      "code": {
-        "startLine": 89,
-        "length": 2,
-        "offset": 76,
-        "surroundingCode": "    val ag by regexToken(\"AG\\\\b\")\n    val eg by regexToken(\"EG\\\\b\")\n    val au by regexToken(\"AU\\\\b\")\n    val eu by regexToken(\"EU\\\\b\")\n    val name by regexToken(\"\\\\w+\")"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "9fc24b19aee707f6d6b2226005a8ba95d4903b9b644200b322e6285544a055da"
-},{
-  "tool": "Code Inspection",
-  "category": "Style issues",
-  "type": "Class member can have 'private' visibility",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "Moderate",
-  "comment": "Property 'tr' could be private",
-  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
-      "language": "kotlin",
-      "line": 73,
-      "offset": 9,
-      "length": 2,
-      "code": {
-        "startLine": 71,
-        "length": 2,
-        "offset": 53,
-        "surroundingCode": "\nobject CTLGrammar : Grammar<CTLFormula>() {\n    val tr by literalToken(\"1\")\n    val fal by literalToken(\"0\")\n    val lpar by literalToken(\"(\")"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "MemberVisibilityCanBePrivate"
-  },
-  "hash": "2e626c6aa284ce90b8fe8d32d8a0bb7ffe83c801b6de24ebab1d1eb51b70e028"
+  "hash": "f58876f917dc3ff6fc371c64525b5ba99255b8a482c6f6874862d5e07ac7cf3c"
 },{
   "tool": "Code Inspection",
   "category": "Style issues",
@@ -1005,11 +509,11 @@
       "type": "file",
       "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
       "language": "kotlin",
-      "line": 97,
+      "line": 116,
       "offset": 9,
       "length": 16,
       "code": {
-        "startLine": 95,
+        "startLine": 114,
         "length": 16,
         "offset": 74,
         "surroundingCode": "\n    val negation by -not * parser(this::ctlExpr) map { Not(it) }\n    val bracedExpression by -lpar * parser(this::implChain) * -rpar\n\n"
@@ -1020,7 +524,7 @@
     "module": "verifier.main",
     "inspectionName": "MemberVisibilityCanBePrivate"
   },
-  "hash": "a55e29be26d70f20c2b539ca89f75ecc2f7a5d6c00eab7f64776c15530a1147a"
+  "hash": "383ae2bea4d4beb29921fbf2eabd366b0f0022d5db02eb75d6bdc080141c4a50"
 },{
   "tool": "Code Inspection",
   "category": "Style issues",
@@ -1029,21 +533,21 @@
     "kotlin"
   ],
   "severity": "Moderate",
-  "comment": "Property 'auOp' could be private",
+  "comment": "Property 'euOp' could be private",
   "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
   "sources": [
     {
       "type": "file",
       "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
       "language": "kotlin",
-      "line": 106,
+      "line": 126,
       "offset": 9,
       "length": 4,
       "code": {
-        "startLine": 104,
+        "startLine": 124,
         "length": 4,
-        "offset": 166,
-        "surroundingCode": "    val agOp by -ag * parser(this::ctlExpr) map { f -> Not(EU(TRUE, Not(f))) }\n    val egOp by -eg * parser(this::ctlExpr) map { f -> Not(AU(TRUE, Not(f))) }\n    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map {(a, b) -> AU(a, b)}\n    val euOp by -eu * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -> EU(a, b)}\n"
+        "offset": 216,
+        "surroundingCode": "    val egOp by -eg * parser(this::bracedExpression) map { f -> Not(AU(TRUE, Not(f))) }\n    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map {(a, b) -> AU(a, b)}\n    val euOp by -eu * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -> EU(a, b)}\n\n"
       }
     }
   ],
@@ -1051,7 +555,100 @@
     "module": "verifier.main",
     "inspectionName": "MemberVisibilityCanBePrivate"
   },
-  "hash": "2243d5ffb28ea2fb385fccba440f6a3c3b8832fd5041141936eb23c94863900d"
+  "hash": "2a3cb8b3e23e9200356790361e7b11d70c5af6134722a48a44d8706ec7dcb3f0"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'orChain' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 147,
+      "offset": 9,
+      "length": 7,
+      "code": {
+        "startLine": 145,
+        "length": 7,
+        "offset": 203,
+        "surroundingCode": "    val eqChain by leftAssociative(ctlExpr, eq) { a, _, b -> Or(Not(Or(a, b)), Not(Or(Not(a), Not(b)))) }\n    val andChain by leftAssociative(eqChain, and) { a, _, b -> Not(Or(Not(a), Not(b))) }\n    val orChain by leftAssociative(andChain, or) { a, _, b -> Or(a, b) }\n    val implChain by rightAssociative(orChain, impl) { a, _, b -> Or(Not(a), b) }\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "4a90f34c3b042de467372f2ef6d1653714a1084554a52146790f0593e26c8cdd"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'eqChain' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 145,
+      "offset": 9,
+      "length": 7,
+      "code": {
+        "startLine": 143,
+        "length": 7,
+        "offset": 26,
+        "surroundingCode": "            euOp\n\n    val eqChain by leftAssociative(ctlExpr, eq) { a, _, b -> Or(Not(Or(a, b)), Not(Or(Not(a), Not(b)))) }\n    val andChain by leftAssociative(eqChain, and) { a, _, b -> Not(Or(Not(a), Not(b))) }\n    val orChain by leftAssociative(andChain, or) { a, _, b -> Or(a, b) }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "ebbf5b1e3fda0b047872611ca7cee357be21bd12aebde476190ae35e64119f4d"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'andChain' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 146,
+      "offset": 9,
+      "length": 8,
+      "code": {
+        "startLine": 144,
+        "length": 8,
+        "offset": 115,
+        "surroundingCode": "\n    val eqChain by leftAssociative(ctlExpr, eq) { a, _, b -> Or(Not(Or(a, b)), Not(Or(Not(a), Not(b)))) }\n    val andChain by leftAssociative(eqChain, and) { a, _, b -> Not(Or(Not(a), Not(b))) }\n    val orChain by leftAssociative(andChain, or) { a, _, b -> Or(a, b) }\n    val implChain by rightAssociative(orChain, impl) { a, _, b -> Or(Not(a), b) }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "fac8e686c623ee233155fb7dc0520311e09d369c889dae56de39c296d6144a24"
 },{
   "tool": "Code Inspection",
   "category": "Style issues",
@@ -1067,11 +664,11 @@
       "type": "file",
       "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
       "language": "kotlin",
-      "line": 85,
+      "line": 104,
       "offset": 9,
       "length": 2,
       "code": {
-        "startLine": 83,
+        "startLine": 102,
         "length": 2,
         "offset": 76,
         "surroundingCode": "    val eq by literalToken(\"==\")\n    val comma by literalToken(\",\")\n    val ax by regexToken(\"AX\\\\b\")\n    val ex by regexToken(\"EX\\\\b\")\n    val af by regexToken(\"AF\\\\b\")"
@@ -1082,172 +679,17 @@
     "module": "verifier.main",
     "inspectionName": "MemberVisibilityCanBePrivate"
   },
-  "hash": "b9f503684608c340f63c126a0b689e3dc7d7e550d2063608b75a8c0d937bb673"
+  "hash": "e61e939bc8c539b447c4caee5bda7296a10fdd2c6300fc56cf33fd61fb82df90"
 },{
   "tool": "Code Inspection",
-  "category": "Redundant constructs",
-  "type": "Unused symbol",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
   "tags": [
     "kotlin"
   ],
-  "severity": "High",
-  "comment": "Class \"Code\" is never used",
-  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/Serialization.kt",
-      "language": "kotlin",
-      "line": 73,
-      "offset": 12,
-      "length": 4,
-      "code": {
-        "startLine": 71,
-        "length": 4,
-        "offset": 56,
-        "surroundingCode": "@Serializable\n@XmlSerialName(\"code\", \"\", \"\")\ndata class Code(@XmlValue(true) val code: String = \"\") : WidgetAttribute\n\n@Serializable"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "UnusedSymbol"
-  },
-  "hash": "8791f1a2c96c63751ec42d824e302ab0fcc9db9e70b69770a8e8afe8338bb7ee"
-},{
-  "tool": "Code Inspection",
-  "category": "Redundant constructs",
-  "type": "Unused symbol",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "High",
-  "comment": "Class \"Action\" is never used",
-  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/Serialization.kt",
-      "language": "kotlin",
-      "line": 69,
-      "offset": 12,
-      "length": 6,
-      "code": {
-        "startLine": 67,
-        "length": 6,
-        "offset": 58,
-        "surroundingCode": "@Serializable\n@XmlSerialName(\"action\", \"\", \"\")\ndata class Action(val name: String, val comment: String, val synchro: String) : WidgetAttribute\n\n@Serializable"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "UnusedSymbol"
-  },
-  "hash": "b42e7e58f3d698936bdc31c28b35505dd1384f57302085c18778e089393b6f78"
-},{
-  "tool": "Code Inspection",
-  "category": "Redundant constructs",
-  "type": "Unused symbol",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "High",
-  "comment": "Class \"Incoming\" is never used",
-  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/Serialization.kt",
-      "language": "kotlin",
-      "line": 81,
-      "offset": 12,
-      "length": 8,
-      "code": {
-        "startLine": 79,
-        "length": 8,
-        "offset": 60,
-        "surroundingCode": "@Serializable\n@XmlSerialName(\"incoming\", \"\", \"\")\ndata class Incoming(val id: String) : WidgetAttribute\n\n@Serializable"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "UnusedSymbol"
-  },
-  "hash": "d3f3a6d6f662242ea6fb060ee74034a92d7d84050650baf683c56357432f8dac"
-},{
-  "tool": "Code Inspection",
-  "category": "Redundant constructs",
-  "type": "Unused symbol",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "High",
-  "comment": "Class \"Guard\" is never used",
-  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/Serialization.kt",
-      "language": "kotlin",
-      "line": 77,
-      "offset": 12,
-      "length": 5,
-      "code": {
-        "startLine": 75,
-        "length": 5,
-        "offset": 57,
-        "surroundingCode": "@Serializable\n@XmlSerialName(\"guard\", \"\", \"\")\ndata class Guard(@XmlValue(true) val guard: String = \"\") : WidgetAttribute\n\n@Serializable"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "UnusedSymbol"
-  },
-  "hash": "722de449231e5beaca52ef1e0d76b315bb93bba8e0875793059346ddfadc99ea"
-},{
-  "tool": "Code Inspection",
-  "category": "Redundant constructs",
-  "type": "Unused symbol",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "High",
-  "comment": "Class \"Outgoing\" is never used",
-  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/verifier/Serialization.kt",
-      "language": "kotlin",
-      "line": 85,
-      "offset": 12,
-      "length": 8,
-      "code": {
-        "startLine": 83,
-        "length": 8,
-        "offset": 60,
-        "surroundingCode": "@Serializable\n@XmlSerialName(\"outgoing\", \"\", \"\")\ndata class Outgoing(val id: String) : WidgetAttribute\n"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "verifier.main",
-    "inspectionName": "UnusedSymbol"
-  },
-  "hash": "7e593ab9a090311183067eb28d0116fce42952ccb772a91091c63d6aadf6329e"
-},{
-  "tool": "Code Inspection",
-  "category": "Redundant constructs",
-  "type": "Unused symbol",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "High",
-  "comment": "Property \"ws\" is never used",
-  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "severity": "Moderate",
+  "comment": "Property 'lpar' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
   "sources": [
     {
       "type": "file",
@@ -1255,20 +697,857 @@
       "language": "kotlin",
       "line": 94,
       "offset": 9,
-      "length": 2,
+      "length": 4,
       "code": {
         "startLine": 92,
-        "length": 2,
-        "offset": 77,
-        "surroundingCode": "    val eu by regexToken(\"EU\\\\b\")\n    val name by regexToken(\"\\\\w+\")\n    val ws by regexToken(\"\\\\s+\", ignore = true)\n\n    val negation by -not * parser(this::ctlExpr) map { Not(it) }"
+        "length": 4,
+        "offset": 73,
+        "surroundingCode": "    val tr by literalToken(\"1\")\n    val fal by literalToken(\"0\")\n    val lpar by literalToken(\"(\")\n    val rpar by literalToken(\")\")\n    val lspar by literalToken(\"[\")"
       }
     }
   ],
   "attributes": {
     "module": "verifier.main",
-    "inspectionName": "UnusedSymbol"
+    "inspectionName": "MemberVisibilityCanBePrivate"
   },
-  "hash": "008975fa09a1030be6a3deafacf6535eb1aed30dbc9ece8c0de2295899f5d55e"
+  "hash": "efba3fceadbf46fcc163051f97e9bbeb323328953bf2de72edcdd9353449c413"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'ex' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 105,
+      "offset": 9,
+      "length": 2,
+      "code": {
+        "startLine": 103,
+        "length": 2,
+        "offset": 77,
+        "surroundingCode": "    val comma by literalToken(\",\")\n    val ax by regexToken(\"AX\\\\b\")\n    val ex by regexToken(\"EX\\\\b\")\n    val af by regexToken(\"AF\\\\b\")\n    val ef by regexToken(\"EF\\\\b\")"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "bf3af9eba38b283e3b26044943d459c0a1e8c19578265878ae3c1f7e0110612a"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'afOp' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 121,
+      "offset": 9,
+      "length": 4,
+      "code": {
+        "startLine": 119,
+        "length": 4,
+        "offset": 162,
+        "surroundingCode": "    val axOp by -ax * parser(this::bracedExpression) map { f -> Not(EX(Not(f))) }\n    val exOp by -ex * parser(this::bracedExpression) map { f -> EX(f) }\n    val afOp by -af * parser(this::bracedExpression) map { f -> AU(TRUE, f) }\n    val efOp by -ef * parser(this::bracedExpression) map { f -> EU(TRUE, f) }\n    val agOp by -ag * parser(this::bracedExpression) map { f -> Not(EU(TRUE, Not(f))) }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "c0b7820b3c0cddc9ab196b14a77f28d8fda8b132bdc809bf53b3b8fd27df484d"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'exOp' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 120,
+      "offset": 9,
+      "length": 4,
+      "code": {
+        "startLine": 118,
+        "length": 4,
+        "offset": 91,
+        "surroundingCode": "\n    val axOp by -ax * parser(this::bracedExpression) map { f -> Not(EX(Not(f))) }\n    val exOp by -ex * parser(this::bracedExpression) map { f -> EX(f) }\n    val afOp by -af * parser(this::bracedExpression) map { f -> AU(TRUE, f) }\n    val efOp by -ef * parser(this::bracedExpression) map { f -> EU(TRUE, f) }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "1c68c985092b4b7a5f7fb8d1dd1d9741ac5f8459a41df769e7fc4a7bdba2674e"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'lspar' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 96,
+      "offset": 9,
+      "length": 5,
+      "code": {
+        "startLine": 94,
+        "length": 5,
+        "offset": 76,
+        "surroundingCode": "    val lpar by literalToken(\"(\")\n    val rpar by literalToken(\")\")\n    val lspar by literalToken(\"[\")\n    val rspar by literalToken(\"]\")\n    val not by literalToken(\"!\")"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "24c6b182fe99b970e1bfd514051235574caf6f378816ad4adb3b862e02dd92f6"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'or' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 100,
+      "offset": 9,
+      "length": 2,
+      "code": {
+        "startLine": 98,
+        "length": 2,
+        "offset": 75,
+        "surroundingCode": "    val not by literalToken(\"!\")\n    val and by literalToken(\"&&\")\n    val or by literalToken(\"||\")\n    val impl by literalToken(\"->\")\n    val eq by literalToken(\"==\")"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "2bd1bf08082846b0bd426c0436211ae8b1ec8e74ac2bde97903a66190db61081"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'efOp' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 122,
+      "offset": 9,
+      "length": 4,
+      "code": {
+        "startLine": 120,
+        "length": 4,
+        "offset": 158,
+        "surroundingCode": "    val exOp by -ex * parser(this::bracedExpression) map { f -> EX(f) }\n    val afOp by -af * parser(this::bracedExpression) map { f -> AU(TRUE, f) }\n    val efOp by -ef * parser(this::bracedExpression) map { f -> EU(TRUE, f) }\n    val agOp by -ag * parser(this::bracedExpression) map { f -> Not(EU(TRUE, Not(f))) }\n    val egOp by -eg * parser(this::bracedExpression) map { f -> Not(AU(TRUE, Not(f))) }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "5a7a7c92f9078f3c319d4b80731a7436257b2494268f5bb683b25944574989b7"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'ag' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 108,
+      "offset": 9,
+      "length": 2,
+      "code": {
+        "startLine": 106,
+        "length": 2,
+        "offset": 76,
+        "surroundingCode": "    val af by regexToken(\"AF\\\\b\")\n    val ef by regexToken(\"EF\\\\b\")\n    val ag by regexToken(\"AG\\\\b\")\n    val eg by regexToken(\"EG\\\\b\")\n    val au by regexToken(\"AU\\\\b\")"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "56b077d1474dda7eb42179504e845b16cd8a956da598ebdae8d844d683e6fb39"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'ctlExpr' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 130,
+      "offset": 9,
+      "length": 7,
+      "code": {
+        "startLine": 128,
+        "length": 7,
+        "offset": 10,
+        "surroundingCode": "\n\n    val ctlExpr: Parser<CTLFormula> by\n            (tr asJust TRUE) or\n            (fal asJust Not(TRUE)) or"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "74a014d22977573243b60bfa50394b92186a6bd03d648590eea870f2dda3b168"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'fal' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 93,
+      "offset": 9,
+      "length": 3,
+      "code": {
+        "startLine": 91,
+        "length": 3,
+        "offset": 84,
+        "surroundingCode": "object CTLGrammar : Grammar<CTLFormula>() {\n    val tr by literalToken(\"1\")\n    val fal by literalToken(\"0\")\n    val lpar by literalToken(\"(\")\n    val rpar by literalToken(\")\")"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "bb2f6c3edb1dabce668e7a85ec9938ef7ecfc5f567dbbfb12882bbfef3c525ee"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'egOp' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 124,
+      "offset": 9,
+      "length": 4,
+      "code": {
+        "startLine": 122,
+        "length": 4,
+        "offset": 174,
+        "surroundingCode": "    val efOp by -ef * parser(this::bracedExpression) map { f -> EU(TRUE, f) }\n    val agOp by -ag * parser(this::bracedExpression) map { f -> Not(EU(TRUE, Not(f))) }\n    val egOp by -eg * parser(this::bracedExpression) map { f -> Not(AU(TRUE, Not(f))) }\n    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map {(a, b) -> AU(a, b)}\n    val euOp by -eu * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -> EU(a, b)}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "aadb3b978fe5b016625edb393e3bcf8ea9597464c72978783bd42f1ef8a930ee"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'name' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 112,
+      "offset": 9,
+      "length": 4,
+      "code": {
+        "startLine": 110,
+        "length": 4,
+        "offset": 76,
+        "surroundingCode": "    val au by regexToken(\"AU\\\\b\")\n    val eu by regexToken(\"EU\\\\b\")\n    val name by regexToken(\"\\\\w+\")\n    val ws by regexToken(\"\\\\s+\", ignore = true)\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "b23aaa7c128c674dac0535deabadcd8ac4efe9b5a2d74c1b1ddfbeb03b0b08a2"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'au' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 110,
+      "offset": 9,
+      "length": 2,
+      "code": {
+        "startLine": 108,
+        "length": 2,
+        "offset": 76,
+        "surroundingCode": "    val ag by regexToken(\"AG\\\\b\")\n    val eg by regexToken(\"EG\\\\b\")\n    val au by regexToken(\"AU\\\\b\")\n    val eu by regexToken(\"EU\\\\b\")\n    val name by regexToken(\"\\\\w+\")"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "287b846d1e47b4ccbe156141cc48d0dbe78283cd71c128109ca4faafe53dd557"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'impl' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 101,
+      "offset": 9,
+      "length": 4,
+      "code": {
+        "startLine": 99,
+        "length": 4,
+        "offset": 75,
+        "surroundingCode": "    val and by literalToken(\"&&\")\n    val or by literalToken(\"||\")\n    val impl by literalToken(\"->\")\n    val eq by literalToken(\"==\")\n    val comma by literalToken(\",\")"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "06f1e4f740d84a4564b01791c0cb9acc44a38ad3e06cfc9b353068d5f4cad86e"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'ef' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 107,
+      "offset": 9,
+      "length": 2,
+      "code": {
+        "startLine": 105,
+        "length": 2,
+        "offset": 76,
+        "surroundingCode": "    val ex by regexToken(\"EX\\\\b\")\n    val af by regexToken(\"AF\\\\b\")\n    val ef by regexToken(\"EF\\\\b\")\n    val ag by regexToken(\"AG\\\\b\")\n    val eg by regexToken(\"EG\\\\b\")"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "46ff42c27f00aa8779a1277fd1a76448987a2a0d47ca94717d74242a113d2112"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'and' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 99,
+      "offset": 9,
+      "length": 3,
+      "code": {
+        "startLine": 97,
+        "length": 3,
+        "offset": 76,
+        "surroundingCode": "    val rspar by literalToken(\"]\")\n    val not by literalToken(\"!\")\n    val and by literalToken(\"&&\")\n    val or by literalToken(\"||\")\n    val impl by literalToken(\"->\")"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "d77ce051254cea883541fdfa1ebb53db2adb68d44a3c1a717860d1782e2ee5d2"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'rpar' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 95,
+      "offset": 9,
+      "length": 4,
+      "code": {
+        "startLine": 93,
+        "length": 4,
+        "offset": 75,
+        "surroundingCode": "    val fal by literalToken(\"0\")\n    val lpar by literalToken(\"(\")\n    val rpar by literalToken(\")\")\n    val lspar by literalToken(\"[\")\n    val rspar by literalToken(\"]\")"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "d2dcbe8c6c9e30eef793fa4f8462c3106ddb6d4ba6ed2d933a935211ff93919e"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'negation' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 115,
+      "offset": 9,
+      "length": 8,
+      "code": {
+        "startLine": 113,
+        "length": 8,
+        "offset": 57,
+        "surroundingCode": "    val ws by regexToken(\"\\\\s+\", ignore = true)\n\n    val negation by -not * parser(this::ctlExpr) map { Not(it) }\n    val bracedExpression by -lpar * parser(this::implChain) * -rpar\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "745d674182ca5c920a76d48ba499d919f90be2d838e487c0ea83d460b255c76d"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'eu' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 111,
+      "offset": 9,
+      "length": 2,
+      "code": {
+        "startLine": 109,
+        "length": 2,
+        "offset": 76,
+        "surroundingCode": "    val eg by regexToken(\"EG\\\\b\")\n    val au by regexToken(\"AU\\\\b\")\n    val eu by regexToken(\"EU\\\\b\")\n    val name by regexToken(\"\\\\w+\")\n    val ws by regexToken(\"\\\\s+\", ignore = true)"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "49190c178dbcbb7192604fbe908ce4fdb28d05de636393447969381971b5f235"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'comma' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 103,
+      "offset": 9,
+      "length": 5,
+      "code": {
+        "startLine": 101,
+        "length": 5,
+        "offset": 76,
+        "surroundingCode": "    val impl by literalToken(\"->\")\n    val eq by literalToken(\"==\")\n    val comma by literalToken(\",\")\n    val ax by regexToken(\"AX\\\\b\")\n    val ex by regexToken(\"EX\\\\b\")"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "018e7446ffb5b2430fce0ea6eb77935a0441e83c89458c86518bcae6b14b0bd8"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'agOp' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 123,
+      "offset": 9,
+      "length": 4,
+      "code": {
+        "startLine": 121,
+        "length": 4,
+        "offset": 164,
+        "surroundingCode": "    val afOp by -af * parser(this::bracedExpression) map { f -> AU(TRUE, f) }\n    val efOp by -ef * parser(this::bracedExpression) map { f -> EU(TRUE, f) }\n    val agOp by -ag * parser(this::bracedExpression) map { f -> Not(EU(TRUE, Not(f))) }\n    val egOp by -eg * parser(this::bracedExpression) map { f -> Not(AU(TRUE, Not(f))) }\n    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map {(a, b) -> AU(a, b)}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "22f785e23a6d4f18eb4ff8e63d4ddb7fde6a68118d0bed7aad7775fca1144080"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'axOp' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 119,
+      "offset": 9,
+      "length": 4,
+      "code": {
+        "startLine": 117,
+        "length": 4,
+        "offset": 10,
+        "surroundingCode": "\n\n    val axOp by -ax * parser(this::bracedExpression) map { f -> Not(EX(Not(f))) }\n    val exOp by -ex * parser(this::bracedExpression) map { f -> EX(f) }\n    val afOp by -af * parser(this::bracedExpression) map { f -> AU(TRUE, f) }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "ceeaa9aec27c5eae12d6a78bef259c254a4e6eac0823df3080f7672694ac4915"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'implChain' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 148,
+      "offset": 9,
+      "length": 9,
+      "code": {
+        "startLine": 146,
+        "length": 9,
+        "offset": 170,
+        "surroundingCode": "    val andChain by leftAssociative(eqChain, and) { a, _, b -> Not(Or(Not(a), Not(b))) }\n    val orChain by leftAssociative(andChain, or) { a, _, b -> Or(a, b) }\n    val implChain by rightAssociative(orChain, impl) { a, _, b -> Or(Not(a), b) }\n\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "b94a17f9335cb507afc41a1b0a176ce887150099739e6857990f956539704c24"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'af' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 106,
+      "offset": 9,
+      "length": 2,
+      "code": {
+        "startLine": 104,
+        "length": 2,
+        "offset": 76,
+        "surroundingCode": "    val ax by regexToken(\"AX\\\\b\")\n    val ex by regexToken(\"EX\\\\b\")\n    val af by regexToken(\"AF\\\\b\")\n    val ef by regexToken(\"EF\\\\b\")\n    val ag by regexToken(\"AG\\\\b\")"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "8557967c1049851c046f170574319c8f50f5a21cad043b8f4b0abb7921be1a6d"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'eg' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 109,
+      "offset": 9,
+      "length": 2,
+      "code": {
+        "startLine": 107,
+        "length": 2,
+        "offset": 76,
+        "surroundingCode": "    val ef by regexToken(\"EF\\\\b\")\n    val ag by regexToken(\"AG\\\\b\")\n    val eg by regexToken(\"EG\\\\b\")\n    val au by regexToken(\"AU\\\\b\")\n    val eu by regexToken(\"EU\\\\b\")"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "63d4eb9f88bef3652988646149d8a9c86222ca06a5809b2cd8c994e52acf7c8f"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'tr' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 92,
+      "offset": 9,
+      "length": 2,
+      "code": {
+        "startLine": 90,
+        "length": 2,
+        "offset": 53,
+        "surroundingCode": "\nobject CTLGrammar : Grammar<CTLFormula>() {\n    val tr by literalToken(\"1\")\n    val fal by literalToken(\"0\")\n    val lpar by literalToken(\"(\")"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "2864b42a673234c232705d92dba1c31bc556d530daae0a9695f2c8b50fd19773"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Property 'auOp' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 125,
+      "offset": 9,
+      "length": 4,
+      "code": {
+        "startLine": 123,
+        "length": 4,
+        "offset": 184,
+        "surroundingCode": "    val agOp by -ag * parser(this::bracedExpression) map { f -> Not(EU(TRUE, Not(f))) }\n    val egOp by -eg * parser(this::bracedExpression) map { f -> Not(AU(TRUE, Not(f))) }\n    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map {(a, b) -> AU(a, b)}\n    val euOp by -eu * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -> EU(a, b)}\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "06df4f510bc86f91b0b2b3f35016115b6f466705b7d0375b20640338b1aef9a4"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Cascade if can be replaced with when",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Cascade 'if' should be replaced with 'when'",
+  "detailsInfo": "Reports `if` statements with three or more branches that can be replaced with the `when` expression.\n\n**Example:**\n\n\n      fun checkIdentifier(id: String) {\n          fun Char.isIdentifierStart() = this in 'A'..'z'\n          fun Char.isIdentifierPart() = isIdentifierStart() || this in '0'..'9'\n\n          if (id.isEmpty()) {\n              print(\"Identifier is empty\")\n          } else if (!id.first().isIdentifierStart()) {\n              print(\"Identifier should start with a letter\")\n          } else if (!id.subSequence(1, id.length).all(Char::isIdentifierPart)) {\n              print(\"Identifier should contain only letters and numbers\")\n          }\n      }\n\nA quick-fix converts the `if` expression to `when`:\n\n\n      fun checkIdentifier(id: String) {\n          fun Char.isIdentifierStart() = this in 'A'..'z'\n          fun Char.isIdentifierPart() = isIdentifierStart() || this in '0'..'9'\n\n          when {\n              id.isEmpty() -> {\n                  print(\"Identifier is empty\")\n              }\n              !id.first().isIdentifierStart() -> {\n                  print(\"Identifier should start with a letter\")\n              }\n              !id.subSequence(1, id.length).all(Char::isIdentifierPart) -> {\n                  print(\"Identifier should contain only letters and numbers\")\n              }\n          }\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 66,
+      "offset": 21,
+      "length": 2,
+      "code": {
+        "startLine": 64,
+        "length": 2,
+        "offset": 127,
+        "surroundingCode": "                var outgoing = mutableSetOf<String>()\n                for (a in w.attributes.attributes) {\n                    if (a is Name) {\n                        name = a.name\n                    } else if (a is Type) {"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "CascadeIf"
+  },
+  "hash": "e5c8c657561c7717c7bed7a45c1ed8aaf6b94ab3ed5ad8bb6c2b01439371ede2"
 },{
   "tool": "Code Inspection",
   "category": "Java interop issues",
@@ -1284,14 +1563,14 @@
       "type": "file",
       "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
       "language": "kotlin",
-      "line": 8,
+      "line": 9,
       "offset": 1,
       "length": 1,
       "code": {
-        "startLine": 6,
+        "startLine": 7,
         "length": 1,
-        "offset": 52,
-        "surroundingCode": "import com.github.h0tk3y.betterParse.parser.Parser\n\nsealed class CTLFormula {\n    abstract fun optimize(): CTLFormula\n"
+        "offset": 37,
+        "surroundingCode": "import itmo.verifier.model.Variable\n\nsealed class CTLFormula {\n    abstract fun optimize(): CTLFormula\n    open fun compute(elements: Map<String, Variable>): Boolean {"
       }
     }
   ],
@@ -1299,5 +1578,780 @@
     "module": "verifier.main",
     "inspectionName": "PackageDirectoryMismatch"
   },
-  "hash": "8c52dddba32591f71d8f5ac23b875bec5ec20b7d682ed9e368d09f1e596c446e"
+  "hash": "70ea4934b6a414ddceb1a4037907f252622dc784b53393f620025719e994b00d"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Might be 'const'",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Might be 'const'",
+  "detailsInfo": "Reports top-level `val` properties in objects that might be declared as `const` for better performance and Java interoperability.\n\n**Example:**\n\n\n      object A {\n          val foo = 1\n      }\n\nAfter the quick-fix is applied:\n\n\n      object A {\n          const val foo = 1\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 13,
+      "offset": 5,
+      "length": 18,
+      "code": {
+        "startLine": 11,
+        "length": 18,
+        "offset": 7,
+        "surroundingCode": "}\n\nval DEFAULT_STATE_NAME: String = \"DEFAULT\"\n\nclass Model(diagram:Diagram) {"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "MayBeConstant"
+  },
+  "hash": "68e8d2edee80a8543d17c0fa4623e50ad433d3b7d8f97e8c024707c3a56f47a8"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Obvious explicit type",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Explicitly given type is redundant here",
+  "detailsInfo": "Reports local variables' explicitly given types which are obvious and thus redundant, like `val f: Foo = Foo()`.\n\n**Example:**\n\n\n      class Point(val x: Int, val y: Int)\n\n      fun foo() {\n          val t: Boolean = true\n          val p: Point = Point(1, 2)\n          val i: Int = 42\n      }\n\nAfter the quick-fix is applied:\n\n\n      class Point(val x: Int, val y: Int)\n\n      fun foo() {\n          val t = true\n          val p = Point(1, 2)\n          val i = 42\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 62,
+      "offset": 27,
+      "length": 3,
+      "code": {
+        "startLine": 60,
+        "length": 3,
+        "offset": 93,
+        "surroundingCode": "            } else {\n                var name = DEFAULT_STATE_NAME\n                var type: Int = 0\n                var incoming = mutableSetOf<String>()\n                var outgoing = mutableSetOf<String>()"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "RedundantExplicitType"
+  },
+  "hash": "3ab04a933d6f89414072d6eeb0ba7bfef4b5736506782cdd1547e3cbbf80d3c0"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Constructor parameter is never used as a property",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Constructor parameter is never used as a property",
+  "detailsInfo": "Reports primary constructor parameters that can have `val` or `var` removed.\n\n\nClass properties declared in the constructor increase memory consumption.\nIf the parameter value is only used in the constructor, you can omit them.\n\nNote that the referenced object might be garbage-collected earlier.\n\n**Example:**\n\n\n      class Task(val name: String) {\n          init {\n              print(\"Task created: $name\")\n          }\n      }\n\nA quick-fix removes the extra `val` or `var` keyword:\n\n\n      class Task(name: String) {\n          init {\n              print(\"Task created: $name\")\n          }\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 123,
+      "offset": 19,
+      "length": 3,
+      "code": {
+        "startLine": 121,
+        "length": 3,
+        "offset": 21,
+        "surroundingCode": "}\n\nclass GuardKripke(val text: String) {\n\n    private val formula: CTLFormula = CTLGrammar.parseToEnd(text).optimize()"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "CanBeParameter"
+  },
+  "hash": "42522a4b54ae50732a1d42005ce5885b1a95a6a9d3b88a6a3ca630a9fc4970ea"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused import directive",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Unused import directive",
+  "detailsInfo": "Reports redundant `import` statements.\n\nDefault and unused imports can be safely removed.\n\n**Example:**\n\n\n      import kotlin.*\n      import kotlin.collections.*\n      import kotlin.comparisons.*\n      import kotlin.io.*\n      import kotlin.ranges.*\n      import kotlin.sequences.*\n      import kotlin.text.*\n\n      // jvm specific\n      import java.lang.*\n      import kotlin.jvm.*\n\n      // js specific\n      import kotlin.js.*\n\n      import java.io.* // this import is unused and could be removed\n      import java.util.*\n\n      fun foo(list: ArrayList<String>) {\n          list.add(\"\")\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 5,
+      "offset": 1,
+      "length": 50,
+      "code": {
+        "startLine": 3,
+        "length": 50,
+        "offset": 36,
+        "surroundingCode": "import CTLFormula\nimport CTLGrammar\nimport com.github.h0tk3y.betterParse.combinators.*\nimport com.github.h0tk3y.betterParse.grammar.parseToEnd\nimport itmo.verifier.*"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "KotlinUnusedImport"
+  },
+  "hash": "1e7b027c3a15aa8b2551fd3a7c909073b1a2ad49af0f78fa4ec13a13aeb9f96e"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Explicit 'get' or 'set' call",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Should be replaced with indexing",
+  "detailsInfo": "Reports explicit calls to `get` or `set` functions which can be replaced by an indexing operator `[]`.\n\n\nKotlin allows custom implementations for the predefined set of operators on types.\nTo overload an operator, you can mark the corresponding function with the `operator` modifier:\n\n\n      operator fun get(index: Int) {}\n      operator fun set(index: Int, value: Int) {}\n        \nThe functions above correspond to the indexing operator.\n\n**Example:**\n\n      class Test {\n          operator fun get(i: Int): Int = 0\n      }\n\n      fun test() {\n          Test().get(0) // replaceable 'get()'\n      }\n\nAfter the quick-fix is applied:\n\n      class Test {\n          operator fun get(i: Int): Int = 0\n      }\n\n      fun test() {\n          Test()[0]\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 92,
+      "offset": 33,
+      "length": 3,
+      "code": {
+        "startLine": 90,
+        "length": 3,
+        "offset": 108,
+        "surroundingCode": "            val name = lexList[0]\n            val value = lexList[2] == \"1\"\n            res.add(Assign(vars.get(name)!!, value))\n        }\n        return res"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "ReplaceGetOrSet"
+  },
+  "hash": "248bd69ab53adbe8cdb88219f4b45bbc2a7ee5d3721c3fd3901ef85134fdbc27"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"name\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 133,
+      "offset": 24,
+      "length": 4,
+      "code": {
+        "startLine": 131,
+        "length": 4,
+        "offset": 26,
+        "surroundingCode": "}\n\nclass ActionKripke(val name: String, val synchro: Boolean) {\n\n}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "fc768e8b95aa082b3e8aa69f12cabaa73114549b79c3186f7ce3e5c0aca10f8e"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"synchro\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 133,
+      "offset": 42,
+      "length": 7,
+      "code": {
+        "startLine": 131,
+        "length": 7,
+        "offset": 44,
+        "surroundingCode": "}\n\nclass ActionKripke(val name: String, val synchro: Boolean) {\n\n}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "5ba35841ed9145e66a0a4ed8317c52a338257e6a7cf144dc07ef9442ee672c74"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"name\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 120,
+      "offset": 23,
+      "length": 4,
+      "code": {
+        "startLine": 118,
+        "length": 4,
+        "offset": 25,
+        "surroundingCode": "}\n\nclass EventKripke(val name: String) {\n}\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "b580f9b06b3b857ee29c410ad1f4f8e8b0697b54dd1d016897f2481bbe2107af"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"id\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 113,
+      "offset": 17,
+      "length": 2,
+      "code": {
+        "startLine": 111,
+        "length": 2,
+        "offset": 19,
+        "surroundingCode": "}\n\nclass State(val id: String, val name: String, val type: Int, val incomingTransitions: Set<String>, val outgoingTransitions: Set<String>) {\n\n}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "209d4ee48ac0e00713f9088b0dde93c1ba4b27d10aae26ea1a375d7130164cee"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"name\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 113,
+      "offset": 33,
+      "length": 4,
+      "code": {
+        "startLine": 111,
+        "length": 4,
+        "offset": 35,
+        "surroundingCode": "}\n\nclass State(val id: String, val name: String, val type: Int, val incomingTransitions: Set<String>, val outgoingTransitions: Set<String>) {\n\n}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "b75a9e0660eeb98f0c8c71a00852820a69d5065cd182b8ff726d356fce51f12f"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"type\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 113,
+      "offset": 51,
+      "length": 4,
+      "code": {
+        "startLine": 111,
+        "length": 4,
+        "offset": 53,
+        "surroundingCode": "}\n\nclass State(val id: String, val name: String, val type: Int, val incomingTransitions: Set<String>, val outgoingTransitions: Set<String>) {\n\n}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "71f85e20899edcce4d265b60f9f9b2eb4a0919df3611e6803d5417f9fa8609e9"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"incomingTransitions\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 113,
+      "offset": 66,
+      "length": 19,
+      "code": {
+        "startLine": 111,
+        "length": 19,
+        "offset": 68,
+        "surroundingCode": "}\n\nclass State(val id: String, val name: String, val type: Int, val incomingTransitions: Set<String>, val outgoingTransitions: Set<String>) {\n\n}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "4c2899c773dcfe9d9bae9e4371cd9b33a5925e56ac253e81dc43d8a51b1d83c9"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"outgoingTransitions\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 113,
+      "offset": 104,
+      "length": 19,
+      "code": {
+        "startLine": 111,
+        "length": 19,
+        "offset": 106,
+        "surroundingCode": "}\n\nclass State(val id: String, val name: String, val type: Int, val incomingTransitions: Set<String>, val outgoingTransitions: Set<String>) {\n\n}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "b80982d23f1a07502b4b03da5b46c411bb544d7955eb66dbfdb7c5fa659bb6ac"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"type\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 137,
+      "offset": 38,
+      "length": 4,
+      "code": {
+        "startLine": 135,
+        "length": 4,
+        "offset": 40,
+        "surroundingCode": "}\n\nclass Variable(val name: String, val type: VariableType, var value: Boolean) {\n}\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "1e2ab85a86afbaf16800ca1c067c7a3179d23ec71beef96aa5a8629c441665e9"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Function \"compute\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 127,
+      "offset": 9,
+      "length": 7,
+      "code": {
+        "startLine": 125,
+        "length": 7,
+        "offset": 86,
+        "surroundingCode": "    private val formula: CTLFormula = CTLGrammar.parseToEnd(text).optimize()\n\n    fun compute(variables:Map<String, Variable>): Boolean {\n        return formula.compute(variables)\n    }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "ec9d8ebd439c538ee935123d392ec5caf6b3a6087c4ac1e34feb7470f1c70c6d"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"id\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 117,
+      "offset": 22,
+      "length": 2,
+      "code": {
+        "startLine": 115,
+        "length": 2,
+        "offset": 24,
+        "surroundingCode": "}\n\nclass Transition(val id: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {\n}\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "4ddef7071ca0ae25c411afa3a3e369ab6f5d24f1a5c5415f02e61e57308482e0"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"events\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 117,
+      "offset": 38,
+      "length": 6,
+      "code": {
+        "startLine": 115,
+        "length": 6,
+        "offset": 40,
+        "surroundingCode": "}\n\nclass Transition(val id: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {\n}\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "264eda2842f239112e3ed7132ebf786ede0775ebd2748e0ced8f4bb7e8889359"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"code\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 117,
+      "offset": 69,
+      "length": 4,
+      "code": {
+        "startLine": 115,
+        "length": 4,
+        "offset": 71,
+        "surroundingCode": "}\n\nclass Transition(val id: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {\n}\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "7ec609c01f8d774e08354ce1e1b4b66bf07ca17ea72bdc5da723f233181bd46a"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"actions\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 117,
+      "offset": 93,
+      "length": 7,
+      "code": {
+        "startLine": 115,
+        "length": 7,
+        "offset": 95,
+        "surroundingCode": "}\n\nclass Transition(val id: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {\n}\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "e6fb6853f9054b4f8d95e360b3bad2f8131dc5d0f3ef66192799979822618024"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"guard\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 117,
+      "offset": 126,
+      "length": 5,
+      "code": {
+        "startLine": 115,
+        "length": 5,
+        "offset": 128,
+        "surroundingCode": "}\n\nclass Transition(val id: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {\n}\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "ff129c42d8ac685b64f3990f038b124b9217ab7b6703ae4112d0214afb3552a4"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"ws\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/formula/Formula.kt",
+      "language": "kotlin",
+      "line": 113,
+      "offset": 9,
+      "length": 2,
+      "code": {
+        "startLine": 111,
+        "length": 2,
+        "offset": 77,
+        "surroundingCode": "    val eu by regexToken(\"EU\\\\b\")\n    val name by regexToken(\"\\\\w+\")\n    val ws by regexToken(\"\\\\s+\", ignore = true)\n\n    val negation by -not * parser(this::ctlExpr) map { Not(it) }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "826cc4f3c91f2741185cfa8b4df5b894122cba842fd0d3dfddddd780862d55e2"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Redundant semicolon",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Redundant semicolon",
+  "detailsInfo": "Reports redundant semicolons (`;`) that can be safely removed.\n\n\nKotlin does not require a semicolon at the end of each statement or expression.\nA quick-fix is suggested to remove redundant semicolons.\n\n**Example:**\n\n\n      val myMap = mapOf(\"one\" to 1, \"two\" to 2);\n      myMap.forEach { (key, value) ->  print(\"$key -> $value\")};\n\nAfter the quick-fix is applied:\n\n\n      val myMap = mapOf(\"one\" to 1, \"two\" to 2)\n      myMap.forEach { (key, value) ->  print(\"$key -> $value\")}\n\nThere are two cases though where a semicolon is required:\n\n1. Several statements placed on a single line need to be separated with semicolons:\n\n\n         map.forEach { val (key, value) = it; println(\"$key -> $value\") }\n\n2. `enum` classes that also declare properties or functions, require a semicolon after the list of enum constants:\n\n\n         enum class Mode {\n             SILENT, VERBOSE;\n\n             fun isSilent(): Boolean = this == SILENT\n         }\n               \n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 100,
+      "offset": 38,
+      "length": 1,
+      "code": {
+        "startLine": 98,
+        "length": 1,
+        "offset": 128,
+        "surroundingCode": "        val decl = s.replace(\";\", \"\")\n        val lexList = decl.split(\"(\\\\s)+\".toRegex())\n        var type = VariableType.PLAIN;\n        var itemIdx = 1\n        if (lexList[0] == VariableType.VOLATILE.name) {"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "RedundantSemicolon"
+  },
+  "hash": "7e605a0f5ccb9c724d8452e0ed3e2b5d43e51163ee2c1f43fbc61b1e92b621ae"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Local 'var' is never modified and can be declared as 'val'",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Variable is never modified, so it can be declared using 'val'",
+  "detailsInfo": "Reports local variables declared with the `var` keyword that are never modified.\n\nKotlin encourages to declare practically immutable variables using the `val` keyword, ensuring that their value will never change.\n\n**Example:**\n\n\n      fun example() {\n          var primeNumbers = listOf(1, 2, 3, 5, 7, 11, 13)\n          var fibonacciNumbers = listOf(1, 1, 2, 3, 5, 8, 13)\n          print(\"Same numbers: \" + primeNumbers.intersect(fibonacciNumbers))\n      }\n\nA quick-fix replaces the `var` keyword with `val`:\n\n\n      fun example() {\n          val primeNumbers = listOf(1, 2, 3, 5, 7, 11, 13)\n          val fibonacciNumbers = listOf(1, 1, 2, 3, 5, 8, 13)\n          print(\"Same numbers: \" + primeNumbers.intersect(fibonacciNumbers))\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 42,
+      "offset": 17,
+      "length": 3,
+      "code": {
+        "startLine": 40,
+        "length": 3,
+        "offset": 128,
+        "surroundingCode": "                val actionsList = mutableListOf<ActionKripke>()\n                var codeList = listOf<Assign>()\n                var guardList = mutableListOf<GuardKripke>()\n                for (a in w.attributes.attributes) {\n                    if (a is Event) {"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "CanBeVal"
+  },
+  "hash": "35f44f3e81c610d352efcda9b737de55fbff3eacc8b4be19462793e4234d1aaa"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Local 'var' is never modified and can be declared as 'val'",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Variable is never modified, so it can be declared using 'val'",
+  "detailsInfo": "Reports local variables declared with the `var` keyword that are never modified.\n\nKotlin encourages to declare practically immutable variables using the `val` keyword, ensuring that their value will never change.\n\n**Example:**\n\n\n      fun example() {\n          var primeNumbers = listOf(1, 2, 3, 5, 7, 11, 13)\n          var fibonacciNumbers = listOf(1, 1, 2, 3, 5, 8, 13)\n          print(\"Same numbers: \" + primeNumbers.intersect(fibonacciNumbers))\n      }\n\nA quick-fix replaces the `var` keyword with `val`:\n\n\n      fun example() {\n          val primeNumbers = listOf(1, 2, 3, 5, 7, 11, 13)\n          val fibonacciNumbers = listOf(1, 1, 2, 3, 5, 8, 13)\n          print(\"Same numbers: \" + primeNumbers.intersect(fibonacciNumbers))\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 63,
+      "offset": 17,
+      "length": 3,
+      "code": {
+        "startLine": 61,
+        "length": 3,
+        "offset": 96,
+        "surroundingCode": "                var name = DEFAULT_STATE_NAME\n                var type: Int = 0\n                var incoming = mutableSetOf<String>()\n                var outgoing = mutableSetOf<String>()\n                for (a in w.attributes.attributes) {"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "CanBeVal"
+  },
+  "hash": "85b962fe09e1eb1378618c2efa703a6c398580a8d9bda8d8657d51bc2cea76cc"
+},{
+  "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Local 'var' is never modified and can be declared as 'val'",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Variable is never modified, so it can be declared using 'val'",
+  "detailsInfo": "Reports local variables declared with the `var` keyword that are never modified.\n\nKotlin encourages to declare practically immutable variables using the `val` keyword, ensuring that their value will never change.\n\n**Example:**\n\n\n      fun example() {\n          var primeNumbers = listOf(1, 2, 3, 5, 7, 11, 13)\n          var fibonacciNumbers = listOf(1, 1, 2, 3, 5, 8, 13)\n          print(\"Same numbers: \" + primeNumbers.intersect(fibonacciNumbers))\n      }\n\nA quick-fix replaces the `var` keyword with `val`:\n\n\n      fun example() {\n          val primeNumbers = listOf(1, 2, 3, 5, 7, 11, 13)\n          val fibonacciNumbers = listOf(1, 1, 2, 3, 5, 8, 13)\n          print(\"Same numbers: \" + primeNumbers.intersect(fibonacciNumbers))\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/verifier/model/Kripke.kt",
+      "language": "kotlin",
+      "line": 64,
+      "offset": 17,
+      "length": 3,
+      "code": {
+        "startLine": 62,
+        "length": 3,
+        "offset": 104,
+        "surroundingCode": "                var type: Int = 0\n                var incoming = mutableSetOf<String>()\n                var outgoing = mutableSetOf<String>()\n                for (a in w.attributes.attributes) {\n                    if (a is Name) {"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "verifier.main",
+    "inspectionName": "CanBeVal"
+  },
+  "hash": "a62bef02a798005ef6dd9d8d8ad4d7cf413a452ac70236c216111c4712b6f7a4"
 }]}

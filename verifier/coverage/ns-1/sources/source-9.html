@@ -93,24 +93,23 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;import com.github.h0tk3y.betterParse.combinators.*
 &nbsp;import com.github.h0tk3y.betterParse.grammar.Grammar
-&nbsp;import com.github.h0tk3y.betterParse.grammar.parseToEnd
 &nbsp;import com.github.h0tk3y.betterParse.grammar.parser
 &nbsp;import com.github.h0tk3y.betterParse.lexer.literalToken
 &nbsp;import com.github.h0tk3y.betterParse.lexer.regexToken
 &nbsp;import com.github.h0tk3y.betterParse.parser.Parser
 &nbsp;
 &nbsp;sealed class CTLFormula {
-&nbsp;    abstract fun optimize():CTLFormula
+&nbsp;    abstract fun optimize(): CTLFormula
 &nbsp;
 &nbsp;}
 &nbsp;
-<b class="fc">&nbsp;object TRUE: CTLFormula() {</b>
+<b class="fc">&nbsp;object TRUE : CTLFormula() {</b>
 &nbsp;    override fun optimize(): CTLFormula {
 <b class="fc">&nbsp;        return this</b>
 &nbsp;    }
 &nbsp;}
 &nbsp;
-&nbsp;data class Element(val name: String): CTLFormula() {
+&nbsp;data class Element(val name: String) : CTLFormula() {
 &nbsp;    override fun optimize(): CTLFormula {
 &nbsp;        return this
 &nbsp;    }
@@ -118,7 +117,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;data class Not(
 &nbsp;    val formula: CTLFormula
-&nbsp;): CTLFormula() {
+&nbsp;) : CTLFormula() {
 &nbsp;    override fun optimize(): CTLFormula {
 &nbsp;        if (formula is Not) {
 &nbsp;            return formula.formula.optimize()
@@ -130,7 +129,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;data class Or(
 &nbsp;    val left: CTLFormula,
 &nbsp;    val right: CTLFormula
-&nbsp;): CTLFormula() {
+&nbsp;) : CTLFormula() {
 &nbsp;    override fun optimize(): CTLFormula {
 &nbsp;        return Or(left.optimize(), right.optimize())
 &nbsp;    }
@@ -138,7 +137,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;data class EX(
 &nbsp;    val formula: CTLFormula
-&nbsp;): CTLFormula() {
+&nbsp;) : CTLFormula() {
 &nbsp;    override fun optimize(): CTLFormula {
 &nbsp;        return EX(formula.optimize())
 &nbsp;    }
@@ -147,7 +146,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;data class AU(
 &nbsp;    val left: CTLFormula,
 &nbsp;    val right: CTLFormula
-&nbsp;): CTLFormula() {
+&nbsp;) : CTLFormula() {
 &nbsp;    override fun optimize(): CTLFormula {
 &nbsp;        return AU(left.optimize(), right.optimize())
 &nbsp;    }
@@ -156,14 +155,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;data class EU(
 &nbsp;    val left: CTLFormula,
 &nbsp;    val right: CTLFormula
-&nbsp;): CTLFormula() {
+&nbsp;) : CTLFormula() {
 &nbsp;    override fun optimize(): CTLFormula {
 &nbsp;        return EU(left.optimize(), right.optimize())
 &nbsp;    }
 &nbsp;}
 &nbsp;
 &nbsp;
-&nbsp;object CTLGrammar: Grammar&lt;CTLFormula&gt;() {
+&nbsp;object CTLGrammar : Grammar&lt;CTLFormula&gt;() {
 &nbsp;    val tr by literalToken(&quot;1&quot;)
 &nbsp;    val fal by literalToken(&quot;0&quot;)
 &nbsp;    val lpar by literalToken(&quot;(&quot;)
@@ -191,12 +190,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    val bracedExpression by -lpar * parser(this::implChain) * -rpar
 &nbsp;
 &nbsp;
-&nbsp;    val axOp by -ax * parser(this::ctlExpr) map { f -&gt; Not(EX(Not(f)))}
-&nbsp;    val exOp by -ex * parser(this::ctlExpr) map { f -&gt; EX(f)}
-&nbsp;    val afOp by -af * parser(this::ctlExpr) map { f -&gt; AU(TRUE, f)}
-&nbsp;    val efOp by -ef * parser(this::ctlExpr) map { f -&gt; EU(TRUE, f)}
-&nbsp;    val agOp by -ag * parser(this::ctlExpr) map { f -&gt; Not(EU(TRUE, Not(f)))}
-&nbsp;    val egOp by -eg * parser(this::ctlExpr) map { f -&gt; Not(AU(TRUE, Not(f)))}
+&nbsp;    val axOp by -ax * parser(this::ctlExpr) map { f -&gt; Not(EX(Not(f))) }
+&nbsp;    val exOp by -ex * parser(this::ctlExpr) map { f -&gt; EX(f) }
+&nbsp;    val afOp by -af * parser(this::ctlExpr) map { f -&gt; AU(TRUE, f) }
+&nbsp;    val efOp by -ef * parser(this::ctlExpr) map { f -&gt; EU(TRUE, f) }
+&nbsp;    val agOp by -ag * parser(this::ctlExpr) map { f -&gt; Not(EU(TRUE, Not(f))) }
+&nbsp;    val egOp by -eg * parser(this::ctlExpr) map { f -&gt; Not(AU(TRUE, Not(f))) }
 &nbsp;    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map {(a, b) -&gt; AU(a, b)}
 &nbsp;    val euOp by -eu * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -&gt; EU(a, b)}
 &nbsp;
@@ -248,7 +247,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-22 14:48</div>
+    <div style="float:right;">generated on 2023-01-22 15:00</div>
 </div>
 </body>
 </html>

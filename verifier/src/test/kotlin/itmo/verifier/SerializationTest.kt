@@ -1,6 +1,5 @@
 package itmo.verifier
 
-import itmo.verifier.model.Model
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.serializer
 import nl.adaptivity.xmlutil.XmlDeclMode

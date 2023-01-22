@@ -101,15 +101,15 @@ object CTLGrammar: Grammar<CTLFormula>() {
     val or by literalToken("||")
     val impl by literalToken("->")
     val eq by literalToken("==")
+    val comma by literalToken(",")
     val ax by literalToken("AX")
     val ex by literalToken("EX")
     val af by literalToken("AF")
     val ef by literalToken("EF")
     val ag by literalToken("AG")
     val eg by literalToken("EG")
-    val a by literalToken("A")
-    val e by literalToken("E")
-    val u by literalToken("U")
+    val au by literalToken("AU")
+    val eu by literalToken("EU")
     val name by regexToken("\\w+")
     val ws by regexToken("\\s+", ignore = true)
 
@@ -123,8 +123,8 @@ object CTLGrammar: Grammar<CTLFormula>() {
     val efOp by -ef * parser(this::ctlExpr) map { f -> EU(TRUE, f)}
     val agOp by -ag * parser(this::ctlExpr) map { f -> Not(EU(TRUE, Not(f)))}
     val egOp by -eg * parser(this::ctlExpr) map { f -> Not(AU(TRUE, Not(f)))}
-    val auOp by -a * -lspar * parser(this::ctlExpr) * -u * parser(this::ctlExpr) * -rspar map {(a, b) -> AU(a, b)}
-    val euOp by -e * -lspar * parser(this::ctlExpr) * -u * parser(this::ctlExpr) * -rspar map {(a, b) -> EU(a, b)}
+    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map {(a, b) -> AU(a, b)}
+    val euOp by -eu * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -> EU(a, b)}
 
 
 

@@ -29,15 +29,26 @@ class FormulaParserTest {
     }
 
     @Test
+    fun `var test`() {
+        val formulaStringPref = "EGM"
+        val formulaString = "MEGM"
+        val formulaStringPost = "MEG"
+
+        assertEquals(CTLGrammar.parseToEnd(formulaStringPref), Element("EGM"))
+        assertEquals(CTLGrammar.parseToEnd(formulaString), Element("MEGM"))
+        assertEquals(CTLGrammar.parseToEnd(formulaStringPost), Element("MEG"))
+    }
+
+    @Test
     fun `not and test`() {
-        val formulaString = "!(USB & POE)"
+        val formulaString = "!(USB && POE)"
 
         assertEquals(CTLGrammar.parseToEnd(formulaString).optimize(), Or(Not(Element("USB")), Not(Element(name="POE"))))
     }
 
     @Test
     fun `and test`() {
-        val formulaString = "1 & 0"
+        val formulaString = "1 && 0"
 
         assertEquals(CTLGrammar.parseToEnd(formulaString), Not(Or(Not(TRUE), Not(Not(TRUE)))))
     }
@@ -72,14 +83,14 @@ class FormulaParserTest {
 
     @Test
     fun `au test`() {
-        val formulaString = "AU [ 1 , EX(future | 0)]"
+        val formulaString = "AU [ 1 , EX(future || 0)]"
 
         assertEquals(CTLGrammar.parseToEnd(formulaString), AU(TRUE, EX(Or(Element("future"), Not(TRUE)))))
     }
 
     @Test
     fun `spaces test`() {
-        val formulaString = "\tAU           [ \t   1, EX(future \n | 0)\n]\n\n\n"
+        val formulaString = "\tAU           [ \t   1, EX(future \n || 0)\n]\n\n\n"
 
         assertEquals(CTLGrammar.parseToEnd(formulaString), AU(TRUE, EX(Or(Element("future"), Not(TRUE)))))
     }

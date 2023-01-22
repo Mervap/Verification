@@ -9,7 +9,10 @@ import itmo.verifier.visitor.FormulaVisitor
 
 sealed class CTLFormula {
     abstract fun optimize(): CTLFormula
-
+    abstract fun visit(visitor: FormulaVisitor)
+    open fun compute(elements: Map<String, Variable>): Boolean {
+        return true
+    }
 }
 
 object TRUE : CTLFormula() {
@@ -81,10 +84,6 @@ data class Not(
 data class Or(
     val left: CTLFormula,
     val right: CTLFormula
-) : CTLFormula() {
-    override fun optimize(): CTLFormula {
-        return Or(left.optimize(), right.optimize())
-    }
 ): CTLFormula() {
     override fun optimize(): CTLFormula {
         return Or(left.optimize(), right.optimize())
@@ -111,11 +110,6 @@ data class EX(
     override fun optimize(): CTLFormula {
         return EX(formula.optimize())
     }
-): CTLFormula() {
-    override fun optimize(): CTLFormula {
-        return EX(formula.optimize())
-    }
-
     override fun visit(visitor: FormulaVisitor) {
         if (!visitor.isVisited(this)) {
             formula.visit(visitor)

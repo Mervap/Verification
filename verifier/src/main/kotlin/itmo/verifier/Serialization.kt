@@ -48,17 +48,19 @@ data class Widget(
 @Serializable
 @XmlSerialName("attributes", "", "")
 data class Attributes(
-    @XmlElement(true)
-    val name: String? = null,
-
-    @XmlElement(true)
-    val type: String? = null,
-
     val attributes: List<WidgetAttribute>,
 )
 
 @Serializable
 sealed interface WidgetAttribute
+
+@Serializable
+@XmlSerialName("name", "", "")
+data class Name(@XmlValue(true) val name: String = "") : WidgetAttribute
+
+@Serializable
+@XmlSerialName("type", "", "")
+data class Type(@XmlValue(true) val type: Int = 0) : WidgetAttribute
 
 @Serializable
 @XmlSerialName("event", "", "")

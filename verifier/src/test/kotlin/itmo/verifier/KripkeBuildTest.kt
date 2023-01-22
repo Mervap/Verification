@@ -5,10 +5,10 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.serializer
 import nl.adaptivity.xmlutil.XmlDeclMode
 import nl.adaptivity.xmlutil.serialization.XML
-import kotlin.test.Test
+import org.junit.jupiter.api.Test
 
-class SerializationTest {
 
+class KripkeBuildTest {
     @Test
     fun `serialization sample test`() {
         val xmlString = """
@@ -249,7 +249,6 @@ class SerializationTest {
         }
 
         val serializer = serializer<Diagram>()
-        println(xml.decodeFromString(serializer, xmlString))
         val m = Model(xml.decodeFromString(serializer, xmlString))
         println(m)
     }

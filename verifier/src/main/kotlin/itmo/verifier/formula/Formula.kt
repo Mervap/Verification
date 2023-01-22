@@ -6,9 +6,12 @@ import com.github.h0tk3y.betterParse.lexer.literalToken
 import com.github.h0tk3y.betterParse.lexer.regexToken
 import com.github.h0tk3y.betterParse.parser.Parser
 import itmo.verifier.model.Variable
+import itmo.verifier.visitor.FormulaVisitor
 
 sealed class CTLFormula {
     abstract fun optimize():CTLFormula
+
+    abstract fun visit(visitor: FormulaVisitor)
     open fun compute(elements: Map<String, Variable>): Boolean {
         return true
     }
@@ -19,6 +22,15 @@ object TRUE: CTLFormula() {
         return this
     }
 
+    override fun visit(visitor: FormulaVisitor) {
+        if (!visitor.isVisited(this)) {
+            for (s in visitor.kripke.states.values) {
+                visitor.makeEval(s, this, true)
+            }
+        }
+        return
+    }
+
     override fun compute(elements: Map<String, Variable>): Boolean {
         return true
     }
@@ -27,6 +39,18 @@ object TRUE: CTLFormula() {
 data class Element(val name: String): CTLFormula() {
     override fun optimize(): CTLFormula {
         return this
+    }
+
+    override fun visit(visitor: FormulaVisitor) {
+        if (!visitor.isVisited(this)) {
+            for (s in visitor.kripke.states.values) {
+                TODO("the value of the variable can be changed during recursion")
+                TODO("Element is not always a Variable - it can be an Event, Action, State")
+                TODO("How to handle volatile variable?")
+                visitor.makeEval(s, this, visitor.kripke.variables[name]!!.value)
+            }
+        }
+        return
     }
 
     override fun compute(elements: Map<String, Variable>): Boolean {
@@ -44,6 +68,16 @@ data class Not(
         return Not(formula.optimize())
     }
 
+    override fun visit(visitor: FormulaVisitor) {
+        if (!visitor.isVisited(this)) {
+            formula.visit(visitor)
+            for (s in visitor.kripke.states.values) {
+                visitor.makeEval(s, this, !(visitor.getEval(s, formula)))
+            }
+        }
+        return
+    }
+
     override fun compute(elements: Map<String, Variable>): Boolean {
         return !formula.compute(elements)
     }
@@ -57,6 +91,16 @@ data class Or(
         return Or(left.optimize(), right.optimize())
     }
 
+    override fun visit(visitor: FormulaVisitor) {
+        if (!visitor.isVisited(this)) {
+            left.visit(visitor)
+            right.visit(visitor)
+            for (s in visitor.kripke.states.values) {
+                visitor.makeEval(s, this, visitor.getEval(s, left) || visitor.getEval(s, right))
+            }
+        }
+    }
+
     override fun compute(elements: Map<String, Variable>): Boolean {
         return left.compute(elements) || right.compute(elements)
     }
@@ -68,6 +112,23 @@ data class EX(
     override fun optimize(): CTLFormula {
         return EX(formula.optimize())
     }
+
+    override fun visit(visitor: FormulaVisitor) {
+        if (!visitor.isVisited(this)) {
+            formula.visit(visitor)
+            for (s in visitor.kripke.states.values) {
+                visitor.makeEval(s, this, false)
+                val ts = s.outgoingTransitions
+                val transitions = visitor.kripke.transitions
+                for (t in ts) {
+                    TODO("Cannot just go without making calls, changing variables")
+                    if (visitor.getEval(visitor.kripke.states[transitions[t]!!.to]!!, formula)) {
+                        visitor.makeEval(s, this, true)
+                    }
+                }
+            }
+        }
+    }
 }
 
 data class AU(
@@ -77,6 +138,10 @@ data class AU(
     override fun optimize(): CTLFormula {
         return AU(left.optimize(), right.optimize())
     }
+
+    override fun visit(visitor: FormulaVisitor) {
+        TODO("Not yet implemented")
+    }
 }
 
 data class EU(
@@ -85,6 +150,10 @@ data class EU(
 ): CTLFormula() {
     override fun optimize(): CTLFormula {
         return EU(left.optimize(), right.optimize())
+    }
+
+    override fun visit(visitor: FormulaVisitor) {
+        TODO("Not yet implemented")
     }
 }
 

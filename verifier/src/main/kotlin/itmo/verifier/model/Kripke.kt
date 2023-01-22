@@ -56,7 +56,17 @@ class Model(diagram:Diagram) {
                         }
                     }
                 }
-                transitions[w.id] = Transition(w.id, eventsList, codeList, actionsList, guardList)
+                var from:String = ""
+                var to:String = ""
+                for (s in states.values) {
+                    if (s.incomingTransitions.contains(w.id)) {
+                        to = s.id
+                    }
+                    if (s.outgoingTransitions.contains(w.id)) {
+                        from = s.id
+                    }
+                }
+                transitions[w.id] = Transition(w.id, from, to, eventsList, codeList, actionsList, guardList)
             } else {
                 var name = DEFAULT_STATE_NAME
                 var type: Int = 0
@@ -114,7 +124,7 @@ class State(val id: String, val name: String, val type: Int, val incomingTransit
 
 }
 
-class Transition(val id: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {
+class Transition(val id: String, var from: String, var to: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {
 }
 
 class EventKripke(val name: String) {

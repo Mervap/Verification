@@ -1,4 +1,4 @@
-name: Verifier Test
+name: Verifier/Test
 on:
   push:
     branches: [ main ]

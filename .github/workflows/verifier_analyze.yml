@@ -1,4 +1,4 @@
-name: Verifier Analyze
+name: Verifier/Analyze
 on:
   push:
     branches: [ main ]

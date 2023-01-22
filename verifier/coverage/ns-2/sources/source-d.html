@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > WidgetAttribute</title>
+  <title>Coverage Report > Variable</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -21,7 +21,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">itmo.verifier</a>
 </div>
 
-<h1>Coverage Summary for Class: WidgetAttribute (itmo.verifier)</h1>
+<h1>Coverage Summary for Class: Variable (itmo.verifier)</h1>
 
 <table class="coverageStats">
 
@@ -44,31 +44,87 @@ Current scope:     <a href="../../index.html">all classes</a>
   Instruction, %
 </th>
 </tr>
-  <tr>
-    <td class="name">WidgetAttribute$Companion</td>
+<tr>
+  <td class="name">Variable</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    50%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/2)
   </span>
 </td>
     <td class="coverageStat"/>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    50%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    40%
   </span>
   <span class="absValue">
-    (0/79)
+    (2/5)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Variable$$serializer</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Variable$Companion</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
   </span>
 </td>
   </tr>
@@ -76,27 +132,27 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name"><strong>Total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    75%
   </span>
   <span class="absValue">
-    (0/1)
+    (3/4)
   </span>
 </td>
     <td class="coverageStat"/>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    80%
   </span>
   <span class="absValue">
-    (0/1)
+    (4/5)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    80%
   </span>
   <span class="absValue">
-    (0/79)
+    (12/15)
   </span>
 </td>
 </tr>
@@ -139,11 +195,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    val autoReject: Boolean = true,
 &nbsp;)
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;variable&quot;, &quot;&quot;, &quot;&quot;)
+<b class="fc">&nbsp;@Serializable</b>
+<b class="fc">&nbsp;@XmlSerialName(&quot;variable&quot;, &quot;&quot;, &quot;&quot;)</b>
 &nbsp;data class Variable(
-&nbsp;    @XmlSerialName(&quot;decl&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;    val declaration: String,
+<b class="pc">&nbsp;    @XmlSerialName(&quot;decl&quot;, &quot;&quot;, &quot;&quot;)</b>
+<b class="fc">&nbsp;    val declaration: String,</b>
 &nbsp;)
 &nbsp;
 &nbsp;@Serializable
@@ -157,17 +213,19 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;@Serializable
 &nbsp;@XmlSerialName(&quot;attributes&quot;, &quot;&quot;, &quot;&quot;)
 &nbsp;data class Attributes(
-&nbsp;    @XmlElement(true)
-&nbsp;    val name: String? = null,
-&nbsp;
-&nbsp;    @XmlElement(true)
-&nbsp;    val type: String? = null,
-&nbsp;
 &nbsp;    val attributes: List&lt;WidgetAttribute&gt;,
 &nbsp;)
 &nbsp;
-<b class="nc">&nbsp;@Serializable</b>
+&nbsp;@Serializable
 &nbsp;sealed interface WidgetAttribute
+&nbsp;
+&nbsp;@Serializable
+&nbsp;@XmlSerialName(&quot;name&quot;, &quot;&quot;, &quot;&quot;)
+&nbsp;data class Name(@XmlValue(true) val name: String = &quot;&quot;) : WidgetAttribute
+&nbsp;
+&nbsp;@Serializable
+&nbsp;@XmlSerialName(&quot;type&quot;, &quot;&quot;, &quot;&quot;)
+&nbsp;data class Type(@XmlValue(true) val type: Int = 0) : WidgetAttribute
 &nbsp;
 &nbsp;@Serializable
 &nbsp;@XmlSerialName(&quot;event&quot;, &quot;&quot;, &quot;&quot;)
@@ -215,7 +273,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-22 15:00</div>
+    <div style="float:right;">generated on 2023-01-22 18:19</div>
 </div>
 </body>
 </html>

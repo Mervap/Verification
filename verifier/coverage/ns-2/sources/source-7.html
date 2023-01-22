@@ -185,17 +185,19 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;@Serializable
 &nbsp;@XmlSerialName(&quot;attributes&quot;, &quot;&quot;, &quot;&quot;)
 &nbsp;data class Attributes(
-&nbsp;    @XmlElement(true)
-&nbsp;    val name: String? = null,
-&nbsp;
-&nbsp;    @XmlElement(true)
-&nbsp;    val type: String? = null,
-&nbsp;
 &nbsp;    val attributes: List&lt;WidgetAttribute&gt;,
 &nbsp;)
 &nbsp;
 &nbsp;@Serializable
 &nbsp;sealed interface WidgetAttribute
+&nbsp;
+&nbsp;@Serializable
+&nbsp;@XmlSerialName(&quot;name&quot;, &quot;&quot;, &quot;&quot;)
+&nbsp;data class Name(@XmlValue(true) val name: String = &quot;&quot;) : WidgetAttribute
+&nbsp;
+&nbsp;@Serializable
+&nbsp;@XmlSerialName(&quot;type&quot;, &quot;&quot;, &quot;&quot;)
+&nbsp;data class Type(@XmlValue(true) val type: Int = 0) : WidgetAttribute
 &nbsp;
 &nbsp;@Serializable
 &nbsp;@XmlSerialName(&quot;event&quot;, &quot;&quot;, &quot;&quot;)
@@ -243,7 +245,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-22 15:00</div>
+    <div style="float:right;">generated on 2023-01-22 18:19</div>
 </div>
 </body>
 </html>

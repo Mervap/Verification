@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > Widget</title>
+  <title>Coverage Report > Type</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -21,7 +21,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">itmo.verifier</a>
 </div>
 
-<h1>Coverage Summary for Class: Widget (itmo.verifier)</h1>
+<h1>Coverage Summary for Class: Type (itmo.verifier)</h1>
 
 <table class="coverageStats">
 
@@ -44,36 +44,8 @@ Current scope:     <a href="../../index.html">all classes</a>
   Instruction, %
 </th>
 </tr>
-<tr>
-  <td class="name">Widget</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/1)
-  </span>
-</td>
-    <td class="coverageStat"/>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/3)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/15)
-  </span>
-</td>
-</tr>
   <tr>
-    <td class="name">Widget$$serializer</td>
+    <td class="name">Type$$serializer</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -88,7 +60,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (1/1)
+    (2/2)
   </span>
 </td>
 <td class="coverageStat">
@@ -96,12 +68,12 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (3/3)
+    (4/4)
   </span>
 </td>
   </tr>
   <tr>
-    <td class="name">Widget$Companion</td>
+    <td class="name">Type$Companion</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -132,27 +104,27 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name"><strong>Total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    66.7%
+    100%
   </span>
   <span class="absValue">
-    (2/3)
+    (2/2)
   </span>
 </td>
     <td class="coverageStat"/>
 <td class="coverageStat">
   <span class="percent">
-    40%
+    100%
   </span>
   <span class="absValue">
-    (2/5)
+    (3/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    31.8%
+    100%
   </span>
   <span class="absValue">
-    (7/22)
+    (8/8)
   </span>
 </td>
 </tr>
@@ -202,28 +174,30 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    val declaration: String,
 &nbsp;)
 &nbsp;
-<b class="fc">&nbsp;@Serializable</b>
-<b class="fc">&nbsp;@XmlSerialName(&quot;widget&quot;, &quot;&quot;, &quot;&quot;)</b>
+&nbsp;@Serializable
+&nbsp;@XmlSerialName(&quot;widget&quot;, &quot;&quot;, &quot;&quot;)
 &nbsp;data class Widget(
-<b class="nc">&nbsp;    val id: String,</b>
-<b class="nc">&nbsp;    val type: String,</b>
-<b class="nc">&nbsp;    val attributes: Attributes,</b>
+&nbsp;    val id: String,
+&nbsp;    val type: String,
+&nbsp;    val attributes: Attributes,
 &nbsp;)
 &nbsp;
 &nbsp;@Serializable
 &nbsp;@XmlSerialName(&quot;attributes&quot;, &quot;&quot;, &quot;&quot;)
 &nbsp;data class Attributes(
-&nbsp;    @XmlElement(true)
-&nbsp;    val name: String? = null,
-&nbsp;
-&nbsp;    @XmlElement(true)
-&nbsp;    val type: String? = null,
-&nbsp;
 &nbsp;    val attributes: List&lt;WidgetAttribute&gt;,
 &nbsp;)
 &nbsp;
 &nbsp;@Serializable
 &nbsp;sealed interface WidgetAttribute
+&nbsp;
+&nbsp;@Serializable
+&nbsp;@XmlSerialName(&quot;name&quot;, &quot;&quot;, &quot;&quot;)
+&nbsp;data class Name(@XmlValue(true) val name: String = &quot;&quot;) : WidgetAttribute
+&nbsp;
+<b class="fc">&nbsp;@Serializable</b>
+<b class="fc">&nbsp;@XmlSerialName(&quot;type&quot;, &quot;&quot;, &quot;&quot;)</b>
+<b class="fc">&nbsp;data class Type(@XmlValue(true) val type: Int = 0) : WidgetAttribute</b>
 &nbsp;
 &nbsp;@Serializable
 &nbsp;@XmlSerialName(&quot;event&quot;, &quot;&quot;, &quot;&quot;)
@@ -271,7 +245,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-22 15:00</div>
+    <div style="float:right;">generated on 2023-01-22 18:19</div>
 </div>
 </body>
 </html>

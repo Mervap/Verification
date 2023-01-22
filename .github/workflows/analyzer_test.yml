@@ -1,0 +1,53 @@
+name: Analyzer/Test
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'analyzer/**'
+  pull_request:
+    paths:
+      - 'analyzer/**'
+  workflow_dispatch:
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: analyzer
+    permissions:
+      contents: write
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: corretto
+          java-version: 17
+          cache: gradle
+
+      - name: Build
+        run: ./gradlew build -x test
+
+      - name: Test
+        run: ./gradlew koverHtmlReport
+
+      - name: Collect Test Artifacts
+        if: failure()
+        uses: actions/upload-artifact@v1
+        with:
+          name: test-results
+          path: analyzer/build/reports/tests
+
+      - name: Deploy Coverage to Pages
+        if: github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: analyzer/build/reports/kover/html
+          destination_dir: analyzer/coverage

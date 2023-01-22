@@ -1,0 +1,32 @@
+name: Analyzer/Analyze
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'analyzer/**'
+  pull_request:
+    paths:
+      - 'analyzer/**'
+  workflow_dispatch:
+
+jobs:
+  Analyze:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+
+      - name: Qodana Scan
+        uses: JetBrains/qodana-action@v2022.3.0
+        with:
+          args: --project-dir,${{ github.workspace }}/analyzer
+
+      - name: Deploy Qodana to Pages
+        if: github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ runner.temp }}/qodana/results/report
+          destination_dir: ./analyzer/analysis

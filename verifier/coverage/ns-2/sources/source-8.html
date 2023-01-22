@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > WidgetAttribute</title>
+  <title>Coverage Report > Incoming</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -21,7 +21,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">itmo.verifier</a>
 </div>
 
-<h1>Coverage Summary for Class: WidgetAttribute (itmo.verifier)</h1>
+<h1>Coverage Summary for Class: Incoming (itmo.verifier)</h1>
 
 <table class="coverageStats">
 
@@ -44,8 +44,8 @@ Current scope:     <a href="../../index.html">all classes</a>
   Instruction, %
 </th>
 </tr>
-  <tr>
-    <td class="name">WidgetAttribute$Companion</td>
+<tr>
+  <td class="name">Incoming</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -68,7 +68,63 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/79)
+    (0/5)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Incoming$$serializer</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Incoming$Companion</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
   </span>
 </td>
   </tr>
@@ -76,27 +132,27 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name"><strong>Total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    66.7%
   </span>
   <span class="absValue">
-    (0/1)
+    (2/3)
   </span>
 </td>
     <td class="coverageStat"/>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    66.7%
   </span>
   <span class="absValue">
-    (0/1)
+    (2/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    58.3%
   </span>
   <span class="absValue">
-    (0/79)
+    (7/12)
   </span>
 </td>
 </tr>
@@ -166,7 +222,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    val attributes: List&lt;WidgetAttribute&gt;,
 &nbsp;)
 &nbsp;
-<b class="nc">&nbsp;@Serializable</b>
+&nbsp;@Serializable
 &nbsp;sealed interface WidgetAttribute
 &nbsp;
 &nbsp;@Serializable
@@ -185,9 +241,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;@XmlSerialName(&quot;guard&quot;, &quot;&quot;, &quot;&quot;)
 &nbsp;data class Guard(@XmlValue(true) val guard: String = &quot;&quot;) : WidgetAttribute
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;incoming&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class Incoming(val id: String) : WidgetAttribute
+<b class="fc">&nbsp;@Serializable</b>
+<b class="fc">&nbsp;@XmlSerialName(&quot;incoming&quot;, &quot;&quot;, &quot;&quot;)</b>
+<b class="nc">&nbsp;data class Incoming(val id: String) : WidgetAttribute</b>
 &nbsp;
 &nbsp;@Serializable
 &nbsp;@XmlSerialName(&quot;outgoing&quot;, &quot;&quot;, &quot;&quot;)
@@ -215,7 +271,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-17 15:10</div>
+    <div style="float:right;">generated on 2023-01-22 14:48</div>
 </div>
 </body>
 </html>

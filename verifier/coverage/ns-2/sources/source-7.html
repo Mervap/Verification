@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > Variable</title>
+  <title>Coverage Report > Guard</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -21,7 +21,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">itmo.verifier</a>
 </div>
 
-<h1>Coverage Summary for Class: Variable (itmo.verifier)</h1>
+<h1>Coverage Summary for Class: Guard (itmo.verifier)</h1>
 
 <table class="coverageStats">
 
@@ -44,36 +44,8 @@ Current scope:     <a href="../../index.html">all classes</a>
   Instruction, %
 </th>
 </tr>
-<tr>
-  <td class="name">Variable</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/2)
-  </span>
-</td>
-    <td class="coverageStat"/>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/2)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/5)
-  </span>
-</td>
-</tr>
   <tr>
-    <td class="name">Variable$$serializer</td>
+    <td class="name">Guard$$serializer</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -96,12 +68,12 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (6/6)
+    (4/4)
   </span>
 </td>
   </tr>
   <tr>
-    <td class="name">Variable$Companion</td>
+    <td class="name">Guard$Companion</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -132,27 +104,27 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name"><strong>Total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    100%
   </span>
   <span class="absValue">
-    (2/4)
+    (2/2)
   </span>
 </td>
     <td class="coverageStat"/>
 <td class="coverageStat">
   <span class="percent">
-    60%
+    100%
   </span>
   <span class="absValue">
-    (3/5)
+    (3/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    66.7%
+    100%
   </span>
   <span class="absValue">
-    (10/15)
+    (8/8)
   </span>
 </td>
 </tr>
@@ -195,11 +167,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    val autoReject: Boolean = true,
 &nbsp;)
 &nbsp;
-<b class="fc">&nbsp;@Serializable</b>
-<b class="fc">&nbsp;@XmlSerialName(&quot;variable&quot;, &quot;&quot;, &quot;&quot;)</b>
+&nbsp;@Serializable
+&nbsp;@XmlSerialName(&quot;variable&quot;, &quot;&quot;, &quot;&quot;)
 &nbsp;data class Variable(
-<b class="pc">&nbsp;    @XmlSerialName(&quot;decl&quot;, &quot;&quot;, &quot;&quot;)</b>
-<b class="nc">&nbsp;    val declaration: String,</b>
+&nbsp;    @XmlSerialName(&quot;decl&quot;, &quot;&quot;, &quot;&quot;)
+&nbsp;    val declaration: String,
 &nbsp;)
 &nbsp;
 &nbsp;@Serializable
@@ -237,9 +209,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;@XmlSerialName(&quot;code&quot;, &quot;&quot;, &quot;&quot;)
 &nbsp;data class Code(@XmlValue(true) val code: String = &quot;&quot;) : WidgetAttribute
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;guard&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class Guard(@XmlValue(true) val guard: String = &quot;&quot;) : WidgetAttribute
+<b class="fc">&nbsp;@Serializable</b>
+<b class="fc">&nbsp;@XmlSerialName(&quot;guard&quot;, &quot;&quot;, &quot;&quot;)</b>
+<b class="fc">&nbsp;data class Guard(@XmlValue(true) val guard: String = &quot;&quot;) : WidgetAttribute</b>
 &nbsp;
 &nbsp;@Serializable
 &nbsp;@XmlSerialName(&quot;incoming&quot;, &quot;&quot;, &quot;&quot;)
@@ -271,7 +243,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-17 15:10</div>
+    <div style="float:right;">generated on 2023-01-22 14:48</div>
 </div>
 </body>
 </html>

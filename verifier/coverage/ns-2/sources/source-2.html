@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > StateMachine</title>
+  <title>Coverage Report > Attributes</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -21,7 +21,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">itmo.verifier</a>
 </div>
 
-<h1>Coverage Summary for Class: StateMachine (itmo.verifier)</h1>
+<h1>Coverage Summary for Class: Attributes (itmo.verifier)</h1>
 
 <table class="coverageStats">
 
@@ -45,7 +45,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">StateMachine</td>
+  <td class="name">Attributes</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -68,12 +68,12 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/13)
+    (0/11)
   </span>
 </td>
 </tr>
   <tr>
-    <td class="name">StateMachine$$serializer</td>
+    <td class="name">Attributes$$serializer</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -96,12 +96,12 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (7/7)
+    (5/5)
   </span>
 </td>
   </tr>
   <tr>
-    <td class="name">StateMachine$Companion</td>
+    <td class="name">Attributes$Companion</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -149,10 +149,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    45.8%
+    45%
   </span>
   <span class="absValue">
-    (11/24)
+    (9/20)
   </span>
 </td>
 </tr>
@@ -183,15 +183,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;@XmlSerialName(&quot;data&quot;, &quot;&quot;, &quot;&quot;)
 &nbsp;data class Data(val stateMachine: StateMachine)
 &nbsp;
-<b class="fc">&nbsp;@Serializable</b>
-<b class="fc">&nbsp;@XmlSerialName(&quot;Statemachine&quot;, &quot;&quot;, &quot;&quot;)</b>
+&nbsp;@Serializable
+&nbsp;@XmlSerialName(&quot;Statemachine&quot;, &quot;&quot;, &quot;&quot;)
 &nbsp;data class StateMachine(
-<b class="nc">&nbsp;    val events: List&lt;Event&gt;,</b>
+&nbsp;    val events: List&lt;Event&gt;,
 &nbsp;
-<b class="nc">&nbsp;    val variables: List&lt;Variable&gt;,</b>
+&nbsp;    val variables: List&lt;Variable&gt;,
 &nbsp;
-<b class="pc">&nbsp;    @XmlSerialName(&quot;autoreject&quot;, &quot;&quot;, &quot;&quot;)</b>
-<b class="fc">&nbsp;    @XmlElement(true)</b>
+&nbsp;    @XmlSerialName(&quot;autoreject&quot;, &quot;&quot;, &quot;&quot;)
+&nbsp;    @XmlElement(true)
 &nbsp;    val autoReject: Boolean = true,
 &nbsp;)
 &nbsp;
@@ -210,16 +210,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    val attributes: Attributes,
 &nbsp;)
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;attributes&quot;, &quot;&quot;, &quot;&quot;)
+<b class="fc">&nbsp;@Serializable</b>
+<b class="fc">&nbsp;@XmlSerialName(&quot;attributes&quot;, &quot;&quot;, &quot;&quot;)</b>
 &nbsp;data class Attributes(
-&nbsp;    @XmlElement(true)
+<b class="pc">&nbsp;    @XmlElement(true)</b>
 &nbsp;    val name: String? = null,
 &nbsp;
-&nbsp;    @XmlElement(true)
+<b class="pc">&nbsp;    @XmlElement(true)</b>
 &nbsp;    val type: String? = null,
 &nbsp;
-&nbsp;    val attributes: List&lt;WidgetAttribute&gt;,
+<b class="nc">&nbsp;    val attributes: List&lt;WidgetAttribute&gt;,</b>
 &nbsp;)
 &nbsp;
 &nbsp;@Serializable
@@ -271,7 +271,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-17 15:10</div>
+    <div style="float:right;">generated on 2023-01-22 14:48</div>
 </div>
 </body>
 </html>

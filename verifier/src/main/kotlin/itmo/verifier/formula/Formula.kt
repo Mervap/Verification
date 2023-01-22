@@ -4,21 +4,32 @@ import com.github.h0tk3y.betterParse.grammar.parser
 import com.github.h0tk3y.betterParse.lexer.literalToken
 import com.github.h0tk3y.betterParse.lexer.regexToken
 import com.github.h0tk3y.betterParse.parser.Parser
+import itmo.verifier.model.Variable
 
 sealed class CTLFormula {
     abstract fun optimize(): CTLFormula
-
+    open fun compute(elements: Map<String, Variable>): Boolean {
+        return true
+    }
 }
 
 object TRUE : CTLFormula() {
     override fun optimize(): CTLFormula {
         return this
     }
+
+    override fun compute(elements: Map<String, Variable>): Boolean {
+        return true
+    }
 }
 
 data class Element(val name: String) : CTLFormula() {
     override fun optimize(): CTLFormula {
         return this
+    }
+
+    override fun compute(elements: Map<String, Variable>): Boolean {
+        return elements[name]!!.value
     }
 }
 
@@ -31,6 +42,10 @@ data class Not(
         }
         return Not(formula.optimize())
     }
+
+    override fun compute(elements: Map<String, Variable>): Boolean {
+        return !formula.compute(elements)
+    }
 }
 
 data class Or(
@@ -39,6 +54,10 @@ data class Or(
 ) : CTLFormula() {
     override fun optimize(): CTLFormula {
         return Or(left.optimize(), right.optimize())
+    }
+
+    override fun compute(elements: Map<String, Variable>): Boolean {
+        return left.compute(elements) || right.compute(elements)
     }
 }
 

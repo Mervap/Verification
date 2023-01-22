@@ -30,14 +30,14 @@ class FormulaParserTest {
 
     @Test
     fun `not and test`() {
-        val formulaString = "!(USB & POE)"
+        val formulaString = "!(USB && POE)"
 
         assertEquals(CTLGrammar.parseToEnd(formulaString).optimize(), Or(Not(Element("USB")), Not(Element(name="POE"))))
     }
 
     @Test
     fun `and test`() {
-        val formulaString = "1 & 0"
+        val formulaString = "1 && 0"
 
         assertEquals(CTLGrammar.parseToEnd(formulaString), Not(Or(Not(TRUE), Not(Not(TRUE)))))
     }

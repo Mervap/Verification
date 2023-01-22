@@ -98,9 +98,8 @@ class FormulaParserTest {
 
     @Test
     fun `brackets test`() {
-        val formulaString = "(1)   -> (((EX future)))\n    "
+        val formulaString = "(1)   -> (((EX (future))))\n    "
 
-        val l = formulaString.split("(\\s)+".toRegex())
         assertEquals(CTLGrammar.parseToEnd(formulaString), Or(Not(TRUE), EX(Element("future"))))
     }
 

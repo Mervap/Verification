@@ -1,6 +1,9 @@
 package itmo.verifier.model
 
+import CTLFormula
+import CTLGrammar
 import com.github.h0tk3y.betterParse.combinators.*
+import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import itmo.verifier.*
 
 enum class VariableType(s: String) {
@@ -36,6 +39,7 @@ class Model(diagram:Diagram) {
                 val eventsList = mutableListOf<EventKripke>()
                 val actionsList = mutableListOf<ActionKripke>()
                 var codeList = listOf<Assign>()
+                var guardList = mutableListOf<GuardKripke>()
                 for (a in w.attributes.attributes) {
                     if (a is Event) {
                         eventsList.add(EventKripke(a.name))
@@ -44,9 +48,15 @@ class Model(diagram:Diagram) {
                         actionsList.add(ActionKripke(a.name, synchroVal))
                     } else if (a is Code) {
                         codeList = parseCode(a.code, variables)
+                    } else if (a is Guard) {
+                        if (a.guard.isEmpty()) {
+                            guardList.add(GuardKripke("1"))
+                        } else {
+                            guardList.add(GuardKripke(a.guard))
+                        }
                     }
                 }
-                transitions[w.id] = Transition(w.id, eventsList, codeList, actionsList)
+                transitions[w.id] = Transition(w.id, eventsList, codeList, actionsList, guardList)
             } else {
                 var name = DEFAULT_STATE_NAME
                 var type: Int = 0
@@ -104,10 +114,20 @@ class State(val id: String, val name: String, val type: Int, val incomingTransit
 
 }
 
-class Transition(val id: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>) {
+class Transition(val id: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {
 }
 
 class EventKripke(val name: String) {
+}
+
+class GuardKripke(val text: String) {
+
+    private val formula: CTLFormula = CTLGrammar.parseToEnd(text).optimize()
+
+    fun compute(variables:Map<String, Variable>): Boolean {
+        return formula.compute(variables)
+    }
+
 }
 
 class ActionKripke(val name: String, val synchro: Boolean) {

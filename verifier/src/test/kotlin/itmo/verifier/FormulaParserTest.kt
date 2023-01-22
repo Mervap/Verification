@@ -29,6 +29,17 @@ class FormulaParserTest {
     }
 
     @Test
+    fun `var test`() {
+        val formulaStringPref = "EGM"
+        val formulaString = "MEGM"
+        val formulaStringPost = "MEG"
+
+        assertEquals(CTLGrammar.parseToEnd(formulaStringPref), Element("EGM"))
+        assertEquals(CTLGrammar.parseToEnd(formulaString), Element("MEGM"))
+        assertEquals(CTLGrammar.parseToEnd(formulaStringPost), Element("MEG"))
+    }
+
+    @Test
     fun `not and test`() {
         val formulaString = "!(USB && POE)"
 

@@ -38,6 +38,12 @@
       ]
     },
     {
+      "name": "Gradle: com.github.h0tk3y.betterParse:better-parse-jvm:0.4.4",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/com.github.h0tk3y.betterParse/better-parse-jvm/0.4.4/e3948b03ae7743d854a7f90bffca46f3f8214678/better-parse-jvm-0.4.4.jar!/"
+      ]
+    },
+    {
       "name": "Gradle: io.github.pdvrieze.xmlutil:core-jvm:0.84.3",
       "roots": [
         "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/io.github.pdvrieze.xmlutil/core-jvm/0.84.3/3d816367a4bcea2b80373c04b5040c28f7b44a4e/xmlutil-jvm-0.84.3.jar!/"

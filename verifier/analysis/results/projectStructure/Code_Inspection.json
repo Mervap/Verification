@@ -83,6 +83,10 @@
           "type": "Library"
         },
         {
+          "name": "Gradle: com.github.h0tk3y.betterParse:better-parse-jvm:0.4.4",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: org.jetbrains.kotlin:kotlin-test-junit5:1.8.0",
           "type": "Library"
         },
@@ -165,6 +169,10 @@
         },
         {
           "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.8.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.h0tk3y.betterParse:better-parse-jvm:0.4.4",
           "type": "Library"
         },
         {

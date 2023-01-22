@@ -1,13 +1,13 @@
 {
-  "total": 5,
+  "total": 43,
   "tools inspection": {
-    "Code Inspection": 5
+    "Code Inspection": 43
   },
   "attributes": {
     "vcs": {
       "sarifIdea": {}
     },
     "deviceId": "200820300000000-0000-0000-0000-000000000000",
-    "jobUrl": "https://github.com/Mervap/Verification/actions/runs/3940567614"
+    "jobUrl": "https://github.com/Mervap/Verification/actions/runs/3980183496"
   }
 }

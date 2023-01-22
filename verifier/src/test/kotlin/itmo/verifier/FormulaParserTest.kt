@@ -72,14 +72,14 @@ class FormulaParserTest {
 
     @Test
     fun `au test`() {
-        val formulaString = "AU [ 1 , EX(future | 0)]"
+        val formulaString = "AU [ 1 , EX(future || 0)]"
 
         assertEquals(CTLGrammar.parseToEnd(formulaString), AU(TRUE, EX(Or(Element("future"), Not(TRUE)))))
     }
 
     @Test
     fun `spaces test`() {
-        val formulaString = "\tAU           [ \t   1, EX(future \n | 0)\n]\n\n\n"
+        val formulaString = "\tAU           [ \t   1, EX(future \n || 0)\n]\n\n\n"
 
         assertEquals(CTLGrammar.parseToEnd(formulaString), AU(TRUE, EX(Or(Element("future"), Not(TRUE)))))
     }
@@ -87,9 +87,8 @@ class FormulaParserTest {
 
     @Test
     fun `brackets test`() {
-        val formulaString = "(1)   -> (((EX future)))\n    "
+        val formulaString = "(1)   -> (((EX (future))))\n    "
 
-        val l = formulaString.split("(\\s)+".toRegex())
         assertEquals(CTLGrammar.parseToEnd(formulaString), Or(Not(TRUE), EX(Element("future"))))
     }
 

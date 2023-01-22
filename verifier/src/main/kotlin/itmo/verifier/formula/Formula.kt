@@ -117,12 +117,12 @@ object CTLGrammar: Grammar<CTLFormula>() {
     val bracedExpression by -lpar * parser(this::implChain) * -rpar
 
 
-    val axOp by -ax * parser(this::ctlExpr) map { f -> Not(EX(Not(f)))}
-    val exOp by -ex * parser(this::ctlExpr) map { f -> EX(f)}
-    val afOp by -af * parser(this::ctlExpr) map { f -> AU(TRUE, f)}
-    val efOp by -ef * parser(this::ctlExpr) map { f -> EU(TRUE, f)}
-    val agOp by -ag * parser(this::ctlExpr) map { f -> Not(EU(TRUE, Not(f)))}
-    val egOp by -eg * parser(this::ctlExpr) map { f -> Not(AU(TRUE, Not(f)))}
+    val axOp by -ax * parser(this::bracedExpression) map { f -> Not(EX(Not(f)))}
+    val exOp by -ex * parser(this::bracedExpression) map { f -> EX(f)}
+    val afOp by -af * parser(this::bracedExpression) map { f -> AU(TRUE, f)}
+    val efOp by -ef * parser(this::bracedExpression) map { f -> EU(TRUE, f)}
+    val agOp by -ag * parser(this::bracedExpression) map { f -> Not(EU(TRUE, Not(f)))}
+    val egOp by -eg * parser(this::bracedExpression) map { f -> Not(AU(TRUE, Not(f)))}
     val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map {(a, b) -> AU(a, b)}
     val euOp by -eu * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -> EU(a, b)}
 

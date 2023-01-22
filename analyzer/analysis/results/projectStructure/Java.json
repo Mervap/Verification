@@ -1,0 +1,16 @@
+{
+  "modules": [
+    {
+      "name": "analyzer",
+      "languageLevel": 17
+    },
+    {
+      "name": "analyzer.test",
+      "languageLevel": 17
+    },
+    {
+      "name": "analyzer.main",
+      "languageLevel": 17
+    }
+  ]
+}

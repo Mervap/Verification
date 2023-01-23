@@ -18,18 +18,15 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">itmo.analyzer</a>
+    <a href="../index.html">itmo.analyzer.ast</a>
 </div>
 
-<h1>Coverage Summary for Class: ParserKt (itmo.analyzer)</h1>
+<h1>Coverage Summary for Class: ParserKt (itmo.analyzer.ast)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -51,39 +48,86 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">ParserKt</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    57.1%
   </span>
   <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    60%
-  </span>
-  <span class="absValue">
-    (3/5)
+    (4/7)
   </span>
 </td>
     <td class="coverageStat"/>
 <td class="coverageStat">
   <span class="percent">
-    42.9%
+    44.4%
   </span>
   <span class="absValue">
-    (3/7)
+    (4/9)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    41.7%
+    40.7%
   </span>
   <span class="absValue">
-    (25/60)
+    (24/59)
   </span>
 </td>
 </tr>
-
+  <tr>
+    <td class="name">ParserKt$getOrThrow$1$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (4/8)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    40%
+  </span>
+  <span class="absValue">
+    (4/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    36.9%
+  </span>
+  <span class="absValue">
+    (24/65)
+  </span>
+</td>
+</tr>
 </table>
 
 <br/>
@@ -91,7 +135,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package itmo.analyzer
+<code class="sourceCode" id="sourceCode">&nbsp;package itmo.analyzer.ast
 &nbsp;
 &nbsp;import com.github.javaparser.JavaParser
 &nbsp;import com.github.javaparser.ParseResult
@@ -99,16 +143,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import com.github.javaparser.ParserConfiguration.LanguageLevel.JAVA_17
 &nbsp;import com.github.javaparser.ast.CompilationUnit
 &nbsp;import java.io.File
-&nbsp;import java.lang.RuntimeException
 &nbsp;
-<b class="fc">&nbsp;fun File.parseJavaCode(): CompilationUnit = parser.parse(this).getOrThrow()</b>
+<b class="fc">&nbsp;fun File.parseJavaCode(): CompilationUnit = tryParseJavaCode().getOrThrow()</b>
+<b class="nc">&nbsp;fun String.parseJavaCode(): CompilationUnit = tryParseJavaCode().getOrThrow()</b>
 &nbsp;
-<b class="nc">&nbsp;fun String.parseJavaCode(): CompilationUnit = parser.parse(this).getOrThrow()</b>
+<b class="fc">&nbsp;fun File.tryParseJavaCode(): ParseResult&lt;CompilationUnit&gt; = parser.parse(this)</b>
+<b class="nc">&nbsp;fun String.tryParseJavaCode(): ParseResult&lt;CompilationUnit&gt; = parser.parse(this)</b>
 &nbsp;
 <b class="fc">&nbsp;private fun &lt;T&gt; ParseResult&lt;T&gt;.getOrThrow(): T = result.orElseThrow {</b>
 <b class="nc">&nbsp;    RuntimeException(&quot;&quot;&quot;</b>
 &nbsp;        |Cannot parse Java code: 
-<b class="nc">&nbsp;          |${problems.joinToString(&quot;\n|&quot;)}</b>
+<b class="nc">&nbsp;        |  ${problems.joinToString(&quot;\n|  &quot;) { it.verboseMessage }}</b>
 <b class="nc">&nbsp;    &quot;&quot;&quot;.trimMargin())</b>
 &nbsp;}
 &nbsp;
@@ -136,7 +181,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-23 17:49</div>
+    <div style="float:right;">generated on 2023-01-23 19:27</div>
 </div>
 </body>
 </html>

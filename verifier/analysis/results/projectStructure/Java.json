@@ -5,11 +5,11 @@
       "languageLevel": 17
     },
     {
-      "name": "verifier.test",
+      "name": "verifier.main",
       "languageLevel": 17
     },
     {
-      "name": "verifier.main",
+      "name": "verifier.test",
       "languageLevel": 17
     }
   ]

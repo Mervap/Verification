@@ -1,8 +1,13 @@
 package itmo.analyzer
 
-import java.io.File
+import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.subcommands
+import itmo.analyzer.ast.ASTPrinterCommand
 
-fun main(args: Array<String>) {
-    val file = File(args[0])
-    println(file.parseJavaCode().printAST())
+class AnalyzerCommand : CliktCommand() {
+    override fun run() = Unit
 }
+
+fun main(args: Array<String>) = AnalyzerCommand()
+    .subcommands(ASTPrinterCommand())
+    .main(args)

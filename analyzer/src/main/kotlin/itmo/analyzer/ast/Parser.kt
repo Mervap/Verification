@@ -1,4 +1,4 @@
-package itmo.analyzer
+package itmo.analyzer.ast
 
 import com.github.javaparser.JavaParser
 import com.github.javaparser.ParseResult
@@ -6,16 +6,17 @@ import com.github.javaparser.ParserConfiguration
 import com.github.javaparser.ParserConfiguration.LanguageLevel.JAVA_17
 import com.github.javaparser.ast.CompilationUnit
 import java.io.File
-import java.lang.RuntimeException
 
-fun File.parseJavaCode(): CompilationUnit = parser.parse(this).getOrThrow()
+fun File.parseJavaCode(): CompilationUnit = tryParseJavaCode().getOrThrow()
+fun String.parseJavaCode(): CompilationUnit = tryParseJavaCode().getOrThrow()
 
-fun String.parseJavaCode(): CompilationUnit = parser.parse(this).getOrThrow()
+fun File.tryParseJavaCode(): ParseResult<CompilationUnit> = parser.parse(this)
+fun String.tryParseJavaCode(): ParseResult<CompilationUnit> = parser.parse(this)
 
 private fun <T> ParseResult<T>.getOrThrow(): T = result.orElseThrow {
     RuntimeException("""
         |Cannot parse Java code: 
-          |${problems.joinToString("\n|")}
+        |  ${problems.joinToString("\n|  ") { it.verboseMessage }}
     """.trimMargin())
 }
 

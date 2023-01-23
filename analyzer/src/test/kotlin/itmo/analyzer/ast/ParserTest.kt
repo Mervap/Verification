@@ -1,4 +1,4 @@
-package itmo.analyzer
+package itmo.analyzer.ast
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo

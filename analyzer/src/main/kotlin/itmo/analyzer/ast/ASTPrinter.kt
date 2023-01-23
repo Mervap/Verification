@@ -1,4 +1,4 @@
-package itmo.analyzer
+package itmo.analyzer.ast
 
 import com.github.javaparser.Position
 import com.github.javaparser.ast.*

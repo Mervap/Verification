@@ -1,9 +1,11 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.8.0"
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     kotlin("plugin.serialization") version "1.8.0"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 group = "itmo.verifier"
@@ -32,4 +34,10 @@ tasks.test {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
     kotlinOptions.languageVersion = "1.8"
+}
+
+tasks.withType<ShadowJar> {
+    manifest {
+        attributes("Main-Class" to "itmo.verifier.MainKt")
+    }
 }

@@ -1,12 +1,12 @@
-name: Verifier/Test
+name: Analyzer/Test
 on:
   push:
     branches: [ main ]
     paths:
-      - 'verifier/**'
+      - 'analyzer/**'
   pull_request:
     paths:
-      - 'verifier/**'
+      - 'analyzer/**'
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: verifier
+        working-directory: analyzer
     permissions:
       contents: write
     steps:
@@ -42,12 +42,12 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: test-results
-          path: verifier/build/reports/tests
+          path: analyzer/build/reports/tests
 
       - name: Deploy Coverage to Pages
         if: github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: verifier/build/reports/kover/html
-          destination_dir: verifier/coverage
+          publish_dir: analyzer/build/reports/kover/html
+          destination_dir: analyzer/coverage

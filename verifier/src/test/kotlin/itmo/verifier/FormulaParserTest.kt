@@ -98,7 +98,7 @@ class FormulaParserTest {
 
     @Test
     fun `brackets test`() {
-        val formulaString = "(1) -> (((EX future)))"
+        val formulaString = "(1)   -> (((EX (future))))\n    "
 
         assertEquals(CTLGrammar.parseToEnd(formulaString), Or(Not(TRUE), EX(Element("future"))))
     }

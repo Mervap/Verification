@@ -21,9 +21,11 @@ object TRUE : CTLFormula() {
     }
 
     override fun visit(visitor: FormulaVisitor) {
-        if (!visitor.isVisited(this)) {
+        val variableValues = visitor.kripke.variableValues
+
+        if (!visitor.isVisited(variableValues, this)) {
             for (s in visitor.kripke.states.values) {
-                visitor.makeEval(s, this, true)
+                visitor.makeEval(s, variableValues, this, true)
             }
         }
         return
@@ -40,12 +42,14 @@ data class Element(val name: String) : CTLFormula() {
     }
 
     override fun visit(visitor: FormulaVisitor) {
-        if (!visitor.isVisited(this)) {
+        val variableValues = visitor.kripke.variableValues
+
+        if (!visitor.isVisited(variableValues, this)) {
             for (s in visitor.kripke.states.values) {
                 TODO("the value of the variable can be changed during recursion")
                 TODO("Element is not always a Variable - it can be an Event, Action, State")
                 TODO("How to handle volatile variable?")
-                visitor.makeEval(s, this, visitor.kripke.variables[name]!!.value)
+                visitor.makeEval(s, variableValues, this, visitor.kripke.variables[name]!!.value)
             }
         }
         return
@@ -67,10 +71,12 @@ data class Not(
     }
 
     override fun visit(visitor: FormulaVisitor) {
-        if (!visitor.isVisited(this)) {
+        val variableValues = visitor.kripke.variableValues
+
+        if (!visitor.isVisited(variableValues, this)) {
             formula.visit(visitor)
             for (s in visitor.kripke.states.values) {
-                visitor.makeEval(s, this, !(visitor.getEval(s, formula)))
+                visitor.makeEval(s, variableValues, this, !(visitor.getEval(s, variableValues, formula)))
             }
         }
         return
@@ -90,11 +96,18 @@ data class Or(
     }
 
     override fun visit(visitor: FormulaVisitor) {
-        if (!visitor.isVisited(this)) {
+        val variableValues = visitor.kripke.variableValues
+
+        if (!visitor.isVisited(variableValues, this)) {
             left.visit(visitor)
             right.visit(visitor)
             for (s in visitor.kripke.states.values) {
-                visitor.makeEval(s, this, visitor.getEval(s, left) || visitor.getEval(s, right))
+                visitor.makeEval(
+                    s,
+                    variableValues,
+                    this,
+                    visitor.getEval(s, variableValues, left) || visitor.getEval(s, variableValues, right),
+                )
             }
         }
     }
@@ -111,18 +124,26 @@ data class EX(
         return EX(formula.optimize())
     }
     override fun visit(visitor: FormulaVisitor) {
-        if (!visitor.isVisited(this)) {
+        val variableValues = visitor.kripke.variableValues
+
+        if (!visitor.isVisited(variableValues, this)) {
             formula.visit(visitor)
             for (s in visitor.kripke.states.values) {
-                visitor.makeEval(s, this, false)
+                visitor.makeEval(s, variableValues, this, false)
                 val ts = s.outgoingTransitions
                 val transitions = visitor.kripke.transitions
-                for (t in ts) {
-                    TODO("Cannot just go without making calls, changing variables")
-                    if (visitor.getEval(visitor.kripke.states[transitions[t]!!.to]!!, formula)) {
-                        visitor.makeEval(s, this, true)
+
+                val status = ts.any { t ->
+                    val transition = transitions[t]!!
+                    val newVariableValues = variableValues.toMutableMap()
+                    transition.code.forEach { (variable, value) ->
+                        newVariableValues[variable.name] = value
                     }
+
+                    visitor.getEval(visitor.kripke.states[transition.to]!!, newVariableValues, formula)
                 }
+
+                visitor.makeEval(s, variableValues, this, status)
             }
         }
     }

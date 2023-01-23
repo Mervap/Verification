@@ -6,27 +6,24 @@ import itmo.verifier.model.State
 
 class FormulaVisitor(val formula: CTLFormula, val kripke: Model) {
 
-    val eval: MutableMap<State, MutableMap<CTLFormula, Boolean>>
+    val eval: MutableMap<State, MutableMap<Map<String, Boolean>, MutableMap<CTLFormula, Boolean>>>
 
     init {
         eval = mutableMapOf()
     }
 
-    fun makeEval(state: State, formula: CTLFormula, status: Boolean) {
-        if (eval.containsKey(state)) {
-            eval[state]!![formula] = status
-        } else {
-            eval[state] = mutableMapOf()
-            eval[state]!![formula] = status
-        }
+    fun makeEval(state: State, variables: Map<String, Boolean>, formula: CTLFormula, status: Boolean) {
+        eval.getOrPut(state) { mutableMapOf() }
+            .getOrPut(variables) { mutableMapOf() }
+            .put(formula, status)
     }
 
-    fun getEval(state: State, formula: CTLFormula): Boolean {
-        return eval.getOrDefault(state, mutableMapOf()).getOrDefault(formula, false)
+    fun getEval(state: State, variables: Map<String, Boolean>, formula: CTLFormula): Boolean {
+        return eval.get(state)?.get(variables)?.get(formula) ?: false
     }
 
-    fun isVisited(formula: CTLFormula):Boolean {
-        return eval.entries.any{it.value.containsKey(formula)}
+    fun isVisited(variables: Map<String, Boolean>, formula: CTLFormula):Boolean {
+        return eval.entries.any { it.value[variables]?.containsKey(formula) ?: false }
     }
 
 }

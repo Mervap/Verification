@@ -4,6 +4,7 @@ import com.github.h0tk3y.betterParse.grammar.parser
 import com.github.h0tk3y.betterParse.lexer.literalToken
 import com.github.h0tk3y.betterParse.lexer.regexToken
 import com.github.h0tk3y.betterParse.parser.Parser
+import itmo.verifier.model.Transition
 import itmo.verifier.model.Variable
 import itmo.verifier.visitor.FormulaVisitor
 

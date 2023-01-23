@@ -46,9 +46,14 @@ data class Element(val name: String) : CTLFormula() {
 
         if (!visitor.isVisited(variableValues, this)) {
             for (s in visitor.kripke.states.values) {
-                TODO("the value of the variable can be changed during recursion")
-                TODO("Element is not always a Variable - it can be an Event, Action, State")
-                TODO("How to handle volatile variable?")
+                val isEvent = visitor.kripke.events.any { it.name == name}
+                val isAction = visitor.kripke.transitions.values
+                    .any { it.actions.any { action -> action.name == name } }
+
+                if (isEvent || isAction) {
+                    variableValues[name] = true
+                }
+
                 visitor.makeEval(s, variableValues, this, visitor.kripke.variables[name]!!.value)
             }
         }

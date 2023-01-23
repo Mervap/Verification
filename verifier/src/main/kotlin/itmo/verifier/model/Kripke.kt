@@ -17,7 +17,7 @@ class Model(diagram:Diagram) {
     val autoReject: Boolean
     val events: List<EventKripke>
     val variables: Map<String, Variable>
-    val variableValues: Map<String, Boolean>
+    val variableValues: MutableMap<String, Boolean>
     val states: Map<String, State>
     val transitions: Map<String, Transition>
 
@@ -33,7 +33,8 @@ class Model(diagram:Diagram) {
             val v = parseDeclaration(d.declaration)
             variables[v.name] = v
         }
-        variableValues = variables.mapValues { it.value.value }
+        variableValues = variables.mapValues { it.value.value }.toMutableMap()
+        events.forEach { variableValues[it.name] = false }
 
         name = diagram.name
         states = mutableMapOf()
@@ -71,6 +72,7 @@ class Model(diagram:Diagram) {
                     }
                 }
                 transitions[w.id] = Transition(w.id, from, to, eventsList, codeList, actionsList, guardList)
+                actionsList.forEach { variableValues[it.name] = false }
             } else {
                 var name = DEFAULT_STATE_NAME
                 var type: Int = 0

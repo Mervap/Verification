@@ -19,6 +19,12 @@
       ]
     },
     {
+      "name": "Gradle: com.github.ajalt.clikt:clikt-jvm:3.5.1",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/com.github.ajalt.clikt/clikt-jvm/3.5.1/b9aa62a9a8612a5ca120b0278d151b503bd4ad91/clikt-jvm-3.5.1.jar!/"
+      ]
+    },
+    {
       "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0",
       "roots": [
         "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.8.0/3c91271347f678c239607abb676d4032a7898427/kotlin-stdlib-jdk7-1.8.0.jar!/"

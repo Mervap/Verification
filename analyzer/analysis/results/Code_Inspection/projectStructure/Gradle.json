@@ -50,6 +50,14 @@
       "version": "1.6.4"
     },
     {
+      "ideaName": "Gradle: com.github.ajalt.clikt:clikt-jvm:3.5.1",
+      "gradleName": "com.github.ajalt.clikt:clikt-jvm:3.5.1",
+      "unresolved": false,
+      "groupId": "com.github.ajalt.clikt",
+      "artifactId": "clikt-jvm",
+      "version": "3.5.1"
+    },
+    {
       "ideaName": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0",
       "gradleName": "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0",
       "unresolved": false,

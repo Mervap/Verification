@@ -11,16 +11,16 @@
   "sources": [
     {
       "type": "file",
-      "path": "src/main/kotlin/itmo/analyzer/Parser.kt",
+      "path": "src/main/kotlin/itmo/analyzer/ast/Parser.kt",
       "language": "kotlin",
-      "line": 13,
+      "line": 11,
       "offset": 12,
       "length": 13,
       "code": {
-        "startLine": 11,
+        "startLine": 9,
         "length": 13,
         "offset": 88,
-        "surroundingCode": "fun File.parseJavaCode(): CompilationUnit = parser.parse(this).getOrThrow()\n\nfun String.parseJavaCode(): CompilationUnit = parser.parse(this).getOrThrow()\n\nprivate fun <T> ParseResult<T>.getOrThrow(): T = result.orElseThrow {"
+        "surroundingCode": "\nfun File.parseJavaCode(): CompilationUnit = tryParseJavaCode().getOrThrow()\nfun String.parseJavaCode(): CompilationUnit = tryParseJavaCode().getOrThrow()\n\nfun File.tryParseJavaCode(): ParseResult<CompilationUnit> = parser.parse(this)"
       }
     }
   ],
@@ -28,7 +28,7 @@
     "module": "analyzer.main",
     "inspectionName": "UnusedSymbol"
   },
-  "hash": "7802365aff562c0d453de0c85d4a1fae8a59942a498495d52986805a6a945051"
+  "hash": "59433faf467b515ffa04b056baa0d3d2c5b83b85380581c2b57fe97304a57693"
 },{
   "tool": "Code Inspection",
   "category": "Redundant constructs",
@@ -42,7 +42,7 @@
   "sources": [
     {
       "type": "file",
-      "path": "src/main/kotlin/itmo/analyzer/ASTPrinter.kt",
+      "path": "src/main/kotlin/itmo/analyzer/ast/ASTPrinter.kt",
       "language": "kotlin",
       "line": 41,
       "offset": 61,
@@ -59,5 +59,5 @@
     "module": "analyzer.main",
     "inspectionName": "UnusedSymbol"
   },
-  "hash": "e088a03cc63b0a7f0e94091c790e6ca38f7ac4b89beda30c7cb62a507b8fed61"
+  "hash": "fd129e61efd8dedac8f31432c9d0b375dce03a5b97ddbcd9ff4186fce3f8ef04"
 }]}

@@ -250,7 +250,5 @@ class SerializationTest {
 
         val serializer = serializer<Diagram>()
         println(xml.decodeFromString(serializer, xmlString))
-        val m = Model(xml.decodeFromString(serializer, xmlString))
-        println(m)
     }
 }

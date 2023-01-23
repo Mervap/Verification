@@ -24,7 +24,13 @@
       "contentEntries": [
         {
           "path": "file://$PROJECT_DIR$/src/test",
-          "sourceFolders": []
+          "sourceFolders": [
+            {
+              "path": "file://$PROJECT_DIR$/src/test/kotlin",
+              "type": "TestSource",
+              "packagePrefix": ""
+            }
+          ]
         }
       ],
       "orderEntries": [
@@ -42,6 +48,10 @@
         },
         {
           "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.javaparser:javaparser-core:3.24.10",
           "type": "Library"
         },
         {
@@ -107,7 +117,13 @@
       "contentEntries": [
         {
           "path": "file://$PROJECT_DIR$/src/main",
-          "sourceFolders": []
+          "sourceFolders": [
+            {
+              "path": "file://$PROJECT_DIR$/src/main/kotlin",
+              "type": "Source",
+              "packagePrefix": ""
+            }
+          ]
         }
       ],
       "orderEntries": [
@@ -121,6 +137,10 @@
         },
         {
           "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.javaparser:javaparser-core:3.24.10",
           "type": "Library"
         },
         {

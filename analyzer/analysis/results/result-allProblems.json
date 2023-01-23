@@ -1,1 +1,63 @@
-{"version":"3","listProblem":[]}
+{"version":"3","listProblem":[{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Function \"parseJavaCode\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/analyzer/Parser.kt",
+      "language": "kotlin",
+      "line": 13,
+      "offset": 12,
+      "length": 13,
+      "code": {
+        "startLine": 11,
+        "length": 13,
+        "offset": 88,
+        "surroundingCode": "fun File.parseJavaCode(): CompilationUnit = parser.parse(this).getOrThrow()\n\nfun String.parseJavaCode(): CompilationUnit = parser.parse(this).getOrThrow()\n\nprivate fun <T> ParseResult<T>.getOrThrow(): T = result.orElseThrow {"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "analyzer.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "7802365aff562c0d453de0c85d4a1fae8a59942a498495d52986805a6a945051"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"configuration\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/analyzer/ASTPrinter.kt",
+      "language": "kotlin",
+      "line": 41,
+      "offset": 61,
+      "length": 13,
+      "code": {
+        "startLine": 39,
+        "length": 13,
+        "offset": 125,
+        "surroundingCode": " * Cannot use [VoidVisitorAdapter] - it do it in wierd order\n */\nprivate class ASTPrinterVisitor(val out: StringBuilder, val configuration: PrinterConfiguration) : VoidVisitorAdapter<String>() {\n    override fun visit(n: AnnotationDeclaration, arg: String) = blockIndent(arg) { childIndent ->\n        n.appendNode(\"ANNOTATION_DECLARATION\", arg)"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "analyzer.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "e088a03cc63b0a7f0e94091c790e6ca38f7ac4b89beda30c7cb62a507b8fed61"
+}]}

@@ -10,6 +10,14 @@
       "version": "1.8.0"
     },
     {
+      "ideaName": "Gradle: com.github.javaparser:javaparser-core:3.24.10",
+      "gradleName": "com.github.javaparser:javaparser-core:3.24.10",
+      "unresolved": false,
+      "groupId": "com.github.javaparser",
+      "artifactId": "javaparser-core",
+      "version": "3.24.10"
+    },
+    {
       "ideaName": "Gradle: org.jetbrains.kotlin:kotlin-test:1.8.0",
       "gradleName": "org.jetbrains.kotlin:kotlin-test:1.8.0",
       "unresolved": false,

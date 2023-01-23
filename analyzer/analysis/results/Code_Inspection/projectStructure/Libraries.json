@@ -7,6 +7,12 @@
       ]
     },
     {
+      "name": "Gradle: com.github.javaparser:javaparser-core:3.24.10",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/com.github.javaparser/javaparser-core/3.24.10/38cdf46f34a148fc4809c36e7be24a97219193ee/javaparser-core-3.24.10.jar!/"
+      ]
+    },
+    {
       "name": "Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4",
       "roots": [
         "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.6.4/2c997cd1c0ef33f3e751d3831929aeff1390cb30/kotlinx-coroutines-core-jvm-1.6.4.jar!/"

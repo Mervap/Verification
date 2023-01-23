@@ -1,5 +1,5 @@
 BLOCK_COMMENT [1:1, 23:3]
-JAVA_FILE (javaUtilArrayDeque.java) [1:1, 1235:2]
+JAVA_FILE (JavaUtilArrayDeque.java) [1:1, 1235:2]
   PACKAGE_DECLARATION [35:1, 35:18]
     NAME (java.util) [35:9, 35:17]
       NAME (java) [35:9, 35:12]

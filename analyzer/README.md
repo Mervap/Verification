@@ -6,3 +6,9 @@
 
 * [Test Coverage](https://mervap.github.io/Verification/analyzer/coverage/)
 * [Static analysis report](https://mervap.github.io/Verification/analyzer/analysis/)
+
+## Build
+
+```shell
+./gradlew shadowJar
+```

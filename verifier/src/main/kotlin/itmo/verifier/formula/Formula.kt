@@ -1,3 +1,5 @@
+package itmo.verifier.formula
+
 import com.github.h0tk3y.betterParse.combinators.*
 import com.github.h0tk3y.betterParse.grammar.Grammar
 import com.github.h0tk3y.betterParse.grammar.parser
@@ -7,7 +9,6 @@ import com.github.h0tk3y.betterParse.parser.Parser
 import itmo.verifier.model.State
 import itmo.verifier.model.Variable
 import itmo.verifier.visitor.FormulaVisitor
-import java.util.BitSet
 
 sealed class CTLFormula {
     abstract fun optimize(): CTLFormula
@@ -23,11 +24,9 @@ object TRUE : CTLFormula() {
     }
 
     override fun visit(visitor: FormulaVisitor) {
-        val variableValues = visitor.kripke.variableValues
-
-        if (!visitor.isVisited(variableValues, this)) {
+        if (!visitor.isVisited(this)) {
             for (s in visitor.kripke.states.values) {
-                visitor.makeEval(s, variableValues, this, true)
+                visitor.makeEval(s,this, true)
             }
         }
         return
@@ -44,22 +43,13 @@ data class Element(val name: String) : CTLFormula() {
     }
 
     override fun visit(visitor: FormulaVisitor) {
-        val variableValues = visitor.kripke.variableValues
+        if (visitor.isVisited(this)) return
 
-        if (!visitor.isVisited(variableValues, this)) {
-            for (s in visitor.kripke.states.values) {
-                val isEvent = visitor.kripke.events.any { it.name == name}
-                val isAction = visitor.kripke.transitions.values
-                    .any { it.actions.any { action -> action.name == name } }
-
-                if (isEvent || isAction) {
-                    variableValues[visitor.kripke.variableOrder[name]!!] = true
-                }
-
-                visitor.makeEval(s, variableValues, this, visitor.kripke.variables[name]!!.value)
+        for (s in visitor.kripke.states.values) {
+            if (name in s.elements) {
+                visitor.makeEval(s, this, true)
             }
         }
-        return
     }
 
     override fun compute(elements: Map<String, Variable>): Boolean {
@@ -78,12 +68,10 @@ data class Not(
     }
 
     override fun visit(visitor: FormulaVisitor) {
-        val variableValues = visitor.kripke.variableValues
-
-        if (!visitor.isVisited(variableValues, this)) {
+        if (!visitor.isVisited(this)) {
             formula.visit(visitor)
             for (s in visitor.kripke.states.values) {
-                visitor.makeEval(s, variableValues, this, !(visitor.getEval(s, variableValues, formula)))
+                visitor.makeEval(s, this, !(visitor.getEval(s, formula)))
             }
         }
         return
@@ -103,18 +91,11 @@ data class Or(
     }
 
     override fun visit(visitor: FormulaVisitor) {
-        val variableValues = visitor.kripke.variableValues
-
-        if (!visitor.isVisited(variableValues, this)) {
+        if (!visitor.isVisited(this)) {
             left.visit(visitor)
             right.visit(visitor)
             for (s in visitor.kripke.states.values) {
-                visitor.makeEval(
-                    s,
-                    variableValues,
-                    this,
-                    visitor.getEval(s, variableValues, left) || visitor.getEval(s, variableValues, right),
-                )
+                visitor.makeEval(s, this, visitor.getEval(s, left) || visitor.getEval(s, right))
             }
         }
     }
@@ -131,28 +112,20 @@ data class EX(
         return EX(formula.optimize())
     }
     override fun visit(visitor: FormulaVisitor) {
-        val variableValues = visitor.kripke.variableValues
-
-        if (!visitor.isVisited(variableValues, this)) {
+        if (!visitor.isVisited(this)) {
             formula.visit(visitor)
+
             for (s in visitor.kripke.states.values) {
-                visitor.makeEval(s, variableValues, this, false)
+                visitor.makeEval(s, this, false)
+
                 val ts = s.outgoingTransitions
                 val transitions = visitor.kripke.transitions
 
                 val status = ts.any { t ->
-                    val transition = transitions[t]!!
-                    val newVariableValues = BitSet()
-                    newVariableValues.or(variableValues)
-
-                    transition.code.forEach { (variable, value) ->
-                        newVariableValues[visitor.kripke.variableOrder[variable.name]!!] = value
-                    }
-
-                    visitor.getEval(visitor.kripke.states[transition.to]!!, newVariableValues, formula)
+                    visitor.getEval(visitor.kripke.states[transitions[t]!!.to]!!, formula)
                 }
 
-                visitor.makeEval(s, variableValues, this, status)
+                visitor.makeEval(s, this, status)
             }
         }
     }
@@ -167,48 +140,41 @@ data class AU(
     }
 
     override fun visit(visitor: FormulaVisitor) {
-        val variableValues = visitor.kripke.variableValues
-
-        if (visitor.isVisited(variableValues, this)) return
+        if (visitor.isVisited(this)) return
 
         left.visit(visitor)
         right.visit(visitor)
 
-        val l = mutableSetOf<State>()
+        val l = ArrayDeque<State>()
         val nb = mutableMapOf<State, Int>()
         val transitions = visitor.kripke.transitions
 
         for (state in visitor.kripke.states.values) {
-            val to = visitor.kripke.transitions.values.filter { it.from == state.name }
+            val to = transitions.values.filter { it.from == state.name }
             nb[state] = to.size
-            visitor.makeEval(state, variableValues, this, false)
+            visitor.makeEval(state, this, false)
 
-            if (visitor.getEval(state, variableValues, right)) {
+            if (visitor.getEval(state, right)) {
                 l += state
             }
         }
 
-        while (l.size > 0) {
-            for (state in l) {
-                visitor.makeEval(state, variableValues, this, true)
+        while (l.isNotEmpty()) {
+            val state = l.removeFirst()
 
-                for (transition in transitions.values) {
-                    val source = visitor.kripke.states[transition.from]!!
-                    val destination = visitor.kripke.states[transition.to]!!
+            visitor.makeEval(state, this, true)
 
-                    if (destination === state) {
-                        nb[source] = nb[source]!! - 1
-                        if (nb[source] == 0
-                            && visitor.getEval(source, variableValues, left)
-                            && !visitor.getEval(source, variableValues, this)
-                        ) {
-                            l += source
-                        }
+            for (transition in transitions.values) {
+                val source = visitor.kripke.states[transition.from]!!
+                val destination = visitor.kripke.states[transition.to]!!
+
+                if (destination === state) {
+                    nb[source] = nb[source]!! - 1
+
+                    if (nb[source] == 0 && visitor.getEval(source, left) && !visitor.getEval(source, this)) {
+                        l += source
                     }
                 }
-
-                l -= state
-                break
             }
         }
     }
@@ -223,43 +189,39 @@ data class EU(
     }
 
     override fun visit(visitor: FormulaVisitor) {
-        val variableValues = visitor.kripke.variableValues
-
-        if (visitor.isVisited(variableValues, this)) return
+        if (visitor.isVisited(this)) return
 
         left.visit(visitor)
         right.visit(visitor)
 
-        val l = mutableSetOf<State>()
+        val l = ArrayDeque<State>()
         val seenBefore = mutableMapOf<State, Boolean>()
 
         for (state in visitor.kripke.states.values) {
-            visitor.makeEval(state, variableValues, this, false)
+            visitor.makeEval(state, this, false)
             seenBefore[state] = false
 
-            if (visitor.getEval(state, variableValues, right)) {
+            if (visitor.getEval(state, right)) {
                 l += state
             }
         }
 
-        while (l.size > 0) {
-            for (state in l) {
-                visitor.makeEval(state, variableValues, this, true)
+        while (l.isNotEmpty()) {
+            val state = l.removeFirst()
 
-                for (transition in visitor.kripke.transitions.values) {
-                    val source = visitor.kripke.states[transition.from]!!
-                    val destination = visitor.kripke.states[transition.to]!!
+            visitor.makeEval(state, this, true)
 
-                    if (destination === state && seenBefore[source] != true) {
-                        seenBefore[source] = true
-                        if (visitor.getEval(source, variableValues, left)) {
-                            l += source
-                        }
+            for (transition in visitor.kripke.transitions.values) {
+                val source = visitor.kripke.states[transition.from]!!
+                val destination = visitor.kripke.states[transition.to]!!
+
+                if (destination === state && seenBefore[source] != true) {
+                    seenBefore[source] = true
+
+                    if (visitor.getEval(source, left)) {
+                        l += source
                     }
                 }
-
-                l -= state
-                break
             }
         }
     }

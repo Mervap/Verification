@@ -1,11 +1,9 @@
 package itmo.verifier.model
 
-import CTLFormula
-import CTLGrammar
-import com.github.h0tk3y.betterParse.combinators.*
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import itmo.verifier.*
-import java.util.BitSet
+import itmo.verifier.formula.CTLGrammar
+import itmo.verifier.formula.CTLFormula
 
 enum class VariableType(s: String) {
     VOLATILE("volatile"), PLAIN("")
@@ -19,7 +17,6 @@ class Model(diagram:Diagram) {
     val events: List<EventKripke>
     val variables: Map<String, Variable>
     val variableOrder: MutableMap<String, Int>
-    val variableValues = BitSet()
     val states: Map<String, State>
     val transitions: Map<String, Transition>
 
@@ -36,7 +33,6 @@ class Model(diagram:Diagram) {
             variables[v.name] = v
         }
         variableOrder = variables.keys.asSequence().withIndex().map { it.value to it.index }.toMap().toMutableMap()
-        events.forEach { variableValues.set(variableOrder[it.name]!!) }
 
         name = diagram.name
         states = mutableMapOf()
@@ -63,8 +59,10 @@ class Model(diagram:Diagram) {
                         }
                     }
                 }
-                var from:String = ""
-                var to:String = ""
+
+                var from = ""
+                var to = ""
+
                 for (s in states.values) {
                     if (s.incomingTransitions.contains(w.id)) {
                         to = s.id
@@ -73,10 +71,20 @@ class Model(diagram:Diagram) {
                         from = s.id
                     }
                 }
+
+                states[w.id] = State(
+                    w.id,
+                    w.id,
+                    0,
+                    setOf(from),
+                    setOf(to),
+                    eventsList.asSequence().map { it.name }.toSet() +
+                        actionsList.asSequence().map { it.name }.toSet(),
+                )
+
                 transitions[w.id] = Transition(w.id, from, to, eventsList, codeList, actionsList, guardList)
                 actionsList.forEach {
                     variableOrder[it.name] = variableOrder.size
-                    variableValues[variableOrder[it.name]!!] = false
                 }
             } else {
                 var name = DEFAULT_STATE_NAME
@@ -131,9 +139,14 @@ class Model(diagram:Diagram) {
     }
 }
 
-class State(val id: String, val name: String, val type: Int, val incomingTransitions: Set<String>, val outgoingTransitions: Set<String>) {
-
-}
+class State(
+    val id: String,
+    val name: String,
+    val type: Int,
+    val incomingTransitions: Set<String>,
+    val outgoingTransitions: Set<String>,
+    val elements: Set<String> = setOf(name),
+)
 
 class Transition(val id: String, var from: String, var to: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {
 }

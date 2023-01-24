@@ -1,10 +1,9 @@
 package itmo.verifier.model
 
-import CTLFormula
-import CTLGrammar
-import com.github.h0tk3y.betterParse.combinators.*
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import itmo.verifier.*
+import itmo.verifier.formula.CTLGrammar
+import itmo.verifier.formula.CTLFormula
 
 enum class VariableType(s: String) {
     VOLATILE("volatile"), PLAIN("")
@@ -17,7 +16,7 @@ class Model(diagram:Diagram) {
     val autoReject: Boolean
     val events: List<EventKripke>
     val variables: Map<String, Variable>
-    val variableValues: MutableMap<String, Boolean>
+    val variableOrder: MutableMap<String, Int>
     val states: Map<String, State>
     val transitions: Map<String, Transition>
 
@@ -33,8 +32,7 @@ class Model(diagram:Diagram) {
             val v = parseDeclaration(d.declaration)
             variables[v.name] = v
         }
-        variableValues = variables.mapValues { it.value.value }.toMutableMap()
-        events.forEach { variableValues[it.name] = false }
+        variableOrder = variables.keys.asSequence().withIndex().map { it.value to it.index }.toMap().toMutableMap()
 
         name = diagram.name
         states = mutableMapOf()
@@ -61,8 +59,33 @@ class Model(diagram:Diagram) {
                         }
                     }
                 }
-                transitions[w.id] = Transition(w.id, "", "", eventsList, codeList, actionsList, guardList)
-                actionsList.forEach { variableValues[it.name] = false }
+
+                var from = ""
+                var to = ""
+
+                for (s in states.values) {
+                    if (s.incomingTransitions.contains(w.id)) {
+                        to = s.id
+                    }
+                    if (s.outgoingTransitions.contains(w.id)) {
+                        from = s.id
+                    }
+                }
+
+                states[w.id] = State(
+                    w.id,
+                    w.id,
+                    0,
+                    setOf(from),
+                    setOf(to),
+                    eventsList.asSequence().map { it.name }.toSet() +
+                        actionsList.asSequence().map { it.name }.toSet(),
+                )
+
+                transitions[w.id] = Transition(w.id, from, to, eventsList, codeList, actionsList, guardList)
+                actionsList.forEach {
+                    variableOrder[it.name] = variableOrder.size
+                }
             } else {
                 var name = DEFAULT_STATE_NAME
                 var type: Int = 0
@@ -81,20 +104,6 @@ class Model(diagram:Diagram) {
                 }
                 states[w.id] = State(w.id, name, type, incoming, outgoing)
             }
-        }
-        for (t in transitions.keys) {
-            var from:String = ""
-            var to:String = ""
-            for (s in states.values) {
-                if (s.incomingTransitions.contains(t)) {
-                    to = s.id
-                }
-                if (s.outgoingTransitions.contains(t)) {
-                    from = s.id
-                }
-            }
-            transitions[t]!!.from = from
-            transitions[t]!!.to = to
         }
     }
 
@@ -130,9 +139,14 @@ class Model(diagram:Diagram) {
     }
 }
 
-class State(val id: String, val name: String, val type: Int, val incomingTransitions: Set<String>, val outgoingTransitions: Set<String>) {
-
-}
+class State(
+    val id: String,
+    val name: String,
+    val type: Int,
+    val incomingTransitions: Set<String>,
+    val outgoingTransitions: Set<String>,
+    val elements: Set<String> = setOf(name),
+)
 
 class Transition(val id: String, var from: String, var to: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {
 }

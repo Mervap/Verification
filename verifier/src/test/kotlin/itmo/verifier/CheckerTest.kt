@@ -155,4 +155,22 @@ class CheckerTest {
         val res = checker.check()
         assertEquals(listOf("Formula is false for model"), res)
     }
+
+    @Test
+    fun `off test`() {
+        val formulaString = "AU [OFF, PRESTART]"
+        val module = SerializersModule {}
+        val xml = XML(module) {
+            indentString = "    "
+            xmlDeclMode = XmlDeclMode.Minimal
+            autoPolymorphic = true
+        }
+
+        val serializer = serializer<Diagram>()
+        val m = Model(xml.decodeFromString(serializer, SerializationTest.XML_STRING))
+        var formula = CTLGrammar.parseToEnd(formulaString).optimize()
+        val checker = Checker(m, formula)
+        val res = checker.check()
+        assertEquals(listOf("Formula is false for model"), res)
+    }
 }

@@ -13,11 +13,11 @@
       "type": "file",
       "path": "src/main/kotlin/itmo/analyzer/Project.kt",
       "language": "kotlin",
-      "line": 34,
+      "line": 38,
       "offset": 13,
       "length": 4,
       "code": {
-        "startLine": 32,
+        "startLine": 36,
         "length": 4,
         "offset": 66,
         "surroundingCode": "        fun from(path: String) = from(Path.of(path))\n\n        fun from(path: Path): Project {\n            val roots = ParserCollectionStrategy(ParserConfiguration().setLanguageLevel(JAVA_17)).collect(path).sourceRoots\n            val parsed = mutableListOf<CompilationUnit>()"
@@ -28,7 +28,7 @@
     "module": "analyzer.main",
     "inspectionName": "MemberVisibilityCanBePrivate"
   },
-  "hash": "d3e8c1287975087d17a3d5c8fdcbee76bbdff0c284b778b82bbb44e9e5794060"
+  "hash": "39affdbd4971759bec5bf45a9462ef9520f013b2a4f3bba7f61b24b4efe15fff"
 },{
   "tool": "Code Inspection",
   "category": "Redundant constructs",
@@ -68,37 +68,6 @@
     "kotlin"
   ],
   "severity": "High",
-  "comment": "Function \"from\" is never used",
-  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/analyzer/Project.kt",
-      "language": "kotlin",
-      "line": 30,
-      "offset": 13,
-      "length": 4,
-      "code": {
-        "startLine": 28,
-        "length": 4,
-        "offset": 36,
-        "surroundingCode": "\n    companion object {\n        fun from(file: File) = from(file.toPath())\n\n        fun from(path: String) = from(Path.of(path))"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "analyzer.main",
-    "inspectionName": "UnusedSymbol"
-  },
-  "hash": "65bc54ebcc50a03c298987a997f4d65d94b4688b34bbbf8d254500cfedc2e023"
-},{
-  "tool": "Code Inspection",
-  "category": "Redundant constructs",
-  "type": "Unused symbol",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "High",
   "comment": "Function \"getClasses\" is never used",
   "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
   "sources": [
@@ -106,11 +75,11 @@
       "type": "file",
       "path": "src/main/kotlin/itmo/analyzer/Project.kt",
       "language": "kotlin",
-      "line": 25,
+      "line": 29,
       "offset": 9,
       "length": 10,
       "code": {
-        "startLine": 23,
+        "startLine": 27,
         "length": 10,
         "offset": 15,
         "surroundingCode": "    }\n\n    fun getClasses(): List<ClassOrInterfaceDeclaration> = files.flatMap {\n        it.types.filterIsInstance<ClassOrInterfaceDeclaration>()\n    }"
@@ -121,7 +90,7 @@
     "module": "analyzer.main",
     "inspectionName": "UnusedSymbol"
   },
-  "hash": "1fcfca0a2c4574b059dee03776c4b94ec46c76f77844c2717f71ebab3a530d0a"
+  "hash": "ce11b0a570596ec8093813bbcca2743eadc38528ec3a7d724e94f28e042fc01b"
 },{
   "tool": "Code Inspection",
   "category": "Redundant constructs",
@@ -137,11 +106,11 @@
       "type": "file",
       "path": "src/main/kotlin/itmo/analyzer/Project.kt",
       "language": "kotlin",
-      "line": 21,
+      "line": 25,
       "offset": 9,
       "length": 14,
       "code": {
-        "startLine": 19,
+        "startLine": 23,
         "length": 14,
         "offset": 13,
         "surroundingCode": ") {\n\n    fun getClassByName(name: String): ClassOrInterfaceDeclaration? = files.firstNotNullOfOrNull {\n        it.getClassByName(name).getOrNull()\n    }"
@@ -152,7 +121,38 @@
     "module": "analyzer.main",
     "inspectionName": "UnusedSymbol"
   },
-  "hash": "fcacfa459d6aeb8456365cf97248bc54af824c25bd79a2c11c303064f71807e0"
+  "hash": "5de5eb42ee27d2d32a4d0af4d232e999da8b988873fb21f7fed820f7e7fe20d2"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Function \"from\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/analyzer/Project.kt",
+      "language": "kotlin",
+      "line": 34,
+      "offset": 13,
+      "length": 4,
+      "code": {
+        "startLine": 32,
+        "length": 4,
+        "offset": 36,
+        "surroundingCode": "\n    companion object {\n        fun from(file: File) = from(file.toPath())\n\n        fun from(path: String) = from(Path.of(path))"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "analyzer.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "28455ac8ba7b6005c14e382b9cd85de8079fab0273b993c8d04ae55b0c783d9a"
 },{
   "tool": "Code Inspection",
   "category": "Redundant constructs",
@@ -199,11 +199,11 @@
       "type": "file",
       "path": "src/main/kotlin/itmo/analyzer/analyze/ProblemFinder.kt",
       "language": "kotlin",
-      "line": 24,
+      "line": 32,
       "offset": 9,
       "length": 10,
       "code": {
-        "startLine": 22,
+        "startLine": 30,
         "length": 10,
         "offset": 15,
         "surroundingCode": "    }\n\n    fun addProblem(problem: Problem) {\n        mutableProblems.add(problem)\n    }"
@@ -214,5 +214,5 @@
     "module": "analyzer.main",
     "inspectionName": "UnusedSymbol"
   },
-  "hash": "d6be57f2bd2403b55cfff271cd8cc9277580b5793a1b7be142d870a2ad4fa797"
+  "hash": "4a2296c8de47d019494138ddacf6610004fd98d87e9533cdcb832869ef2061a9"
 }]}

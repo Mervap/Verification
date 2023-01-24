@@ -8,10 +8,8 @@ import nl.adaptivity.xmlutil.serialization.XML
 import kotlin.test.Test
 
 class SerializationTest {
-
-    @Test
-    fun `serialization sample test`() {
-        val xmlString = """
+    companion object {
+        val XML_STRING = """
             <diagram>
               <name>Switcher</name>
               <data>
@@ -240,6 +238,10 @@ class SerializationTest {
               </widget>
             </diagram>
         """.trimIndent()
+    }
+    @Test
+    fun `serialization sample test`() {
+
 
         val module = SerializersModule {}
         val xml = XML(module) {
@@ -249,6 +251,6 @@ class SerializationTest {
         }
 
         val serializer = serializer<Diagram>()
-        println(xml.decodeFromString(serializer, xmlString))
+        println(xml.decodeFromString(serializer, XML_STRING))
     }
 }

@@ -47,6 +47,7 @@ data class Element(val name: String) : CTLFormula() {
 
         if (!visitor.isVisited(variableValues, this)) {
             for (s in visitor.kripke.states.values) {
+                val isState = visitor.kripke.states.any {it.value.name == name}
                 val isEvent = visitor.kripke.events.any { it.name == name}
                 val isAction = visitor.kripke.transitions.values
                     .any { it.actions.any { action -> action.name == name } }
@@ -54,8 +55,11 @@ data class Element(val name: String) : CTLFormula() {
                 if (isEvent || isAction) {
                     variableValues[name] = true
                 }
-
-                visitor.makeEval(s, variableValues, this, visitor.kripke.variables[name]!!.value)
+                if (isState) {
+                    visitor.makeEval(s, variableValues, this, s.name == name)
+                } else {
+                    visitor.makeEval(s, variableValues, this, variableValues[name]!!)
+                }
             }
         }
         return
@@ -145,7 +149,6 @@ data class EX(
                     transition.code.forEach { (variable, value) ->
                         newVariableValues[variable.name] = value
                     }
-
                     visitor.getEval(visitor.kripke.states[transition.to]!!, newVariableValues, formula)
                 }
 

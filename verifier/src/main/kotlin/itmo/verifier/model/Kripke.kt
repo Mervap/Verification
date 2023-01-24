@@ -61,17 +61,7 @@ class Model(diagram:Diagram) {
                         }
                     }
                 }
-                var from:String = ""
-                var to:String = ""
-                for (s in states.values) {
-                    if (s.incomingTransitions.contains(w.id)) {
-                        to = s.id
-                    }
-                    if (s.outgoingTransitions.contains(w.id)) {
-                        from = s.id
-                    }
-                }
-                transitions[w.id] = Transition(w.id, from, to, eventsList, codeList, actionsList, guardList)
+                transitions[w.id] = Transition(w.id, "", "", eventsList, codeList, actionsList, guardList)
                 actionsList.forEach { variableValues[it.name] = false }
             } else {
                 var name = DEFAULT_STATE_NAME
@@ -91,6 +81,20 @@ class Model(diagram:Diagram) {
                 }
                 states[w.id] = State(w.id, name, type, incoming, outgoing)
             }
+        }
+        for (t in transitions.keys) {
+            var from:String = ""
+            var to:String = ""
+            for (s in states.values) {
+                if (s.incomingTransitions.contains(t)) {
+                    to = s.id
+                }
+                if (s.outgoingTransitions.contains(t)) {
+                    from = s.id
+                }
+            }
+            transitions[t]!!.from = from
+            transitions[t]!!.to = to
         }
     }
 

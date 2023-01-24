@@ -35,6 +35,8 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.withType<ShadowJar> {
+    archiveFileName.set("analyzer.jar")
+    destinationDirectory.set(file("."))
     manifest {
         attributes("Main-Class" to "itmo.analyzer.MainKt")
     }

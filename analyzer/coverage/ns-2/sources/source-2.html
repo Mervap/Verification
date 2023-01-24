@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > ASTPrinterCommand</title>
+  <title>Coverage Report > AnalyzeCommandKt</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -18,15 +18,18 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">itmo.analyzer.ast</a>
+    <a href="../index.html">itmo.analyzer.analyze</a>
 </div>
 
-<h1>Coverage Summary for Class: ASTPrinterCommand (itmo.analyzer.ast)</h1>
+<h1>Coverage Summary for Class: AnalyzeCommandKt (itmo.analyzer.analyze)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -45,131 +48,49 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">ASTPrinterCommand</td>
+  <td class="name">AnalyzeCommandKt</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/2)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/6)
+    (4/4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    75%
   </span>
   <span class="absValue">
-    (0/17)
+    (18/24)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    96.6%
   </span>
   <span class="absValue">
-    (0/138)
-  </span>
-</td>
-</tr>
-  <tr>
-    <td class="name">ASTPrinterCommand$run$1</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/1)
-  </span>
-</td>
-    <td class="coverageStat"/>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/1)
+    (28/29)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    84.1%
   </span>
   <span class="absValue">
-    (0/6)
-  </span>
-</td>
-  </tr>
-  <tr>
-    <td class="name">ASTPrinterCommand$run$parseResult$2</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/1)
-  </span>
-</td>
-    <td class="coverageStat"/>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/3)
-  </span>
-</td>
-  </tr>
-<tr>
-  <td class="name"><strong>Total</strong></td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/4)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/6)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/19)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/147)
+    (180/214)
   </span>
 </td>
 </tr>
+
 </table>
 
 <br/>
@@ -177,40 +98,83 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode"><b class="nc">&nbsp;package itmo.analyzer.ast</b>
+<code class="sourceCode" id="sourceCode">&nbsp;package itmo.analyzer.analyze
 &nbsp;
 &nbsp;import com.github.ajalt.clikt.core.CliktCommand
 &nbsp;import com.github.ajalt.clikt.parameters.arguments.argument
+&nbsp;import itmo.analyzer.Project
+&nbsp;import itmo.analyzer.ast.path
 &nbsp;import java.io.File
+&nbsp;import java.nio.file.Path
+&nbsp;import kotlin.io.path.relativeTo
 &nbsp;
-<b class="nc">&nbsp;class ASTPrinterCommand : CliktCommand(name = &quot;printAST&quot;, help = &quot;Prints AST for given java file&quot;) {</b>
+&nbsp;class AnalyzeCommand : CliktCommand(name = &quot;analyze&quot;, help = &quot;Prints to stdout project problems&quot;) {
 &nbsp;
-<b class="nc">&nbsp;    private val filePath by argument()</b>
+&nbsp;    private val projectDir by argument()
 &nbsp;
 &nbsp;    override fun run() {
-<b class="nc">&nbsp;        val file = File(filePath)</b>
-<b class="nc">&nbsp;        val absolutePath = file.absoluteFile.canonicalPath</b>
-<b class="nc">&nbsp;        val parseResult by lazy { file.tryParseJavaCode() }</b>
-<b class="nc">&nbsp;        when {</b>
-<b class="nc">&nbsp;            !file.exists() -&gt; {</b>
-<b class="nc">&nbsp;                println(&quot;File &#39;$absolutePath&#39; not exists&quot;)</b>
+&nbsp;        val baseFile = File(projectDir)
+&nbsp;        val absolutePath = baseFile.absoluteFile.canonicalPath
+&nbsp;        when {
+&nbsp;            !baseFile.exists() -&gt; {
+&nbsp;                println(&quot;Directory &#39;$absolutePath&#39; not exists&quot;)
+&nbsp;                return
 &nbsp;            }
-<b class="nc">&nbsp;            file.isDirectory -&gt; {</b>
-<b class="nc">&nbsp;                println(&quot;&#39;$absolutePath&#39; is a directory&quot;)</b>
-&nbsp;            }
-<b class="nc">&nbsp;            !parseResult.isSuccessful -&gt; {</b>
-<b class="nc">&nbsp;                println(&quot;&quot;&quot;</b>
-<b class="nc">&nbsp;                    |Cannot parse &#39;$absolutePath&#39; as java file</b>
-<b class="nc">&nbsp;                    |  ${parseResult.problems.joinToString(&quot;\n  |&quot;) { it.verboseMessage }}</b>
-<b class="nc">&nbsp;                &quot;&quot;&quot;.trimMargin())</b>
-&nbsp;            }
-&nbsp;            else -&gt; {
-<b class="nc">&nbsp;                println(parseResult.result.get().printAST())</b>
+&nbsp;            !baseFile.isDirectory -&gt; {
+&nbsp;                println(&quot;&#39;$absolutePath&#39; is not a directory&quot;)
+&nbsp;                return
 &nbsp;            }
 &nbsp;        }
 &nbsp;
+&nbsp;        println(collectProjectProblems(absolutePath))
 &nbsp;    }
 &nbsp;}
+&nbsp;
+<b class="fc">&nbsp;fun collectProjectProblems(projectDir: String): String = buildString {</b>
+<b class="fc">&nbsp;    val project = Project.from(projectDir)</b>
+<b class="pc">&nbsp;    if (project.files.isEmpty() &amp;&amp; project.problemFiles.isEmpty()) {</b>
+<b class="fc">&nbsp;        append(&quot;No java project files found. Check that &#39;$projectDir&#39; is correct java project directory&quot;)</b>
+<b class="fc">&nbsp;        appendLine()</b>
+<b class="fc">&nbsp;        return@buildString</b>
+&nbsp;    }
+&nbsp;
+<b class="pc">&nbsp;    for ((path, file) in project.problemFiles) {</b>
+<b class="nc">&nbsp;        appendFileProblems(project.projectDir, path, file.problems.map { it.verboseMessage })</b>
+&nbsp;    }
+&nbsp;
+<b class="pc">&nbsp;    var found = project.problemFiles.isNotEmpty()</b>
+<b class="fc">&nbsp;    for (file in project.files) {</b>
+<b class="fc">&nbsp;        val context = ProblemFinderContext(project)</b>
+<b class="fc">&nbsp;        for (finder in problemFinders) {</b>
+<b class="fc">&nbsp;            finder.visit(file, context)</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        val problems = context.problems</b>
+<b class="fc">&nbsp;        if (problems.isNotEmpty()) {</b>
+<b class="fc">&nbsp;            appendFileProblems(project.projectDir, file.path, problems.map { it.presentation })</b>
+<b class="fc">&nbsp;            found = true</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    if (!found) {</b>
+<b class="fc">&nbsp;        append(&quot;No any problems found!&quot;)</b>
+<b class="fc">&nbsp;        appendLine()</b>
+&nbsp;    }
+<b class="fc">&nbsp;}</b>
+&nbsp;
+&nbsp;fun StringBuilder.appendFileProblems(projectPath: Path, filepath: Path?, problems: List&lt;String&gt;) {
+<b class="pc">&nbsp;    val path = filepath?.relativeTo(projectPath)?.toString() ?: &quot;&lt;unknown file&gt;&quot;</b>
+<b class="fc">&nbsp;    append(&quot;&quot;&quot;</b>
+<b class="fc">&nbsp;        |$path: ${problems.size} problems founded</b>
+<b class="fc">&nbsp;        |  ${problems.joinToString(&quot;\n|  &quot;)}</b>
+&nbsp;        |
+<b class="fc">&nbsp;    &quot;&quot;&quot;.trimMargin())</b>
+<b class="fc">&nbsp;    appendLine()</b>
+&nbsp;}
+&nbsp;
+<b class="fc">&nbsp;val problemFinders: List&lt;ProblemFinder&gt; = listOf(</b>
+<b class="fc">&nbsp;    WrongPackageFinder()</b>
+&nbsp;)
 </code>
 </pre>
 </div>
@@ -234,7 +198,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-23 19:28</div>
+    <div style="float:right;">generated on 2023-01-24 15:31</div>
 </div>
 </body>
 </html>

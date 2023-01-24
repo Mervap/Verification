@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > MainKt</title>
+  <title>Coverage Report > AstUtilKt</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -18,10 +18,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">itmo.analyzer</a>
+    <a href="../index.html">itmo.analyzer.ast</a>
 </div>
 
-<h1>Coverage Summary for Class: MainKt (itmo.analyzer)</h1>
+<h1>Coverage Summary for Class: AstUtilKt (itmo.analyzer.ast)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -48,38 +48,45 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">MainKt</td>
+  <td class="name">AstUtilKt</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
-  </span>
-</td>
-    <td class="coverageStat"/>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/3)
+    (2/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    50%
   </span>
   <span class="absValue">
-    (0/26)
+    (2/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    84.6%
+  </span>
+  <span class="absValue">
+    (22/26)
   </span>
 </td>
 </tr>
@@ -91,20 +98,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package itmo.analyzer
+<code class="sourceCode" id="sourceCode">&nbsp;package itmo.analyzer.ast
 &nbsp;
-&nbsp;import com.github.ajalt.clikt.core.CliktCommand
-&nbsp;import com.github.ajalt.clikt.core.subcommands
-&nbsp;import itmo.analyzer.analyze.AnalyzeCommand
-&nbsp;import itmo.analyzer.ast.ASTPrinterCommand
+&nbsp;import com.github.javaparser.ast.CompilationUnit
+&nbsp;import java.nio.file.Path
+&nbsp;import kotlin.jvm.optionals.getOrNull
 &nbsp;
-&nbsp;class AnalyzerCommand : CliktCommand() {
-&nbsp;    override fun run() = Unit
-&nbsp;}
+&nbsp;val CompilationUnit.fileName: String?
+<b class="pc">&nbsp;    get() = storage.getOrNull()?.fileName</b>
 &nbsp;
-<b class="nc">&nbsp;fun main(args: Array&lt;String&gt;) = AnalyzerCommand()</b>
-<b class="nc">&nbsp;    .subcommands(ASTPrinterCommand(), AnalyzeCommand())</b>
-<b class="nc">&nbsp;    .main(args)</b>
+&nbsp;val CompilationUnit.path: Path?
+<b class="pc">&nbsp;    get() = storage.getOrNull()?.path</b>
 </code>
 </pre>
 </div>
@@ -128,7 +132,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-24 15:31</div>
+    <div style="float:right;">generated on 2023-01-24 15:30</div>
 </div>
 </body>
 </html>

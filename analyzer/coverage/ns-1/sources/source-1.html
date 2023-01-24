@@ -95,6 +95,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import com.github.ajalt.clikt.core.CliktCommand
 &nbsp;import com.github.ajalt.clikt.core.subcommands
+&nbsp;import itmo.analyzer.analyze.AnalyzeCommand
 &nbsp;import itmo.analyzer.ast.ASTPrinterCommand
 &nbsp;
 <b class="nc">&nbsp;class AnalyzerCommand : CliktCommand() {</b>
@@ -102,7 +103,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;}
 &nbsp;
 &nbsp;fun main(args: Array&lt;String&gt;) = AnalyzerCommand()
-&nbsp;    .subcommands(ASTPrinterCommand())
+&nbsp;    .subcommands(ASTPrinterCommand(), AnalyzeCommand())
 &nbsp;    .main(args)
 </code>
 </pre>
@@ -127,7 +128,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-23 19:28</div>
+    <div style="float:right;">generated on 2023-01-24 15:31</div>
 </div>
 </body>
 </html>

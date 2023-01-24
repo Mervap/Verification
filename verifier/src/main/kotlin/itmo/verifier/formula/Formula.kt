@@ -5,6 +5,7 @@ import com.github.h0tk3y.betterParse.lexer.literalToken
 import com.github.h0tk3y.betterParse.lexer.regexToken
 import com.github.h0tk3y.betterParse.parser.Parser
 import itmo.verifier.model.Transition
+import itmo.verifier.model.State
 import itmo.verifier.model.Variable
 import itmo.verifier.visitor.FormulaVisitor
 
@@ -164,20 +165,101 @@ data class AU(
     }
 
     override fun visit(visitor: FormulaVisitor) {
-        TODO("Not yet implemented")
+        val variableValues = visitor.kripke.variableValues
+
+        if (visitor.isVisited(variableValues, this)) return
+
+        left.visit(visitor)
+        right.visit(visitor)
+
+        val l = mutableSetOf<State>()
+        val nb = mutableMapOf<State, Int>()
+        val transitions = visitor.kripke.transitions
+
+        for (state in visitor.kripke.states.values) {
+            val to = visitor.kripke.transitions.values.filter { it.from == state.name }
+            nb[state] = to.size
+            visitor.makeEval(state, variableValues, this, false)
+
+            if (visitor.getEval(state, variableValues, right)) {
+                l += state
+            }
+        }
+
+        while (l.size > 0) {
+            for (state in l) {
+                visitor.makeEval(state, variableValues, this, true)
+
+                for (transition in transitions.values) {
+                    val source = visitor.kripke.states[transition.from]!!
+                    val destination = visitor.kripke.states[transition.to]!!
+
+                    if (destination === state) {
+                        nb[source] = nb[source]!! - 1
+                        if (nb[source] == 0
+                            && visitor.getEval(source, variableValues, left)
+                            && !visitor.getEval(source, variableValues, this)
+                        ) {
+                            l += source
+                        }
+                    }
+                }
+
+                l -= state
+                break
+            }
+        }
     }
 }
 
 data class EU(
     val left: CTLFormula,
-    val right: CTLFormula
+    val right: CTLFormula,
 ) : CTLFormula() {
     override fun optimize(): CTLFormula {
         return EU(left.optimize(), right.optimize())
     }
 
     override fun visit(visitor: FormulaVisitor) {
-        TODO("Not yet implemented")
+        val variableValues = visitor.kripke.variableValues
+
+        if (visitor.isVisited(variableValues, this)) return
+
+        left.visit(visitor)
+        right.visit(visitor)
+
+        val l = mutableSetOf<State>()
+        val seenBefore = mutableMapOf<State, Boolean>()
+
+        for (state in visitor.kripke.states.values) {
+            visitor.makeEval(state, variableValues, this, false)
+            seenBefore[state] = false
+
+            if (visitor.getEval(state, variableValues, right)) {
+                l += state
+            }
+        }
+
+        while (l.size > 0) {
+            for (state in l) {
+                visitor.makeEval(state, variableValues, this, true)
+
+                for (transition in visitor.kripke.transitions.values) {
+                    val source = visitor.kripke.states[transition.from]!!
+                    val destination = visitor.kripke.states[transition.to]!!
+
+                    if (destination === state && seenBefore[source] != true) {
+                        seenBefore[source] = true
+                        if (visitor.getEval(source, variableValues, left)) {
+                            l += source
+                        }
+                    }
+                }
+
+                l -= state
+                break
+            }
+        }
     }
 }
 

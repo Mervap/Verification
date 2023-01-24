@@ -130,21 +130,21 @@
     "kotlin"
   ],
   "severity": "High",
-  "comment": "Function \"getClassByName\" is never used",
+  "comment": "Function \"getClasses\" is never used",
   "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
   "sources": [
     {
       "type": "file",
       "path": "src/main/kotlin/itmo/analyzer/Project.kt",
       "language": "kotlin",
-      "line": 21,
+      "line": 25,
       "offset": 9,
-      "length": 14,
+      "length": 10,
       "code": {
-        "startLine": 19,
-        "length": 14,
-        "offset": 13,
-        "surroundingCode": ") {\n\n    fun getClassByName(name: String): ClassOrInterfaceDeclaration? = files.firstNotNullOfOrNull {\n        it.getClassByName(name).getOrNull()\n    }"
+        "startLine": 23,
+        "length": 10,
+        "offset": 15,
+        "surroundingCode": "    }\n\n    fun getClasses(): List<ClassOrInterfaceDeclaration> = files.flatMap {\n        it.types.filterIsInstance<ClassOrInterfaceDeclaration>()\n    }"
       }
     }
   ],
@@ -152,7 +152,7 @@
     "module": "analyzer.main",
     "inspectionName": "UnusedSymbol"
   },
-  "hash": "fcacfa459d6aeb8456365cf97248bc54af824c25bd79a2c11c303064f71807e0"
+  "hash": "1fcfca0a2c4574b059dee03776c4b94ec46c76f77844c2717f71ebab3a530d0a"
 },{
   "tool": "Code Inspection",
   "category": "Redundant constructs",
@@ -192,21 +192,21 @@
     "kotlin"
   ],
   "severity": "High",
-  "comment": "Function \"getClasses\" is never used",
+  "comment": "Function \"getClassByName\" is never used",
   "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
   "sources": [
     {
       "type": "file",
       "path": "src/main/kotlin/itmo/analyzer/Project.kt",
       "language": "kotlin",
-      "line": 25,
+      "line": 21,
       "offset": 9,
-      "length": 10,
+      "length": 14,
       "code": {
-        "startLine": 23,
-        "length": 10,
-        "offset": 15,
-        "surroundingCode": "    }\n\n    fun getClasses(): List<ClassOrInterfaceDeclaration> = files.flatMap {\n        it.types.filterIsInstance<ClassOrInterfaceDeclaration>()\n    }"
+        "startLine": 19,
+        "length": 14,
+        "offset": 13,
+        "surroundingCode": ") {\n\n    fun getClassByName(name: String): ClassOrInterfaceDeclaration? = files.firstNotNullOfOrNull {\n        it.getClassByName(name).getOrNull()\n    }"
       }
     }
   ],
@@ -214,5 +214,5 @@
     "module": "analyzer.main",
     "inspectionName": "UnusedSymbol"
   },
-  "hash": "1fcfca0a2c4574b059dee03776c4b94ec46c76f77844c2717f71ebab3a530d0a"
+  "hash": "fcacfa459d6aeb8456365cf97248bc54af824c25bd79a2c11c303064f71807e0"
 }]}

@@ -27,6 +27,11 @@ You can found sample project in `sample-project` directory.
 java -jar analyzer.jar analyze sample-project
 ```
 
+## Rules
+
+* Syntax errors
+* Find files with bad `package` directive (which don't match file tree structure)
+
 ## Stack
 
 * [javaparser](https://github.com/javaparser/javaparser). This lib provides parser for java files and utilities t

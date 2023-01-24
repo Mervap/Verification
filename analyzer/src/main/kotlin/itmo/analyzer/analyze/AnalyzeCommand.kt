@@ -72,6 +72,9 @@ fun StringBuilder.appendFileProblems(projectPath: Path, filepath: Path?, problem
     appendLine()
 }
 
+/**
+ * List of all applicable analyzers. To add one more just add it here
+ */
 val problemFinders: List<ProblemFinder> = listOf(
     WrongPackageFinder()
 )

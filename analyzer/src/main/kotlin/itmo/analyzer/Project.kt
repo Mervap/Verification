@@ -12,6 +12,10 @@ import java.io.File
 import java.nio.file.Path
 import kotlin.jvm.optionals.getOrNull
 
+
+/**
+ * Storage of information about the project. Provide info about all files and base path
+ */
 data class Project(
     val projectDir: Path,
     val files: List<CompilationUnit>,

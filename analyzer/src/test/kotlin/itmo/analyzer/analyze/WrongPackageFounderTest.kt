@@ -12,6 +12,9 @@ class WrongPackageFounderTest {
     @Test
     fun withProblems(testInfo: TestInfo) = doTest(testInfo) {
         """
+            itmo/test/model/Person.java: 1 problems founded
+              (line 5,col 16) Parse error. Found "}", expected one of  "!=" "%" "%=" "&" "&&" "&=" "*" "*=" "+" "+=" "-" "-=" "->" "/" "/=" "::" ";" "<" "<<=" "<=" "=" "==" ">" ">=" ">>=" ">>>=" "?" "^" "^=" "instanceof" "|" "|=" "||"
+
             itmo/test/Helper.java: 1 problems founded
               (line 1,col 9): Unexpected package for 'itmo/test/Helper.java': itmo.test.model
     

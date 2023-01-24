@@ -151,7 +151,7 @@ private class ASTPrinterVisitor(val out: StringBuilder, val configuration: Print
     }
 
     override fun visit(n: CompilationUnit, arg: String) = blockIndent(arg) { childIndent ->
-        n.appendNode("JAVA_FILE", arg, additionalInfo = n.storage.getOrNull()?.fileName)
+        n.appendNode("JAVA_FILE", arg, additionalInfo = n.fileName)
         n.module.acceptIfPresent(childIndent)
         n.packageDeclaration.acceptIfPresent(childIndent)
         n.imports.acceptAll(childIndent)

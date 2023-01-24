@@ -37,37 +37,6 @@
     "kotlin"
   ],
   "severity": "High",
-  "comment": "Property \"configuration\" is never used",
-  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/analyzer/ast/ASTPrinter.kt",
-      "language": "kotlin",
-      "line": 41,
-      "offset": 61,
-      "length": 13,
-      "code": {
-        "startLine": 39,
-        "length": 13,
-        "offset": 125,
-        "surroundingCode": " * Cannot use [VoidVisitorAdapter] - it do it in wierd order\n */\nprivate class ASTPrinterVisitor(val out: StringBuilder, val configuration: PrinterConfiguration) : VoidVisitorAdapter<String>() {\n    override fun visit(n: AnnotationDeclaration, arg: String) = blockIndent(arg) { childIndent ->\n        n.appendNode(\"ANNOTATION_DECLARATION\", arg)"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "analyzer.main",
-    "inspectionName": "UnusedSymbol"
-  },
-  "hash": "fd129e61efd8dedac8f31432c9d0b375dce03a5b97ddbcd9ff4186fce3f8ef04"
-},{
-  "tool": "Code Inspection",
-  "category": "Redundant constructs",
-  "type": "Unused symbol",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "High",
   "comment": "Function \"parseJavaCode\" is never used",
   "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
   "sources": [
@@ -91,68 +60,6 @@
     "inspectionName": "UnusedSymbol"
   },
   "hash": "59433faf467b515ffa04b056baa0d3d2c5b83b85380581c2b57fe97304a57693"
-},{
-  "tool": "Code Inspection",
-  "category": "Redundant constructs",
-  "type": "Unused symbol",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "High",
-  "comment": "Function \"addProblem\" is never used",
-  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/analyzer/analyze/ProblemFinder.kt",
-      "language": "kotlin",
-      "line": 24,
-      "offset": 9,
-      "length": 10,
-      "code": {
-        "startLine": 22,
-        "length": 10,
-        "offset": 15,
-        "surroundingCode": "    }\n\n    fun addProblem(problem: Problem) {\n        mutableProblems.add(problem)\n    }"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "analyzer.main",
-    "inspectionName": "UnusedSymbol"
-  },
-  "hash": "d6be57f2bd2403b55cfff271cd8cc9277580b5793a1b7be142d870a2ad4fa797"
-},{
-  "tool": "Code Inspection",
-  "category": "Redundant constructs",
-  "type": "Unused symbol",
-  "tags": [
-    "kotlin"
-  ],
-  "severity": "High",
-  "comment": "Function \"getClasses\" is never used",
-  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "src/main/kotlin/itmo/analyzer/Project.kt",
-      "language": "kotlin",
-      "line": 25,
-      "offset": 9,
-      "length": 10,
-      "code": {
-        "startLine": 23,
-        "length": 10,
-        "offset": 15,
-        "surroundingCode": "    }\n\n    fun getClasses(): List<ClassOrInterfaceDeclaration> = files.flatMap {\n        it.types.filterIsInstance<ClassOrInterfaceDeclaration>()\n    }"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "analyzer.main",
-    "inspectionName": "UnusedSymbol"
-  },
-  "hash": "1fcfca0a2c4574b059dee03776c4b94ec46c76f77844c2717f71ebab3a530d0a"
 },{
   "tool": "Code Inspection",
   "category": "Redundant constructs",
@@ -192,6 +99,37 @@
     "kotlin"
   ],
   "severity": "High",
+  "comment": "Function \"getClasses\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/analyzer/Project.kt",
+      "language": "kotlin",
+      "line": 25,
+      "offset": 9,
+      "length": 10,
+      "code": {
+        "startLine": 23,
+        "length": 10,
+        "offset": 15,
+        "surroundingCode": "    }\n\n    fun getClasses(): List<ClassOrInterfaceDeclaration> = files.flatMap {\n        it.types.filterIsInstance<ClassOrInterfaceDeclaration>()\n    }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "analyzer.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "1fcfca0a2c4574b059dee03776c4b94ec46c76f77844c2717f71ebab3a530d0a"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
   "comment": "Function \"getClassByName\" is never used",
   "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
   "sources": [
@@ -215,4 +153,66 @@
     "inspectionName": "UnusedSymbol"
   },
   "hash": "fcacfa459d6aeb8456365cf97248bc54af824c25bd79a2c11c303064f71807e0"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"configuration\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/analyzer/ast/ASTPrinter.kt",
+      "language": "kotlin",
+      "line": 41,
+      "offset": 61,
+      "length": 13,
+      "code": {
+        "startLine": 39,
+        "length": 13,
+        "offset": 125,
+        "surroundingCode": " * Cannot use [VoidVisitorAdapter] - it do it in wierd order\n */\nprivate class ASTPrinterVisitor(val out: StringBuilder, val configuration: PrinterConfiguration) : VoidVisitorAdapter<String>() {\n    override fun visit(n: AnnotationDeclaration, arg: String) = blockIndent(arg) { childIndent ->\n        n.appendNode(\"ANNOTATION_DECLARATION\", arg)"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "analyzer.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "fd129e61efd8dedac8f31432c9d0b375dce03a5b97ddbcd9ff4186fce3f8ef04"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Function \"addProblem\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/analyzer/analyze/ProblemFinder.kt",
+      "language": "kotlin",
+      "line": 24,
+      "offset": 9,
+      "length": 10,
+      "code": {
+        "startLine": 22,
+        "length": 10,
+        "offset": 15,
+        "surroundingCode": "    }\n\n    fun addProblem(problem: Problem) {\n        mutableProblems.add(problem)\n    }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "analyzer.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "d6be57f2bd2403b55cfff271cd8cc9277580b5793a1b7be142d870a2ad4fa797"
 }]}

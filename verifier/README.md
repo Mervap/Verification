@@ -19,7 +19,7 @@ CTL on subformulas verifier
 
 The example for sample from the assignment
 ```shell
-java -jar verifierer.jar src/test/kotlin/samples/model.xml src/test/kotlin/samples/formula.txt src/test/kotlin/samples/res.txt
+java -jar verifier.jar src/test/kotlin/samples/model.xml src/test/kotlin/samples/formula.txt src/test/kotlin/samples/res.txt
 
 ```
 

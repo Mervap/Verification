@@ -29,4 +29,5 @@ We did not support feature of making counter examples for failing formulas, beca
 Sources:
 * [textbook](https://books.ifmo.ru/file/pdf/805.pdf) The textbook on Verification
 * [parser-generator](https://github.com/h0tk3y/better-parse) Lib with support of parser generators in kotlin
-* []
+* [kotlinx-kover](https://github.com/Kotlin/kotlinx-kover). Gradle plugin for Kotlin code coverage
+* [Qodana](https://www.jetbrains.com/qodana/). Platform for static analysis for a bunch of popular languages

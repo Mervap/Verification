@@ -1,13 +1,18 @@
+package itmo.verifier.formula
+
 import com.github.h0tk3y.betterParse.combinators.*
 import com.github.h0tk3y.betterParse.grammar.Grammar
 import com.github.h0tk3y.betterParse.grammar.parser
 import com.github.h0tk3y.betterParse.lexer.literalToken
 import com.github.h0tk3y.betterParse.lexer.regexToken
 import com.github.h0tk3y.betterParse.parser.Parser
+import itmo.verifier.model.State
 import itmo.verifier.model.Variable
+import itmo.verifier.visitor.FormulaVisitor
 
 sealed class CTLFormula {
     abstract fun optimize(): CTLFormula
+    abstract fun visit(visitor: FormulaVisitor)
     open fun compute(elements: Map<String, Variable>): Boolean {
         return true
     }
@@ -18,6 +23,15 @@ object TRUE : CTLFormula() {
         return this
     }
 
+    override fun visit(visitor: FormulaVisitor) {
+        if (!visitor.isVisited(this)) {
+            for (s in visitor.kripke.states.values) {
+                visitor.makeEval(s,this, true)
+            }
+        }
+        return
+    }
+
     override fun compute(elements: Map<String, Variable>): Boolean {
         return true
     }
@@ -26,6 +40,16 @@ object TRUE : CTLFormula() {
 data class Element(val name: String) : CTLFormula() {
     override fun optimize(): CTLFormula {
         return this
+    }
+
+    override fun visit(visitor: FormulaVisitor) {
+        if (visitor.isVisited(this)) return
+
+        for (s in visitor.kripke.states.values) {
+            if (name in s.elements) {
+                visitor.makeEval(s, this, true)
+            }
+        }
     }
 
     override fun compute(elements: Map<String, Variable>): Boolean {
@@ -43,6 +67,16 @@ data class Not(
         return Not(formula.optimize())
     }
 
+    override fun visit(visitor: FormulaVisitor) {
+        if (!visitor.isVisited(this)) {
+            formula.visit(visitor)
+            for (s in visitor.kripke.states.values) {
+                visitor.makeEval(s, this, !(visitor.getEval(s, formula)))
+            }
+        }
+        return
+    }
+
     override fun compute(elements: Map<String, Variable>): Boolean {
         return !formula.compute(elements)
     }
@@ -51,9 +85,19 @@ data class Not(
 data class Or(
     val left: CTLFormula,
     val right: CTLFormula
-) : CTLFormula() {
+): CTLFormula() {
     override fun optimize(): CTLFormula {
         return Or(left.optimize(), right.optimize())
+    }
+
+    override fun visit(visitor: FormulaVisitor) {
+        if (!visitor.isVisited(this)) {
+            left.visit(visitor)
+            right.visit(visitor)
+            for (s in visitor.kripke.states.values) {
+                visitor.makeEval(s, this, visitor.getEval(s, left) || visitor.getEval(s, right))
+            }
+        }
     }
 
     override fun compute(elements: Map<String, Variable>): Boolean {
@@ -67,6 +111,24 @@ data class EX(
     override fun optimize(): CTLFormula {
         return EX(formula.optimize())
     }
+    override fun visit(visitor: FormulaVisitor) {
+        if (!visitor.isVisited(this)) {
+            formula.visit(visitor)
+
+            for (s in visitor.kripke.states.values) {
+                visitor.makeEval(s, this, false)
+
+                val ts = s.outgoingTransitions
+                val transitions = visitor.kripke.transitions
+
+                val status = ts.any { t ->
+                    visitor.getEval(visitor.kripke.states[transitions[t]!!.to]!!, formula)
+                }
+
+                visitor.makeEval(s, this, status)
+            }
+        }
+    }
 }
 
 data class AU(
@@ -76,14 +138,94 @@ data class AU(
     override fun optimize(): CTLFormula {
         return AU(left.optimize(), right.optimize())
     }
+
+    override fun visit(visitor: FormulaVisitor) {
+        if (visitor.isVisited(this)) return
+
+        left.visit(visitor)
+        right.visit(visitor)
+
+        val l = ArrayDeque<State>()
+        val nb = mutableMapOf<State, Int>()
+        val transitions = visitor.kripke.transitions
+
+        for (state in visitor.kripke.states.values) {
+            val to = transitions.values.filter { it.from == state.id && (!transitions.containsKey(state.id) && !visitor.kripke.addedTransitions.contains(it.id) ||
+                    transitions.containsKey(state.id))
+            }
+            nb[state] = to.size
+            visitor.makeEval(state, this, false)
+
+            if (visitor.getEval(state, right)) {
+                l += state
+            }
+        }
+
+        while (l.isNotEmpty()) {
+            val state = l.removeFirst()
+
+            visitor.makeEval(state, this, true)
+
+            for (transition in transitions.values) {
+                val source = visitor.kripke.states[transition.from]!!
+                val destination = visitor.kripke.states[transition.to]!!
+
+                if (destination === state) {
+                    nb[source] = nb[source]!! - 1
+
+                    if (nb[source] == 0 && visitor.getEval(source, left) && !visitor.getEval(source, this)) {
+                        l += source
+                    }
+                }
+            }
+        }
+    }
 }
 
 data class EU(
     val left: CTLFormula,
-    val right: CTLFormula
+    val right: CTLFormula,
 ) : CTLFormula() {
     override fun optimize(): CTLFormula {
         return EU(left.optimize(), right.optimize())
+    }
+
+    override fun visit(visitor: FormulaVisitor) {
+        if (visitor.isVisited(this)) return
+
+        left.visit(visitor)
+        right.visit(visitor)
+
+        val l = ArrayDeque<State>()
+        val seenBefore = mutableMapOf<State, Boolean>()
+
+        for (state in visitor.kripke.states.values) {
+            visitor.makeEval(state, this, false)
+            seenBefore[state] = false
+
+            if (visitor.getEval(state, right)) {
+                l += state
+            }
+        }
+
+        while (l.isNotEmpty()) {
+            val state = l.removeFirst()
+
+            visitor.makeEval(state, this, true)
+
+            for (transition in visitor.kripke.transitions.values) {
+                val source = visitor.kripke.states[transition.from]!!
+                val destination = visitor.kripke.states[transition.to]!!
+
+                if (destination === state && seenBefore[source] != true) {
+                    seenBefore[source] = true
+
+                    if (visitor.getEval(source, left)) {
+                        l += source
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -1,10 +1,9 @@
 package itmo.verifier.model
 
-import CTLFormula
-import CTLGrammar
-import com.github.h0tk3y.betterParse.combinators.*
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import itmo.verifier.*
+import itmo.verifier.formula.CTLGrammar
+import itmo.verifier.formula.CTLFormula
 
 enum class VariableType(s: String) {
     VOLATILE("volatile"), PLAIN("")
@@ -13,24 +12,31 @@ enum class VariableType(s: String) {
 val DEFAULT_STATE_NAME: String = "DEFAULT"
 
 class Model(diagram:Diagram) {
+    lateinit var startState: State
     val name: String
     val autoReject: Boolean
     val events: List<EventKripke>
     val variables: Map<String, Variable>
+    val variableOrder: MutableMap<String, Int>
     val states: Map<String, State>
     val transitions: Map<String, Transition>
+    val addedTransitions: MutableSet<String>
 
     init {
+        addedTransitions = mutableSetOf()
         autoReject = diagram.data.stateMachine.autoReject
         events = mutableListOf()
         for (e in diagram.data.stateMachine.events) {
             events.add(EventKripke(e.name))
         }
+
         variables = mutableMapOf()
         for (d in diagram.data.stateMachine.variables) {
             val v = parseDeclaration(d.declaration)
             variables[v.name] = v
         }
+        variableOrder = variables.keys.asSequence().withIndex().map { it.value to it.index }.toMap().toMutableMap()
+
         name = diagram.name
         states = mutableMapOf()
         transitions = mutableMapOf()
@@ -56,7 +62,28 @@ class Model(diagram:Diagram) {
                         }
                     }
                 }
-                transitions[w.id] = Transition(w.id, eventsList, codeList, actionsList, guardList)
+
+                var from = w.id + "in"
+                var to = w.id + "out"
+                addedTransitions.add(from)
+                addedTransitions.add(to)
+                states[w.id] = State(
+                    w.id,
+                    w.id,
+                    0,
+                    mutableSetOf(from),
+                    mutableSetOf(to),
+                    eventsList.asSequence().map { it.name }.toSet() +
+                        actionsList.asSequence().map { it.name }.toSet(),
+                )
+
+                transitions[w.id] = Transition(w.id, from, to, eventsList, codeList, actionsList, guardList)
+                transitions[from] = Transition(from, "", "", eventsList, codeList, actionsList, guardList)
+                transitions[to] = Transition(to, "", "", eventsList, codeList, actionsList, guardList)
+
+                actionsList.forEach {
+                    variableOrder[it.name] = variableOrder.size
+                }
             } else {
                 var name = DEFAULT_STATE_NAME
                 var type: Int = 0
@@ -74,6 +101,26 @@ class Model(diagram:Diagram) {
                     }
                 }
                 states[w.id] = State(w.id, name, type, incoming, outgoing)
+                if (type == 1) {
+                    startState = states[w.id]!!
+                }
+            }
+        }
+        for (s in states.values) {
+            if (!transitions.containsKey(s.id)) {
+                for (t in s.incomingTransitions) {
+                    transitions[t]!!.to = s.id
+                    transitions[t + "out"]!!.from = t
+                    transitions[t + "out"]!!.to = s.id
+                }
+                s.incomingTransitions.addAll(s.incomingTransitions.map { it + "out" })
+                for (t in s.outgoingTransitions) {
+                    transitions[t]!!.from = s.id
+                    transitions[t + "in"]!!.from = s.id
+                    transitions[t + "in"]!!.to = t
+                }
+                s.outgoingTransitions.addAll(s.outgoingTransitions.map { it + "in" })
+
             }
         }
     }
@@ -110,11 +157,16 @@ class Model(diagram:Diagram) {
     }
 }
 
-class State(val id: String, val name: String, val type: Int, val incomingTransitions: Set<String>, val outgoingTransitions: Set<String>) {
+class State(
+    val id: String,
+    val name: String,
+    val type: Int,
+    val incomingTransitions: MutableSet<String>,
+    val outgoingTransitions: MutableSet<String>,
+    val elements: Set<String> = setOf(name),
+)
 
-}
-
-class Transition(val id: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {
+class Transition(val id: String, var from: String, var to: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {
 }
 
 class EventKripke(val name: String) {

@@ -119,26 +119,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    100%
   </span>
   <span class="absValue">
-    (1/2)
+    (2/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    85.7%
+    100%
   </span>
   <span class="absValue">
-    (6/7)
+    (7/7)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    79.4%
+    100%
   </span>
   <span class="absValue">
-    (27/34)
+    (34/34)
   </span>
 </td>
   </tr>
@@ -154,26 +154,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    16.7%
+    33.3%
   </span>
   <span class="absValue">
-    (1/6)
+    (2/6)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    73.9%
+    78.3%
   </span>
   <span class="absValue">
-    (17/23)
+    (18/23)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    63.5%
+    67.9%
   </span>
   <span class="absValue">
-    (101/159)
+    (108/159)
   </span>
 </td>
 </tr>
@@ -231,11 +231,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;            val problemFiles: MutableList&lt;Pair&lt;Path, ParseResult&lt;CompilationUnit&gt;&gt;&gt;</b>
 &nbsp;        ) : SourceRoot.Callback {
 &nbsp;            override fun process(localPath: Path, absolutePath: Path, result: ParseResult&lt;CompilationUnit&gt;): Result {
-<b class="pc">&nbsp;                if (result.isSuccessful) {</b>
+<b class="fc">&nbsp;                if (result.isSuccessful) {</b>
 <b class="fc">&nbsp;                    files.add(result.result.get())</b>
 &nbsp;                }
 &nbsp;                else {
-<b class="nc">&nbsp;                    problemFiles.add(absolutePath to result)</b>
+<b class="fc">&nbsp;                    problemFiles.add(absolutePath to result)</b>
 &nbsp;                }
 <b class="fc">&nbsp;                return Result.DONT_SAVE</b>
 &nbsp;            }
@@ -265,7 +265,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-24 16:19</div>
+    <div style="float:right;">generated on 2023-01-24 16:22</div>
 </div>
 </body>
 </html>

@@ -4,7 +4,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import java.io.File
 
-class ASTPrinterCommand : CliktCommand(name = "printAST", help = "Prints AST for given java file") {
+class ASTPrinterCommand : CliktCommand(name = "ast", help = "Prints AST for given java file") {
 
     private val filePath by argument()
 

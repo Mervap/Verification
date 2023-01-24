@@ -6,36 +6,21 @@ import itmo.verifier.model.State
 import itmo.verifier.visitor.FormulaVisitor
 
 class Checker(val model: Model, val formula: CTLFormula) {
-
     fun way(visitor: FormulaVisitor, curr: State): MutableList<String>? {
-        if (visitor.getEval(curr, visitor.formula)) {
-            return null
-        }
-        val outTrs = curr.outgoingTransitions
-        if (outTrs.isEmpty()) {
-            return mutableListOf()
-        }
-
-        for (t in outTrs) {
-            val transition = model.transitions[t]!!
-            val res = way(visitor, model.states[transition.to]!!) ?: continue
-            res.add(t)
-            return res
-        }
+        TODO("build a way")
         return mutableListOf()
     }
 
-    fun check(start: String):List<String> {
+    fun check():List<String> {
         val visitor = FormulaVisitor(formula, model)
         formula.visit(visitor)
-        val state = visitor.eval[model.states[start]]!!
+        val state = visitor.eval[model.startState]!!
         if (state[formula] == true) {
-            return listOf()
+            return listOf("Formula is true for model")
         } else {
-            var currState = model.states[start]!!
-            val way: List<String> = way(visitor, currState)!!
-            return way
-            TODO("return way which is not appropriate for formula")
+//            var currState = model.startState
+//            val way: List<String> = way(visitor, currState)!!
+            return listOf("Formula is false for model")
         }
     }
 }

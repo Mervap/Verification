@@ -12,6 +12,7 @@ enum class VariableType(s: String) {
 val DEFAULT_STATE_NAME: String = "DEFAULT"
 
 class Model(diagram:Diagram) {
+    lateinit var startState: State
     val name: String
     val autoReject: Boolean
     val events: List<EventKripke>
@@ -19,8 +20,10 @@ class Model(diagram:Diagram) {
     val variableOrder: MutableMap<String, Int>
     val states: Map<String, State>
     val transitions: Map<String, Transition>
+    val addedTransitions: MutableSet<String>
 
     init {
+        addedTransitions = mutableSetOf()
         autoReject = diagram.data.stateMachine.autoReject
         events = mutableListOf()
         for (e in diagram.data.stateMachine.events) {
@@ -60,29 +63,24 @@ class Model(diagram:Diagram) {
                     }
                 }
 
-                var from = ""
-                var to = ""
-
-                for (s in states.values) {
-                    if (s.incomingTransitions.contains(w.id)) {
-                        to = s.id
-                    }
-                    if (s.outgoingTransitions.contains(w.id)) {
-                        from = s.id
-                    }
-                }
-
+                var from = w.id + "in"
+                var to = w.id + "out"
+                addedTransitions.add(from)
+                addedTransitions.add(to)
                 states[w.id] = State(
                     w.id,
                     w.id,
                     0,
-                    setOf(from),
-                    setOf(to),
+                    mutableSetOf(from),
+                    mutableSetOf(to),
                     eventsList.asSequence().map { it.name }.toSet() +
                         actionsList.asSequence().map { it.name }.toSet(),
                 )
 
                 transitions[w.id] = Transition(w.id, from, to, eventsList, codeList, actionsList, guardList)
+                transitions[from] = Transition(from, "", "", eventsList, codeList, actionsList, guardList)
+                transitions[to] = Transition(to, "", "", eventsList, codeList, actionsList, guardList)
+
                 actionsList.forEach {
                     variableOrder[it.name] = variableOrder.size
                 }
@@ -103,6 +101,26 @@ class Model(diagram:Diagram) {
                     }
                 }
                 states[w.id] = State(w.id, name, type, incoming, outgoing)
+                if (type == 1) {
+                    startState = states[w.id]!!
+                }
+            }
+        }
+        for (s in states.values) {
+            if (!transitions.containsKey(s.id)) {
+                for (t in s.incomingTransitions) {
+                    transitions[t]!!.to = s.id
+                    transitions[t + "out"]!!.from = t
+                    transitions[t + "out"]!!.to = s.id
+                }
+                s.incomingTransitions.addAll(s.incomingTransitions.map { it + "out" })
+                for (t in s.outgoingTransitions) {
+                    transitions[t]!!.from = s.id
+                    transitions[t + "in"]!!.from = s.id
+                    transitions[t + "in"]!!.to = t
+                }
+                s.outgoingTransitions.addAll(s.outgoingTransitions.map { it + "in" })
+
             }
         }
     }
@@ -143,8 +161,8 @@ class State(
     val id: String,
     val name: String,
     val type: Int,
-    val incomingTransitions: Set<String>,
-    val outgoingTransitions: Set<String>,
+    val incomingTransitions: MutableSet<String>,
+    val outgoingTransitions: MutableSet<String>,
     val elements: Set<String> = setOf(name),
 )
 

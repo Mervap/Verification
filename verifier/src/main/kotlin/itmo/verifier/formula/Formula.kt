@@ -150,7 +150,7 @@ data class AU(
         val transitions = visitor.kripke.transitions
 
         for (state in visitor.kripke.states.values) {
-            val to = transitions.values.filter { it.from == state.name }
+            val to = transitions.values.filter { it.from == state.id && !visitor.kripke.addedTransitions.contains(it.id) }
             nb[state] = to.size
             visitor.makeEval(state, this, false)
 

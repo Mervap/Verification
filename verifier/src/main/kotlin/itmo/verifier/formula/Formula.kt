@@ -4,10 +4,10 @@ import com.github.h0tk3y.betterParse.grammar.parser
 import com.github.h0tk3y.betterParse.lexer.literalToken
 import com.github.h0tk3y.betterParse.lexer.regexToken
 import com.github.h0tk3y.betterParse.parser.Parser
-import itmo.verifier.model.Transition
 import itmo.verifier.model.State
 import itmo.verifier.model.Variable
 import itmo.verifier.visitor.FormulaVisitor
+import java.util.BitSet
 
 sealed class CTLFormula {
     abstract fun optimize(): CTLFormula
@@ -53,7 +53,7 @@ data class Element(val name: String) : CTLFormula() {
                     .any { it.actions.any { action -> action.name == name } }
 
                 if (isEvent || isAction) {
-                    variableValues[name] = true
+                    variableValues[visitor.kripke.variableOrder[name]!!] = true
                 }
 
                 visitor.makeEval(s, variableValues, this, visitor.kripke.variables[name]!!.value)
@@ -142,9 +142,11 @@ data class EX(
 
                 val status = ts.any { t ->
                     val transition = transitions[t]!!
-                    val newVariableValues = variableValues.toMutableMap()
+                    val newVariableValues = BitSet()
+                    newVariableValues.or(variableValues)
+
                     transition.code.forEach { (variable, value) ->
-                        newVariableValues[variable.name] = value
+                        newVariableValues[visitor.kripke.variableOrder[variable.name]!!] = value
                     }
 
                     visitor.getEval(visitor.kripke.states[transition.to]!!, newVariableValues, formula)

@@ -5,6 +5,7 @@ import CTLGrammar
 import com.github.h0tk3y.betterParse.combinators.*
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import itmo.verifier.*
+import java.util.BitSet
 
 enum class VariableType(s: String) {
     VOLATILE("volatile"), PLAIN("")
@@ -17,7 +18,8 @@ class Model(diagram:Diagram) {
     val autoReject: Boolean
     val events: List<EventKripke>
     val variables: Map<String, Variable>
-    val variableValues: MutableMap<String, Boolean>
+    val variableOrder: MutableMap<String, Int>
+    val variableValues = BitSet()
     val states: Map<String, State>
     val transitions: Map<String, Transition>
 
@@ -33,8 +35,8 @@ class Model(diagram:Diagram) {
             val v = parseDeclaration(d.declaration)
             variables[v.name] = v
         }
-        variableValues = variables.mapValues { it.value.value }.toMutableMap()
-        events.forEach { variableValues[it.name] = false }
+        variableOrder = variables.keys.asSequence().withIndex().map { it.value to it.index }.toMap().toMutableMap()
+        events.forEach { variableValues.set(variableOrder[it.name]!!) }
 
         name = diagram.name
         states = mutableMapOf()
@@ -72,7 +74,10 @@ class Model(diagram:Diagram) {
                     }
                 }
                 transitions[w.id] = Transition(w.id, from, to, eventsList, codeList, actionsList, guardList)
-                actionsList.forEach { variableValues[it.name] = false }
+                actionsList.forEach {
+                    variableOrder[it.name] = variableOrder.size
+                    variableValues[variableOrder[it.name]!!] = false
+                }
             } else {
                 var name = DEFAULT_STATE_NAME
                 var type: Int = 0

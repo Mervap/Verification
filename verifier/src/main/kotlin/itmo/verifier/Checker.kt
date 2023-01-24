@@ -4,10 +4,11 @@ import CTLFormula
 import itmo.verifier.model.Model
 import itmo.verifier.model.State
 import itmo.verifier.visitor.FormulaVisitor
+import java.util.BitSet
 
 class Checker(val model: Model, val formula: CTLFormula) {
 
-    fun way(visitor: FormulaVisitor, curr: State, elements: Map<String, Boolean>): MutableList<String>? {
+    fun way(visitor: FormulaVisitor, curr: State, elements: BitSet): MutableList<String>? {
         if (visitor.getEval(curr, elements, visitor.formula)) {
             return null
         }
@@ -15,17 +16,21 @@ class Checker(val model: Model, val formula: CTLFormula) {
         if (outTrs.isEmpty()) {
             return mutableListOf()
         }
-        val currElements = elements.toMutableMap()
+        val currElements = BitSet()
+        currElements.or(elements)
+
+        val variableOrder = visitor.kripke.variableOrder
+
         for (t in outTrs) {
             val transition = model.transitions[t]!!
             transition.code.forEach { (variable, value) ->
-                currElements[variable.name] = value
+                currElements[variableOrder[variable.name]!!] = value
             }
             transition.actions.forEach { action ->
-                currElements[action.name] = true
+                currElements[variableOrder[action.name]!!] = true
             }
             transition.events.forEach { event ->
-                currElements[event.name] = true
+                currElements[variableOrder[event.name]!!] = true
             }
             val res = way(visitor, model.states[transition.to]!!, currElements) ?: continue
             res.add(t)
@@ -35,7 +40,9 @@ class Checker(val model: Model, val formula: CTLFormula) {
     }
 
     fun check(start: String):List<String> {
-        val startElements = model.variableValues.toMutableMap()
+        val startElements = BitSet()
+        startElements.or(model.variableValues)
+
         val visitor = FormulaVisitor(formula, model)
         formula.visit(visitor)
         val state = visitor.eval[model.states[start]]
@@ -43,7 +50,9 @@ class Checker(val model: Model, val formula: CTLFormula) {
             return listOf()
         } else {
             var currState = model.states[start]!!
-            var currElements = startElements.toMutableMap()
+            var currElements = BitSet()
+            currElements.or(startElements)
+
             val way: List<String> = way(visitor, currState, currElements)!!
             return way
             TODO("return way which is not appropriate for formula")

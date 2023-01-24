@@ -1,7 +1,7 @@
 package itmo.analyzer.sample;
 
-public class Main {
+public class Vasya {
     public static void main(String[] args) {
-        2 + "15"
+        2 + "15";
     }
 }

@@ -26,7 +26,7 @@ object TRUE : CTLFormula() {
     override fun visit(visitor: FormulaVisitor) {
         if (!visitor.isVisited(this)) {
             for (s in visitor.kripke.states.values) {
-                visitor.makeEval(s,this, true)
+                visitor.makeEval(s, this, true)
             }
         }
         return
@@ -85,7 +85,7 @@ data class Not(
 data class Or(
     val left: CTLFormula,
     val right: CTLFormula
-): CTLFormula() {
+) : CTLFormula() {
     override fun optimize(): CTLFormula {
         return Or(left.optimize(), right.optimize())
     }
@@ -111,6 +111,7 @@ data class EX(
     override fun optimize(): CTLFormula {
         return EX(formula.optimize())
     }
+
     override fun visit(visitor: FormulaVisitor) {
         if (!visitor.isVisited(this)) {
             formula.visit(visitor)
@@ -264,8 +265,8 @@ object CTLGrammar : Grammar<CTLFormula>() {
     val efOp by -ef * parser(this::bracedExpression) map { f -> EU(TRUE, f) }
     val agOp by -ag * parser(this::bracedExpression) map { f -> Not(EU(TRUE, Not(f))) }
     val egOp by -eg * parser(this::bracedExpression) map { f -> Not(AU(TRUE, Not(f))) }
-    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map {(a, b) -> AU(a, b)}
-    val euOp by -eu * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -> EU(a, b)}
+    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -> AU(a, b) }
+    val euOp by -eu * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -> EU(a, b) }
 
 
 

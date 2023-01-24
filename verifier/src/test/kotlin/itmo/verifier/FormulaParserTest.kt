@@ -1,14 +1,7 @@
 package itmo.verifier
 
-import itmo.verifier.formula.AU
-import itmo.verifier.formula.CTLGrammar
-import itmo.verifier.formula.EU
-import itmo.verifier.formula.EX
-import itmo.verifier.formula.Element
-import itmo.verifier.formula.Not
-import itmo.verifier.formula.Or
-import itmo.verifier.formula.TRUE
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
+import itmo.verifier.formula.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

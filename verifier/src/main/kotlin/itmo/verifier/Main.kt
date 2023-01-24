@@ -1,7 +1,6 @@
 package itmo.verifier
 
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
-import itmo.verifier.formula.CTLFormula
 import itmo.verifier.formula.CTLGrammar
 import itmo.verifier.model.Model
 import kotlinx.serialization.modules.SerializersModule
@@ -10,12 +9,12 @@ import nl.adaptivity.xmlutil.XmlDeclMode
 import nl.adaptivity.xmlutil.serialization.XML
 import java.io.File
 import java.io.PrintStream
-
+import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
     if (2 > args.size || args.size > 3) {
         println("Usage: Main <file with model> <file with ctl formula> [<output file>]")
-        System.exit(0)
+        exitProcess(0)
     }
     val modelFile = args[0]
     val formulaFile = args[1]
@@ -33,7 +32,7 @@ fun main(args: Array<String>) {
 
 }
 
-fun getDiagram(modelText:String): Diagram {
+fun getDiagram(modelText: String): Diagram {
     val module = SerializersModule {}
     val xml = XML(module) {
         indentString = "    "

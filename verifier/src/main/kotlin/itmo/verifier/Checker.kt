@@ -11,17 +11,17 @@ class Checker(val model: Model, val formula: CTLFormula) {
         return mutableListOf()
     }
 
-    fun check():List<String> {
+    fun check(): List<String> {
         formula.optimize()
         val visitor = FormulaVisitor(formula, model)
         formula.visit(visitor)
         val state = visitor.eval[model.startState]!!
-        if (state[formula] == true) {
-            return listOf("Formula is true for model")
+        return if (state[formula] == true) {
+            listOf("Formula is true for model")
         } else {
-//            var currState = model.startState
-//            val way: List<String> = way(visitor, currState)!!
-            return listOf("Formula is false for model")
+    //            var currState = model.startState
+    //            val way: List<String> = way(visitor, currState)!!
+            listOf("Formula is false for model")
         }
     }
 }

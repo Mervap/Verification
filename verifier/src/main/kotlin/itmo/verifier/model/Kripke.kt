@@ -2,16 +2,16 @@ package itmo.verifier.model
 
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import itmo.verifier.*
-import itmo.verifier.formula.CTLGrammar
 import itmo.verifier.formula.CTLFormula
+import itmo.verifier.formula.CTLGrammar
 
 enum class VariableType(s: String) {
     VOLATILE("volatile"), PLAIN("")
 }
 
-val DEFAULT_STATE_NAME: String = "DEFAULT"
+const val DEFAULT_STATE_NAME: String = "DEFAULT"
 
-class Model(diagram:Diagram) {
+class Model(diagram: Diagram) {
     lateinit var startState: State
     val name: String
     val autoReject: Boolean
@@ -45,7 +45,7 @@ class Model(diagram:Diagram) {
                 val eventsList = mutableListOf<EventKripke>()
                 val actionsList = mutableListOf<ActionKripke>()
                 var codeList = listOf<Assign>()
-                var guardList = mutableListOf<GuardKripke>()
+                val guardList = mutableListOf<GuardKripke>()
                 for (a in w.attributes.attributes) {
                     if (a is Event) {
                         eventsList.add(EventKripke(a.name))
@@ -63,8 +63,8 @@ class Model(diagram:Diagram) {
                     }
                 }
 
-                var from = w.id + "in"
-                var to = w.id + "out"
+                val from = w.id + "in"
+                val to = w.id + "out"
                 addedTransitions.add(from)
                 addedTransitions.add(to)
                 states[w.id] = State(
@@ -74,7 +74,7 @@ class Model(diagram:Diagram) {
                     mutableSetOf(from),
                     mutableSetOf(to),
                     eventsList.asSequence().map { it.name }.toSet() +
-                        actionsList.asSequence().map { it.name }.toSet(),
+                            actionsList.asSequence().map { it.name }.toSet(),
                 )
 
                 transitions[w.id] = Transition(w.id, from, to, eventsList, codeList, actionsList, guardList)
@@ -87,8 +87,8 @@ class Model(diagram:Diagram) {
             } else {
                 var name = DEFAULT_STATE_NAME
                 var type: Int = 0
-                var incoming = mutableSetOf<String>()
-                var outgoing = mutableSetOf<String>()
+                val incoming = mutableSetOf<String>()
+                val outgoing = mutableSetOf<String>()
                 for (a in w.attributes.attributes) {
                     if (a is Name) {
                         name = a.name
@@ -126,7 +126,6 @@ class Model(diagram:Diagram) {
     }
 
 
-
     fun parseCode(s: String, vars: Map<String, Variable>): List<Assign> {
         val lines = s.split(";(\\s)+".toRegex())
         val res = mutableListOf<Assign>()
@@ -141,7 +140,7 @@ class Model(diagram:Diagram) {
         return res
     }
 
-    fun parseDeclaration(s: String):Variable {
+    fun parseDeclaration(s: String): Variable {
         val decl = s.replace(";", "")
         val lexList = decl.split("(\\s)+".toRegex())
         var type = VariableType.PLAIN;
@@ -166,27 +165,30 @@ class State(
     val elements: Set<String> = setOf(name),
 )
 
-class Transition(val id: String, var from: String, var to: String, val events: List<EventKripke>, val code: List<Assign>, val actions: List<ActionKripke>, val guard: List<GuardKripke>) {
-}
+class Transition(
+    val id: String,
+    var from: String,
+    var to: String,
+    val events: List<EventKripke>,
+    val code: List<Assign>,
+    val actions: List<ActionKripke>,
+    val guard: List<GuardKripke>
+)
 
-class EventKripke(val name: String) {
-}
+class EventKripke(val name: String)
 
-class GuardKripke(val text: String) {
+class GuardKripke(text: String) {
 
     private val formula: CTLFormula = CTLGrammar.parseToEnd(text).optimize()
 
-    fun compute(variables:Map<String, Variable>): Boolean {
+    fun compute(variables: Map<String, Variable>): Boolean {
         return formula.compute(variables)
     }
 
 }
 
-class ActionKripke(val name: String, val synchro: Boolean) {
+class ActionKripke(val name: String, val synchro: Boolean)
 
-}
-
-class Variable(val name: String, val type: VariableType, var value: Boolean) {
-}
+class Variable(val name: String, val type: VariableType, var value: Boolean)
 
 data class Assign(val t: Variable, val value: Boolean)

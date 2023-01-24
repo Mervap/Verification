@@ -1,8 +1,8 @@
 package itmo.verifier.visitor
 
+import itmo.verifier.formula.CTLFormula
 import itmo.verifier.model.Model
 import itmo.verifier.model.State
-import itmo.verifier.formula.CTLFormula
 
 class FormulaVisitor(val formula: CTLFormula, val kripke: Model) {
 

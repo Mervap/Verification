@@ -1,5 +1,6 @@
 verifier/.gradle
 analyzer/.gradle
+sample-project/.gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/

@@ -1,11 +1,11 @@
 {
   "modules": [
     {
-      "name": "analyzer",
+      "name": "analyzer.test",
       "languageLevel": 17
     },
     {
-      "name": "analyzer.test",
+      "name": "analyzer",
       "languageLevel": 17
     },
     {

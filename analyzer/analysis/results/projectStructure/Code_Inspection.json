@@ -1,25 +1,6 @@
 {
   "modules": [
     {
-      "name": "analyzer",
-      "contentEntries": [
-        {
-          "path": "file://$PROJECT_DIR$",
-          "sourceFolders": []
-        }
-      ],
-      "orderEntries": [
-        {
-          "name": "17",
-          "type": "SDK"
-        },
-        {
-          "name": "<Module source>",
-          "type": "Own sources"
-        }
-      ]
-    },
-    {
       "name": "analyzer.test",
       "contentEntries": [
         {
@@ -113,6 +94,25 @@
         {
           "name": "Gradle: org.junit.platform:junit-platform-engine:1.9.2",
           "type": "Library"
+        }
+      ]
+    },
+    {
+      "name": "analyzer",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "17",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
         }
       ]
     },

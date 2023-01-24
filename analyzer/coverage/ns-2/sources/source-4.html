@@ -98,6 +98,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import com.github.javaparser.ast.visitor.VoidVisitorAdapter
 &nbsp;import itmo.analyzer.Project
 &nbsp;
+&nbsp;/**
+&nbsp; * Entrypoint for analyzers.
+&nbsp; *
+&nbsp; * Heirs can register founded problems using [ProblemFinderContext].
+&nbsp; */
 &nbsp;typealias ProblemFinder = VoidVisitor&lt;ProblemFinderContext&gt;
 &nbsp;typealias ProblemFinderAdapter = VoidVisitorAdapter&lt;ProblemFinderContext&gt;
 &nbsp;
@@ -106,6 +111,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        get() = &quot;$position: $message&quot;
 &nbsp;}
 &nbsp;
+&nbsp;/**
+&nbsp; * Helper for problem collection. Provide some additional information like [Project]
+&nbsp; */
 <b class="fc">&nbsp;data class ProblemFinderContext(val project: Project) {</b>
 <b class="fc">&nbsp;    private val mutableProblems = mutableListOf&lt;Problem&gt;()</b>
 <b class="fc">&nbsp;    val problems: List&lt;Problem&gt; get() = mutableProblems</b>
@@ -142,7 +150,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-24 16:22</div>
+    <div style="float:right;">generated on 2023-01-24 16:30</div>
 </div>
 </body>
 </html>

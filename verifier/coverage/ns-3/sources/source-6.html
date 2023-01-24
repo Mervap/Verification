@@ -24,12 +24,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 <h1>Coverage Summary for Class: Model (itmo.verifier.model)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -51,6 +48,50 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">Model</td>
 <td class="coverageStat">
   <span class="percent">
+    58.3%
+  </span>
+  <span class="absValue">
+    (7/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94%
+  </span>
+  <span class="absValue">
+    (47/50)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    93.6%
+  </span>
+  <span class="absValue">
+    (102/109)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    98.3%
+  </span>
+  <span class="absValue">
+    (740/753)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Model$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
     100%
   </span>
   <span class="absValue">
@@ -59,38 +100,104 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    33.3%
+    100%
   </span>
   <span class="absValue">
-    (3/9)
+    (6/6)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Model$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    92.5%
+    100%
   </span>
   <span class="absValue">
-    (37/40)
+    (2/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Model$3</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    89%
+    100%
   </span>
   <span class="absValue">
-    (65/73)
+    (2/2)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (10/15)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    96.7%
+    94%
   </span>
   <span class="absValue">
-    (434/449)
+    (47/50)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    93.8%
+  </span>
+  <span class="absValue">
+    (105/112)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    98.3%
+  </span>
+  <span class="absValue">
+    (750/763)
   </span>
 </td>
 </tr>
-
 </table>
 
 <br/>
@@ -100,11 +207,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package itmo.verifier.model
 &nbsp;
-&nbsp;import CTLFormula
-&nbsp;import CTLGrammar
-&nbsp;import com.github.h0tk3y.betterParse.combinators.*
 &nbsp;import com.github.h0tk3y.betterParse.grammar.parseToEnd
 &nbsp;import itmo.verifier.*
+&nbsp;import itmo.verifier.formula.CTLGrammar
+&nbsp;import itmo.verifier.formula.CTLFormula
 &nbsp;
 &nbsp;enum class VariableType(s: String) {
 &nbsp;    VOLATILE(&quot;volatile&quot;), PLAIN(&quot;&quot;)
@@ -113,24 +219,31 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;val DEFAULT_STATE_NAME: String = &quot;DEFAULT&quot;
 &nbsp;
 <b class="fc">&nbsp;class Model(diagram:Diagram) {</b>
+<b class="fc">&nbsp;    lateinit var startState: State</b>
 <b class="nc">&nbsp;    val name: String</b>
 <b class="nc">&nbsp;    val autoReject: Boolean</b>
 <b class="nc">&nbsp;    val events: List&lt;EventKripke&gt;</b>
 <b class="nc">&nbsp;    val variables: Map&lt;String, Variable&gt;</b>
-<b class="nc">&nbsp;    val states: Map&lt;String, State&gt;</b>
-<b class="nc">&nbsp;    val transitions: Map&lt;String, Transition&gt;</b>
+<b class="nc">&nbsp;    val variableOrder: MutableMap&lt;String, Int&gt;</b>
+<b class="fc">&nbsp;    val states: Map&lt;String, State&gt;</b>
+<b class="fc">&nbsp;    val transitions: Map&lt;String, Transition&gt;</b>
+<b class="fc">&nbsp;    val addedTransitions: MutableSet&lt;String&gt;</b>
 &nbsp;
 <b class="fc">&nbsp;    init {</b>
+<b class="fc">&nbsp;        addedTransitions = mutableSetOf()</b>
 <b class="fc">&nbsp;        autoReject = diagram.data.stateMachine.autoReject</b>
 <b class="fc">&nbsp;        events = mutableListOf()</b>
 <b class="fc">&nbsp;        for (e in diagram.data.stateMachine.events) {</b>
 <b class="fc">&nbsp;            events.add(EventKripke(e.name))</b>
 &nbsp;        }
+&nbsp;
 <b class="fc">&nbsp;        variables = mutableMapOf()</b>
 <b class="fc">&nbsp;        for (d in diagram.data.stateMachine.variables) {</b>
 <b class="fc">&nbsp;            val v = parseDeclaration(d.declaration)</b>
 <b class="fc">&nbsp;            variables[v.name] = v</b>
 &nbsp;        }
+<b class="fc">&nbsp;        variableOrder = variables.keys.asSequence().withIndex().map { it.value to it.index }.toMap().toMutableMap()</b>
+&nbsp;
 <b class="fc">&nbsp;        name = diagram.name</b>
 <b class="fc">&nbsp;        states = mutableMapOf()</b>
 <b class="fc">&nbsp;        transitions = mutableMapOf()</b>
@@ -156,7 +269,28 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                        }
 &nbsp;                    }
 &nbsp;                }
-<b class="fc">&nbsp;                transitions[w.id] = Transition(w.id, eventsList, codeList, actionsList, guardList)</b>
+&nbsp;
+<b class="fc">&nbsp;                var from = w.id + &quot;in&quot;</b>
+<b class="fc">&nbsp;                var to = w.id + &quot;out&quot;</b>
+<b class="fc">&nbsp;                addedTransitions.add(from)</b>
+<b class="fc">&nbsp;                addedTransitions.add(to)</b>
+<b class="fc">&nbsp;                states[w.id] = State(</b>
+<b class="fc">&nbsp;                    w.id,</b>
+<b class="fc">&nbsp;                    w.id,</b>
+<b class="fc">&nbsp;                    0,</b>
+<b class="fc">&nbsp;                    mutableSetOf(from),</b>
+<b class="fc">&nbsp;                    mutableSetOf(to),</b>
+<b class="fc">&nbsp;                    eventsList.asSequence().map { it.name }.toSet() +</b>
+<b class="fc">&nbsp;                        actionsList.asSequence().map { it.name }.toSet(),</b>
+&nbsp;                )
+&nbsp;
+<b class="fc">&nbsp;                transitions[w.id] = Transition(w.id, from, to, eventsList, codeList, actionsList, guardList)</b>
+<b class="fc">&nbsp;                transitions[from] = Transition(from, &quot;&quot;, &quot;&quot;, eventsList, codeList, actionsList, guardList)</b>
+<b class="fc">&nbsp;                transitions[to] = Transition(to, &quot;&quot;, &quot;&quot;, eventsList, codeList, actionsList, guardList)</b>
+&nbsp;
+<b class="fc">&nbsp;                actionsList.forEach {</b>
+<b class="fc">&nbsp;                    variableOrder[it.name] = variableOrder.size</b>
+<b class="fc">&nbsp;                }</b>
 &nbsp;            } else {
 <b class="fc">&nbsp;                var name = DEFAULT_STATE_NAME</b>
 <b class="fc">&nbsp;                var type: Int = 0</b>
@@ -174,6 +308,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                    }
 &nbsp;                }
 <b class="fc">&nbsp;                states[w.id] = State(w.id, name, type, incoming, outgoing)</b>
+<b class="fc">&nbsp;                if (type == 1) {</b>
+<b class="fc">&nbsp;                    startState = states[w.id]!!</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        for (s in states.values) {</b>
+<b class="fc">&nbsp;            if (!transitions.containsKey(s.id)) {</b>
+<b class="fc">&nbsp;                for (t in s.incomingTransitions) {</b>
+<b class="fc">&nbsp;                    transitions[t]!!.to = s.id</b>
+<b class="fc">&nbsp;                    transitions[t + &quot;out&quot;]!!.from = t</b>
+<b class="fc">&nbsp;                    transitions[t + &quot;out&quot;]!!.to = s.id</b>
+&nbsp;                }
+<b class="fc">&nbsp;                s.incomingTransitions.addAll(s.incomingTransitions.map { it + &quot;out&quot; })</b>
+<b class="fc">&nbsp;                for (t in s.outgoingTransitions) {</b>
+<b class="fc">&nbsp;                    transitions[t]!!.from = s.id</b>
+<b class="fc">&nbsp;                    transitions[t + &quot;in&quot;]!!.from = s.id</b>
+<b class="fc">&nbsp;                    transitions[t + &quot;in&quot;]!!.to = t</b>
+&nbsp;                }
+<b class="fc">&nbsp;                s.outgoingTransitions.addAll(s.outgoingTransitions.map { it + &quot;in&quot; })</b>
+&nbsp;
 &nbsp;            }
 &nbsp;        }
 <b class="fc">&nbsp;    }</b>
@@ -210,11 +364,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;}
 &nbsp;
-&nbsp;class State(val id: String, val name: String, val type: Int, val incomingTransitions: Set&lt;String&gt;, val outgoingTransitions: Set&lt;String&gt;) {
+&nbsp;class State(
+&nbsp;    val id: String,
+&nbsp;    val name: String,
+&nbsp;    val type: Int,
+&nbsp;    val incomingTransitions: MutableSet&lt;String&gt;,
+&nbsp;    val outgoingTransitions: MutableSet&lt;String&gt;,
+&nbsp;    val elements: Set&lt;String&gt; = setOf(name),
+&nbsp;)
 &nbsp;
-&nbsp;}
-&nbsp;
-&nbsp;class Transition(val id: String, val events: List&lt;EventKripke&gt;, val code: List&lt;Assign&gt;, val actions: List&lt;ActionKripke&gt;, val guard: List&lt;GuardKripke&gt;) {
+&nbsp;class Transition(val id: String, var from: String, var to: String, val events: List&lt;EventKripke&gt;, val code: List&lt;Assign&gt;, val actions: List&lt;ActionKripke&gt;, val guard: List&lt;GuardKripke&gt;) {
 &nbsp;}
 &nbsp;
 &nbsp;class EventKripke(val name: String) {
@@ -261,7 +420,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-24 15:31</div>
+    <div style="float:right;">generated on 2023-01-24 17:58</div>
 </div>
 </body>
 </html>

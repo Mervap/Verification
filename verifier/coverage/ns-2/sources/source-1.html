@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > Action</title>
+  <title>Coverage Report > AU</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -18,15 +18,18 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">itmo.verifier</a>
+    <a href="../index.html">itmo.verifier.formula</a>
 </div>
 
-<h1>Coverage Summary for Class: Action (itmo.verifier)</h1>
+<h1>Coverage Summary for Class: AU (itmo.verifier.formula)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -45,16 +48,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">Action</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-    <td class="coverageStat"/>
+  <td class="name">AU</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -68,94 +62,35 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (15/15)
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    93.3%
+  </span>
+  <span class="absValue">
+    (28/30)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (27/27)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    99.1%
+  </span>
+  <span class="absValue">
+    (213/215)
   </span>
 </td>
 </tr>
-  <tr>
-    <td class="name">Action$$serializer</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-    <td class="coverageStat"/>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (3/3)
-  </span>
-</td>
-  </tr>
-  <tr>
-    <td class="name">Action$Companion</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-    <td class="coverageStat"/>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (4/4)
-  </span>
-</td>
-  </tr>
-<tr>
-  <td class="name"><strong>Total</strong></td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (3/3)
-  </span>
-</td>
-    <td class="coverageStat"/>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (3/3)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (22/22)
-  </span>
-</td>
-</tr>
+
 </table>
 
 <br/>
@@ -163,93 +98,300 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package itmo.verifier
+<code class="sourceCode" id="sourceCode">&nbsp;package itmo.verifier.formula
 &nbsp;
-&nbsp;import kotlinx.serialization.Serializable
-&nbsp;import nl.adaptivity.xmlutil.serialization.XmlElement
-&nbsp;import nl.adaptivity.xmlutil.serialization.XmlSerialName
-&nbsp;import nl.adaptivity.xmlutil.serialization.XmlValue
+&nbsp;import com.github.h0tk3y.betterParse.combinators.*
+&nbsp;import com.github.h0tk3y.betterParse.grammar.Grammar
+&nbsp;import com.github.h0tk3y.betterParse.grammar.parser
+&nbsp;import com.github.h0tk3y.betterParse.lexer.literalToken
+&nbsp;import com.github.h0tk3y.betterParse.lexer.regexToken
+&nbsp;import com.github.h0tk3y.betterParse.parser.Parser
+&nbsp;import itmo.verifier.model.State
+&nbsp;import itmo.verifier.model.Variable
+&nbsp;import itmo.verifier.visitor.FormulaVisitor
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;diagram&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class Diagram(
-&nbsp;    @XmlElement(true)
-&nbsp;    val name: String,
-&nbsp;    val data: Data,
-&nbsp;    val widgets: List&lt;Widget&gt;,
-&nbsp;)
+&nbsp;sealed class CTLFormula {
+&nbsp;    abstract fun optimize(): CTLFormula
+&nbsp;    abstract fun visit(visitor: FormulaVisitor)
+&nbsp;    open fun compute(elements: Map&lt;String, Variable&gt;): Boolean {
+&nbsp;        return true
+&nbsp;    }
+&nbsp;}
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;data&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class Data(val stateMachine: StateMachine)
+&nbsp;object TRUE : CTLFormula() {
+&nbsp;    override fun optimize(): CTLFormula {
+&nbsp;        return this
+&nbsp;    }
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;Statemachine&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class StateMachine(
-&nbsp;    val events: List&lt;Event&gt;,
+&nbsp;    override fun visit(visitor: FormulaVisitor) {
+&nbsp;        if (!visitor.isVisited(this)) {
+&nbsp;            for (s in visitor.kripke.states.values) {
+&nbsp;                visitor.makeEval(s,this, true)
+&nbsp;            }
+&nbsp;        }
+&nbsp;        return
+&nbsp;    }
 &nbsp;
-&nbsp;    val variables: List&lt;Variable&gt;,
+&nbsp;    override fun compute(elements: Map&lt;String, Variable&gt;): Boolean {
+&nbsp;        return true
+&nbsp;    }
+&nbsp;}
 &nbsp;
-&nbsp;    @XmlSerialName(&quot;autoreject&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;    @XmlElement(true)
-&nbsp;    val autoReject: Boolean = true,
-&nbsp;)
+&nbsp;data class Element(val name: String) : CTLFormula() {
+&nbsp;    override fun optimize(): CTLFormula {
+&nbsp;        return this
+&nbsp;    }
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;variable&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class Variable(
-&nbsp;    @XmlSerialName(&quot;decl&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;    val declaration: String,
-&nbsp;)
+&nbsp;    override fun visit(visitor: FormulaVisitor) {
+&nbsp;        if (visitor.isVisited(this)) return
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;widget&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class Widget(
-&nbsp;    val id: String,
-&nbsp;    val type: String,
-&nbsp;    val attributes: Attributes,
-&nbsp;)
+&nbsp;        for (s in visitor.kripke.states.values) {
+&nbsp;            if (name in s.elements) {
+&nbsp;                visitor.makeEval(s, this, true)
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;attributes&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class Attributes(
-&nbsp;    val attributes: List&lt;WidgetAttribute&gt;,
-&nbsp;)
+&nbsp;    override fun compute(elements: Map&lt;String, Variable&gt;): Boolean {
+&nbsp;        return elements[name]!!.value
+&nbsp;    }
+&nbsp;}
 &nbsp;
-&nbsp;@Serializable
-&nbsp;sealed interface WidgetAttribute
+&nbsp;data class Not(
+&nbsp;    val formula: CTLFormula
+&nbsp;) : CTLFormula() {
+&nbsp;    override fun optimize(): CTLFormula {
+&nbsp;        if (formula is Not) {
+&nbsp;            return formula.formula.optimize()
+&nbsp;        }
+&nbsp;        return Not(formula.optimize())
+&nbsp;    }
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;name&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class Name(@XmlValue(true) val name: String = &quot;&quot;) : WidgetAttribute
+&nbsp;    override fun visit(visitor: FormulaVisitor) {
+&nbsp;        if (!visitor.isVisited(this)) {
+&nbsp;            formula.visit(visitor)
+&nbsp;            for (s in visitor.kripke.states.values) {
+&nbsp;                visitor.makeEval(s, this, !(visitor.getEval(s, formula)))
+&nbsp;            }
+&nbsp;        }
+&nbsp;        return
+&nbsp;    }
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;type&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class Type(@XmlValue(true) val type: Int = 0) : WidgetAttribute
+&nbsp;    override fun compute(elements: Map&lt;String, Variable&gt;): Boolean {
+&nbsp;        return !formula.compute(elements)
+&nbsp;    }
+&nbsp;}
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;event&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class Event(val name: String, val comment: String) : WidgetAttribute
+&nbsp;data class Or(
+&nbsp;    val left: CTLFormula,
+&nbsp;    val right: CTLFormula
+&nbsp;): CTLFormula() {
+&nbsp;    override fun optimize(): CTLFormula {
+&nbsp;        return Or(left.optimize(), right.optimize())
+&nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;@Serializable</b>
-<b class="fc">&nbsp;@XmlSerialName(&quot;action&quot;, &quot;&quot;, &quot;&quot;)</b>
-<b class="fc">&nbsp;data class Action(val name: String, val comment: String, val synchro: String) : WidgetAttribute</b>
+&nbsp;    override fun visit(visitor: FormulaVisitor) {
+&nbsp;        if (!visitor.isVisited(this)) {
+&nbsp;            left.visit(visitor)
+&nbsp;            right.visit(visitor)
+&nbsp;            for (s in visitor.kripke.states.values) {
+&nbsp;                visitor.makeEval(s, this, visitor.getEval(s, left) || visitor.getEval(s, right))
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;code&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class Code(@XmlValue(true) val code: String = &quot;&quot;) : WidgetAttribute
+&nbsp;    override fun compute(elements: Map&lt;String, Variable&gt;): Boolean {
+&nbsp;        return left.compute(elements) || right.compute(elements)
+&nbsp;    }
+&nbsp;}
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;guard&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class Guard(@XmlValue(true) val guard: String = &quot;&quot;) : WidgetAttribute
+&nbsp;data class EX(
+&nbsp;    val formula: CTLFormula
+&nbsp;) : CTLFormula() {
+&nbsp;    override fun optimize(): CTLFormula {
+&nbsp;        return EX(formula.optimize())
+&nbsp;    }
+&nbsp;    override fun visit(visitor: FormulaVisitor) {
+&nbsp;        if (!visitor.isVisited(this)) {
+&nbsp;            formula.visit(visitor)
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;incoming&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class Incoming(val id: String) : WidgetAttribute
+&nbsp;            for (s in visitor.kripke.states.values) {
+&nbsp;                visitor.makeEval(s, this, false)
 &nbsp;
-&nbsp;@Serializable
-&nbsp;@XmlSerialName(&quot;outgoing&quot;, &quot;&quot;, &quot;&quot;)
-&nbsp;data class Outgoing(val id: String) : WidgetAttribute
+&nbsp;                val ts = s.outgoingTransitions
+&nbsp;                val transitions = visitor.kripke.transitions
+&nbsp;
+&nbsp;                val status = ts.any { t -&gt;
+&nbsp;                    visitor.getEval(visitor.kripke.states[transitions[t]!!.to]!!, formula)
+&nbsp;                }
+&nbsp;
+&nbsp;                visitor.makeEval(s, this, status)
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;data class AU(
+<b class="fc">&nbsp;    val left: CTLFormula,</b>
+<b class="fc">&nbsp;    val right: CTLFormula</b>
+<b class="fc">&nbsp;) : CTLFormula() {</b>
+&nbsp;    override fun optimize(): CTLFormula {
+<b class="fc">&nbsp;        return AU(left.optimize(), right.optimize())</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun visit(visitor: FormulaVisitor) {
+<b class="pc">&nbsp;        if (visitor.isVisited(this)) return</b>
+&nbsp;
+<b class="fc">&nbsp;        left.visit(visitor)</b>
+<b class="fc">&nbsp;        right.visit(visitor)</b>
+&nbsp;
+<b class="fc">&nbsp;        val l = ArrayDeque&lt;State&gt;()</b>
+<b class="fc">&nbsp;        val nb = mutableMapOf&lt;State, Int&gt;()</b>
+<b class="fc">&nbsp;        val transitions = visitor.kripke.transitions</b>
+&nbsp;
+<b class="fc">&nbsp;        for (state in visitor.kripke.states.values) {</b>
+<b class="fc">&nbsp;            val to = transitions.values.filter { it.from == state.id &amp;&amp; (!transitions.containsKey(state.id) &amp;&amp; !visitor.kripke.addedTransitions.contains(it.id) ||</b>
+<b class="fc">&nbsp;                    transitions.containsKey(state.id))</b>
+&nbsp;            }
+<b class="fc">&nbsp;            nb[state] = to.size</b>
+<b class="fc">&nbsp;            visitor.makeEval(state, this, false)</b>
+&nbsp;
+<b class="fc">&nbsp;            if (visitor.getEval(state, right)) {</b>
+<b class="fc">&nbsp;                l += state</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        while (l.isNotEmpty()) {</b>
+<b class="fc">&nbsp;            val state = l.removeFirst()</b>
+&nbsp;
+<b class="fc">&nbsp;            visitor.makeEval(state, this, true)</b>
+&nbsp;
+<b class="fc">&nbsp;            for (transition in transitions.values) {</b>
+<b class="fc">&nbsp;                val source = visitor.kripke.states[transition.from]!!</b>
+<b class="fc">&nbsp;                val destination = visitor.kripke.states[transition.to]!!</b>
+&nbsp;
+<b class="fc">&nbsp;                if (destination === state) {</b>
+<b class="fc">&nbsp;                    nb[source] = nb[source]!! - 1</b>
+&nbsp;
+<b class="pc">&nbsp;                    if (nb[source] == 0 &amp;&amp; visitor.getEval(source, left) &amp;&amp; !visitor.getEval(source, this)) {</b>
+<b class="fc">&nbsp;                        l += source</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;data class EU(
+&nbsp;    val left: CTLFormula,
+&nbsp;    val right: CTLFormula,
+&nbsp;) : CTLFormula() {
+&nbsp;    override fun optimize(): CTLFormula {
+&nbsp;        return EU(left.optimize(), right.optimize())
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun visit(visitor: FormulaVisitor) {
+&nbsp;        if (visitor.isVisited(this)) return
+&nbsp;
+&nbsp;        left.visit(visitor)
+&nbsp;        right.visit(visitor)
+&nbsp;
+&nbsp;        val l = ArrayDeque&lt;State&gt;()
+&nbsp;        val seenBefore = mutableMapOf&lt;State, Boolean&gt;()
+&nbsp;
+&nbsp;        for (state in visitor.kripke.states.values) {
+&nbsp;            visitor.makeEval(state, this, false)
+&nbsp;            seenBefore[state] = false
+&nbsp;
+&nbsp;            if (visitor.getEval(state, right)) {
+&nbsp;                l += state
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        while (l.isNotEmpty()) {
+&nbsp;            val state = l.removeFirst()
+&nbsp;
+&nbsp;            visitor.makeEval(state, this, true)
+&nbsp;
+&nbsp;            for (transition in visitor.kripke.transitions.values) {
+&nbsp;                val source = visitor.kripke.states[transition.from]!!
+&nbsp;                val destination = visitor.kripke.states[transition.to]!!
+&nbsp;
+&nbsp;                if (destination === state &amp;&amp; seenBefore[source] != true) {
+&nbsp;                    seenBefore[source] = true
+&nbsp;
+&nbsp;                    if (visitor.getEval(source, left)) {
+&nbsp;                        l += source
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;
+&nbsp;object CTLGrammar : Grammar&lt;CTLFormula&gt;() {
+&nbsp;    val tr by literalToken(&quot;1&quot;)
+&nbsp;    val fal by literalToken(&quot;0&quot;)
+&nbsp;    val lpar by literalToken(&quot;(&quot;)
+&nbsp;    val rpar by literalToken(&quot;)&quot;)
+&nbsp;    val lspar by literalToken(&quot;[&quot;)
+&nbsp;    val rspar by literalToken(&quot;]&quot;)
+&nbsp;    val not by literalToken(&quot;!&quot;)
+&nbsp;    val and by literalToken(&quot;&amp;&amp;&quot;)
+&nbsp;    val or by literalToken(&quot;||&quot;)
+&nbsp;    val impl by literalToken(&quot;-&gt;&quot;)
+&nbsp;    val eq by literalToken(&quot;==&quot;)
+&nbsp;    val comma by literalToken(&quot;,&quot;)
+&nbsp;    val ax by regexToken(&quot;AX\\b&quot;)
+&nbsp;    val ex by regexToken(&quot;EX\\b&quot;)
+&nbsp;    val af by regexToken(&quot;AF\\b&quot;)
+&nbsp;    val ef by regexToken(&quot;EF\\b&quot;)
+&nbsp;    val ag by regexToken(&quot;AG\\b&quot;)
+&nbsp;    val eg by regexToken(&quot;EG\\b&quot;)
+&nbsp;    val au by regexToken(&quot;AU\\b&quot;)
+&nbsp;    val eu by regexToken(&quot;EU\\b&quot;)
+&nbsp;    val name by regexToken(&quot;\\w+&quot;)
+&nbsp;    val ws by regexToken(&quot;\\s+&quot;, ignore = true)
+&nbsp;
+&nbsp;    val negation by -not * parser(this::ctlExpr) map { Not(it) }
+&nbsp;    val bracedExpression by -lpar * parser(this::implChain) * -rpar
+&nbsp;
+&nbsp;
+&nbsp;    val axOp by -ax * parser(this::bracedExpression) map { f -&gt; Not(EX(Not(f))) }
+&nbsp;    val exOp by -ex * parser(this::bracedExpression) map { f -&gt; EX(f) }
+&nbsp;    val afOp by -af * parser(this::bracedExpression) map { f -&gt; AU(TRUE, f) }
+&nbsp;    val efOp by -ef * parser(this::bracedExpression) map { f -&gt; EU(TRUE, f) }
+&nbsp;    val agOp by -ag * parser(this::bracedExpression) map { f -&gt; Not(EU(TRUE, Not(f))) }
+&nbsp;    val egOp by -eg * parser(this::bracedExpression) map { f -&gt; Not(AU(TRUE, Not(f))) }
+&nbsp;    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map {(a, b) -&gt; AU(a, b)}
+&nbsp;    val euOp by -eu * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -&gt; EU(a, b)}
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    val ctlExpr: Parser&lt;CTLFormula&gt; by
+&nbsp;            (tr asJust TRUE) or
+&nbsp;            (fal asJust Not(TRUE)) or
+&nbsp;            (name map { Element(it.text) }) or
+&nbsp;            negation or
+&nbsp;            bracedExpression or
+&nbsp;            axOp or
+&nbsp;            exOp or
+&nbsp;            afOp or
+&nbsp;            efOp or
+&nbsp;            agOp or
+&nbsp;            egOp or
+&nbsp;            auOp or
+&nbsp;            euOp
+&nbsp;
+&nbsp;    val eqChain by leftAssociative(ctlExpr, eq) { a, _, b -&gt; Or(Not(Or(a, b)), Not(Or(Not(a), Not(b)))) }
+&nbsp;    val andChain by leftAssociative(eqChain, and) { a, _, b -&gt; Not(Or(Not(a), Not(b))) }
+&nbsp;    val orChain by leftAssociative(andChain, or) { a, _, b -&gt; Or(a, b) }
+&nbsp;    val implChain by rightAssociative(orChain, impl) { a, _, b -&gt; Or(Not(a), b) }
+&nbsp;
+&nbsp;
+&nbsp;    override val rootParser by implChain
+&nbsp;}
 </code>
 </pre>
 </div>
@@ -273,7 +415,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-24 15:31</div>
+    <div style="float:right;">generated on 2023-01-24 17:58</div>
 </div>
 </body>
 </html>

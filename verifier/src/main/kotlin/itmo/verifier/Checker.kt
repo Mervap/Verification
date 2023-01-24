@@ -12,6 +12,7 @@ class Checker(val model: Model, val formula: CTLFormula) {
     }
 
     fun check():List<String> {
+        formula.optimize()
         val visitor = FormulaVisitor(formula, model)
         formula.visit(visitor)
         val state = visitor.eval[model.startState]!!

@@ -1,5 +1,67 @@
 {"version":"3","listProblem":[{
   "tool": "Code Inspection",
+  "category": "Style issues",
+  "type": "Class member can have 'private' visibility",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "Moderate",
+  "comment": "Function 'from' could be private",
+  "detailsInfo": "Reports declarations that can be made `private` to follow the encapsulation principle.\n\n**Example:**\n\n\n    class Service(val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n\nAfter the quick-fix is applied (considering there are no usages of `url` outside of `Service` class):\n\n\n    class Service(private val url: String) {\n        fun connect(): URLConnection = URL(url).openConnection()\n    }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/analyzer/Project.kt",
+      "language": "kotlin",
+      "line": 34,
+      "offset": 13,
+      "length": 4,
+      "code": {
+        "startLine": 32,
+        "length": 4,
+        "offset": 66,
+        "surroundingCode": "        fun from(path: String) = from(Path.of(path))\n\n        fun from(path: Path): Project {\n            val roots = ParserCollectionStrategy(ParserConfiguration().setLanguageLevel(JAVA_17)).collect(path).sourceRoots\n            val parsed = mutableListOf<CompilationUnit>()"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "analyzer.main",
+    "inspectionName": "MemberVisibilityCanBePrivate"
+  },
+  "hash": "d3e8c1287975087d17a3d5c8fdcbee76bbdff0c284b778b82bbb44e9e5794060"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Property \"configuration\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/analyzer/ast/ASTPrinter.kt",
+      "language": "kotlin",
+      "line": 41,
+      "offset": 61,
+      "length": 13,
+      "code": {
+        "startLine": 39,
+        "length": 13,
+        "offset": 125,
+        "surroundingCode": " * Cannot use [VoidVisitorAdapter] - it do it in wierd order\n */\nprivate class ASTPrinterVisitor(val out: StringBuilder, val configuration: PrinterConfiguration) : VoidVisitorAdapter<String>() {\n    override fun visit(n: AnnotationDeclaration, arg: String) = blockIndent(arg) { childIndent ->\n        n.appendNode(\"ANNOTATION_DECLARATION\", arg)"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "analyzer.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "fd129e61efd8dedac8f31432c9d0b375dce03a5b97ddbcd9ff4186fce3f8ef04"
+},{
+  "tool": "Code Inspection",
   "category": "Redundant constructs",
   "type": "Unused symbol",
   "tags": [
@@ -37,21 +99,21 @@
     "kotlin"
   ],
   "severity": "High",
-  "comment": "Property \"configuration\" is never used",
+  "comment": "Function \"getClassByName\" is never used",
   "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
   "sources": [
     {
       "type": "file",
-      "path": "src/main/kotlin/itmo/analyzer/ast/ASTPrinter.kt",
+      "path": "src/main/kotlin/itmo/analyzer/Project.kt",
       "language": "kotlin",
-      "line": 41,
-      "offset": 61,
-      "length": 13,
+      "line": 21,
+      "offset": 9,
+      "length": 14,
       "code": {
-        "startLine": 39,
-        "length": 13,
-        "offset": 125,
-        "surroundingCode": " * Cannot use [VoidVisitorAdapter] - it do it in wierd order\n */\nprivate class ASTPrinterVisitor(val out: StringBuilder, val configuration: PrinterConfiguration) : VoidVisitorAdapter<String>() {\n    override fun visit(n: AnnotationDeclaration, arg: String) = blockIndent(arg) { childIndent ->\n        n.appendNode(\"ANNOTATION_DECLARATION\", arg)"
+        "startLine": 19,
+        "length": 14,
+        "offset": 13,
+        "surroundingCode": ") {\n\n    fun getClassByName(name: String): ClassOrInterfaceDeclaration? = files.firstNotNullOfOrNull {\n        it.getClassByName(name).getOrNull()\n    }"
       }
     }
   ],
@@ -59,5 +121,98 @@
     "module": "analyzer.main",
     "inspectionName": "UnusedSymbol"
   },
-  "hash": "fd129e61efd8dedac8f31432c9d0b375dce03a5b97ddbcd9ff4186fce3f8ef04"
+  "hash": "fcacfa459d6aeb8456365cf97248bc54af824c25bd79a2c11c303064f71807e0"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Function \"from\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/analyzer/Project.kt",
+      "language": "kotlin",
+      "line": 30,
+      "offset": 13,
+      "length": 4,
+      "code": {
+        "startLine": 28,
+        "length": 4,
+        "offset": 36,
+        "surroundingCode": "\n    companion object {\n        fun from(file: File) = from(file.toPath())\n\n        fun from(path: String) = from(Path.of(path))"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "analyzer.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "65bc54ebcc50a03c298987a997f4d65d94b4688b34bbbf8d254500cfedc2e023"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Function \"getClasses\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/analyzer/Project.kt",
+      "language": "kotlin",
+      "line": 25,
+      "offset": 9,
+      "length": 10,
+      "code": {
+        "startLine": 23,
+        "length": 10,
+        "offset": 15,
+        "surroundingCode": "    }\n\n    fun getClasses(): List<ClassOrInterfaceDeclaration> = files.flatMap {\n        it.types.filterIsInstance<ClassOrInterfaceDeclaration>()\n    }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "analyzer.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "1fcfca0a2c4574b059dee03776c4b94ec46c76f77844c2717f71ebab3a530d0a"
+},{
+  "tool": "Code Inspection",
+  "category": "Redundant constructs",
+  "type": "Unused symbol",
+  "tags": [
+    "kotlin"
+  ],
+  "severity": "High",
+  "comment": "Function \"addProblem\" is never used",
+  "detailsInfo": "Reports symbols that are not used or not reachable from entry points.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "src/main/kotlin/itmo/analyzer/analyze/ProblemFinder.kt",
+      "language": "kotlin",
+      "line": 24,
+      "offset": 9,
+      "length": 10,
+      "code": {
+        "startLine": 22,
+        "length": 10,
+        "offset": 15,
+        "surroundingCode": "    }\n\n    fun addProblem(problem: Problem) {\n        mutableProblems.add(problem)\n    }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "analyzer.main",
+    "inspectionName": "UnusedSymbol"
+  },
+  "hash": "d6be57f2bd2403b55cfff271cd8cc9277580b5793a1b7be142d870a2ad4fa797"
 }]}

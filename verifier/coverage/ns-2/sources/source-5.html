@@ -126,7 +126,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    override fun visit(visitor: FormulaVisitor) {
 &nbsp;        if (!visitor.isVisited(this)) {
 &nbsp;            for (s in visitor.kripke.states.values) {
-&nbsp;                visitor.makeEval(s,this, true)
+&nbsp;                visitor.makeEval(s, this, true)
 &nbsp;            }
 &nbsp;        }
 &nbsp;        return
@@ -185,7 +185,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;data class Or(
 &nbsp;    val left: CTLFormula,
 &nbsp;    val right: CTLFormula
-&nbsp;): CTLFormula() {
+&nbsp;) : CTLFormula() {
 &nbsp;    override fun optimize(): CTLFormula {
 &nbsp;        return Or(left.optimize(), right.optimize())
 &nbsp;    }
@@ -211,6 +211,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    override fun optimize(): CTLFormula {
 <b class="fc">&nbsp;        return EX(formula.optimize())</b>
 &nbsp;    }
+&nbsp;
 &nbsp;    override fun visit(visitor: FormulaVisitor) {
 <b class="pc">&nbsp;        if (!visitor.isVisited(this)) {</b>
 <b class="fc">&nbsp;            formula.visit(visitor)</b>
@@ -364,8 +365,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    val efOp by -ef * parser(this::bracedExpression) map { f -&gt; EU(TRUE, f) }
 &nbsp;    val agOp by -ag * parser(this::bracedExpression) map { f -&gt; Not(EU(TRUE, Not(f))) }
 &nbsp;    val egOp by -eg * parser(this::bracedExpression) map { f -&gt; Not(AU(TRUE, Not(f))) }
-&nbsp;    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map {(a, b) -&gt; AU(a, b)}
-&nbsp;    val euOp by -eu * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -&gt; EU(a, b)}
+&nbsp;    val auOp by -au * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -&gt; AU(a, b) }
+&nbsp;    val euOp by -eu * -lspar * parser(this::ctlExpr) * -comma * parser(this::ctlExpr) * -rspar map { (a, b) -&gt; EU(a, b) }
 &nbsp;
 &nbsp;
 &nbsp;
@@ -415,7 +416,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-24 18:22</div>
+    <div style="float:right;">generated on 2023-01-25 13:00</div>
 </div>
 </body>
 </html>

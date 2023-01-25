@@ -75,7 +75,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/108)
+    (0/113)
   </span>
 </td>
 </tr>
@@ -138,7 +138,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/118)
+    (0/123)
   </span>
 </td>
 </tr>
@@ -152,7 +152,6 @@ Current scope:     <a href="../../index.html">all classes</a>
 <code class="sourceCode" id="sourceCode">&nbsp;package itmo.verifier
 &nbsp;
 &nbsp;import com.github.h0tk3y.betterParse.grammar.parseToEnd
-&nbsp;import itmo.verifier.formula.CTLFormula
 &nbsp;import itmo.verifier.formula.CTLGrammar
 &nbsp;import itmo.verifier.model.Model
 &nbsp;import kotlinx.serialization.modules.SerializersModule
@@ -161,12 +160,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import nl.adaptivity.xmlutil.serialization.XML
 &nbsp;import java.io.File
 &nbsp;import java.io.PrintStream
-&nbsp;
+&nbsp;import kotlin.system.exitProcess
 &nbsp;
 &nbsp;fun main(args: Array&lt;String&gt;) {
 <b class="nc">&nbsp;    if (2 &gt; args.size || args.size &gt; 3) {</b>
 <b class="nc">&nbsp;        println(&quot;Usage: Main &lt;file with model&gt; &lt;file with ctl formula&gt; [&lt;output file&gt;]&quot;)</b>
-<b class="nc">&nbsp;        System.exit(0)</b>
+<b class="nc">&nbsp;        exitProcess(0)</b>
 &nbsp;    }
 <b class="nc">&nbsp;    val modelFile = args[0]</b>
 <b class="nc">&nbsp;    val formulaFile = args[1]</b>
@@ -184,7 +183,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;}
 &nbsp;
-&nbsp;fun getDiagram(modelText:String): Diagram {
+&nbsp;fun getDiagram(modelText: String): Diagram {
 <b class="nc">&nbsp;    val module = SerializersModule {}</b>
 <b class="nc">&nbsp;    val xml = XML(module) {</b>
 <b class="nc">&nbsp;        indentString = &quot;    &quot;</b>
@@ -218,7 +217,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-24 18:22</div>
+    <div style="float:right;">generated on 2023-01-25 13:00</div>
 </div>
 </body>
 </html>

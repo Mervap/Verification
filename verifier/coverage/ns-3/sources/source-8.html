@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > Transition</title>
+  <title>Coverage Report > Variable</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -21,7 +21,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">itmo.verifier.model</a>
 </div>
 
-<h1>Coverage Summary for Class: Transition (itmo.verifier.model)</h1>
+<h1>Coverage Summary for Class: Variable (itmo.verifier.model)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -48,7 +48,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">Transition</td>
+  <td class="name">Variable</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -79,7 +79,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (43/43)
+    (20/20)
   </span>
 </td>
 </tr>
@@ -95,16 +95,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import com.github.h0tk3y.betterParse.grammar.parseToEnd
 &nbsp;import itmo.verifier.*
-&nbsp;import itmo.verifier.formula.CTLGrammar
 &nbsp;import itmo.verifier.formula.CTLFormula
+&nbsp;import itmo.verifier.formula.CTLGrammar
 &nbsp;
 &nbsp;enum class VariableType(s: String) {
 &nbsp;    VOLATILE(&quot;volatile&quot;), PLAIN(&quot;&quot;)
 &nbsp;}
 &nbsp;
-&nbsp;val DEFAULT_STATE_NAME: String = &quot;DEFAULT&quot;
+&nbsp;const val DEFAULT_STATE_NAME: String = &quot;DEFAULT&quot;
 &nbsp;
-&nbsp;class Model(diagram:Diagram) {
+&nbsp;class Model(diagram: Diagram) {
 &nbsp;    lateinit var startState: State
 &nbsp;    val name: String
 &nbsp;    val autoReject: Boolean
@@ -138,7 +138,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                val eventsList = mutableListOf&lt;EventKripke&gt;()
 &nbsp;                val actionsList = mutableListOf&lt;ActionKripke&gt;()
 &nbsp;                var codeList = listOf&lt;Assign&gt;()
-&nbsp;                var guardList = mutableListOf&lt;GuardKripke&gt;()
+&nbsp;                val guardList = mutableListOf&lt;GuardKripke&gt;()
 &nbsp;                for (a in w.attributes.attributes) {
 &nbsp;                    if (a is Event) {
 &nbsp;                        eventsList.add(EventKripke(a.name))
@@ -156,8 +156,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                    }
 &nbsp;                }
 &nbsp;
-&nbsp;                var from = w.id + &quot;in&quot;
-&nbsp;                var to = w.id + &quot;out&quot;
+&nbsp;                val from = w.id + &quot;in&quot;
+&nbsp;                val to = w.id + &quot;out&quot;
 &nbsp;                addedTransitions.add(from)
 &nbsp;                addedTransitions.add(to)
 &nbsp;                states[w.id] = State(
@@ -167,7 +167,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                    mutableSetOf(from),
 &nbsp;                    mutableSetOf(to),
 &nbsp;                    eventsList.asSequence().map { it.name }.toSet() +
-&nbsp;                        actionsList.asSequence().map { it.name }.toSet(),
+&nbsp;                            actionsList.asSequence().map { it.name }.toSet(),
 &nbsp;                )
 &nbsp;
 &nbsp;                transitions[w.id] = Transition(w.id, from, to, eventsList, codeList, actionsList, guardList)
@@ -180,8 +180,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;            } else {
 &nbsp;                var name = DEFAULT_STATE_NAME
 &nbsp;                var type: Int = 0
-&nbsp;                var incoming = mutableSetOf&lt;String&gt;()
-&nbsp;                var outgoing = mutableSetOf&lt;String&gt;()
+&nbsp;                val incoming = mutableSetOf&lt;String&gt;()
+&nbsp;                val outgoing = mutableSetOf&lt;String&gt;()
 &nbsp;                for (a in w.attributes.attributes) {
 &nbsp;                    if (a is Name) {
 &nbsp;                        name = a.name
@@ -219,7 +219,6 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;
-&nbsp;
 &nbsp;    fun parseCode(s: String, vars: Map&lt;String, Variable&gt;): List&lt;Assign&gt; {
 &nbsp;        val lines = s.split(&quot;;(\\s)+&quot;.toRegex())
 &nbsp;        val res = mutableListOf&lt;Assign&gt;()
@@ -234,7 +233,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        return res
 &nbsp;    }
 &nbsp;
-&nbsp;    fun parseDeclaration(s: String):Variable {
+&nbsp;    fun parseDeclaration(s: String): Variable {
 &nbsp;        val decl = s.replace(&quot;;&quot;, &quot;&quot;)
 &nbsp;        val lexList = decl.split(&quot;(\\s)+&quot;.toRegex())
 &nbsp;        var type = VariableType.PLAIN;
@@ -259,28 +258,31 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    val elements: Set&lt;String&gt; = setOf(name),
 &nbsp;)
 &nbsp;
-<b class="fc">&nbsp;class Transition(val id: String, var from: String, var to: String, val events: List&lt;EventKripke&gt;, val code: List&lt;Assign&gt;, val actions: List&lt;ActionKripke&gt;, val guard: List&lt;GuardKripke&gt;) {</b>
-&nbsp;}
+&nbsp;class Transition(
+&nbsp;    val id: String,
+&nbsp;    var from: String,
+&nbsp;    var to: String,
+&nbsp;    val events: List&lt;EventKripke&gt;,
+&nbsp;    val code: List&lt;Assign&gt;,
+&nbsp;    val actions: List&lt;ActionKripke&gt;,
+&nbsp;    val guard: List&lt;GuardKripke&gt;
+&nbsp;)
 &nbsp;
-&nbsp;class EventKripke(val name: String) {
-&nbsp;}
+&nbsp;class EventKripke(val name: String)
 &nbsp;
-&nbsp;class GuardKripke(val text: String) {
+&nbsp;class GuardKripke(text: String) {
 &nbsp;
 &nbsp;    private val formula: CTLFormula = CTLGrammar.parseToEnd(text).optimize()
 &nbsp;
-&nbsp;    fun compute(variables:Map&lt;String, Variable&gt;): Boolean {
+&nbsp;    fun compute(variables: Map&lt;String, Variable&gt;): Boolean {
 &nbsp;        return formula.compute(variables)
 &nbsp;    }
 &nbsp;
 &nbsp;}
 &nbsp;
-&nbsp;class ActionKripke(val name: String, val synchro: Boolean) {
+&nbsp;class ActionKripke(val name: String, val synchro: Boolean)
 &nbsp;
-&nbsp;}
-&nbsp;
-&nbsp;class Variable(val name: String, val type: VariableType, var value: Boolean) {
-&nbsp;}
+<b class="fc">&nbsp;class Variable(val name: String, val type: VariableType, var value: Boolean)</b>
 &nbsp;
 &nbsp;data class Assign(val t: Variable, val value: Boolean)
 </code>
@@ -306,7 +308,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-24 18:22</div>
+    <div style="float:right;">generated on 2023-01-25 13:00</div>
 </div>
 </body>
 </html>

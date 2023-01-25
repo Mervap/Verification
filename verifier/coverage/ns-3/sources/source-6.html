@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > Model</title>
+  <title>Coverage Report > State</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -21,12 +21,15 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">itmo.verifier.model</a>
 </div>
 
-<h1>Coverage Summary for Class: Model (itmo.verifier.model)</h1>
+<h1>Coverage Summary for Class: State (itmo.verifier.model)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -45,159 +48,42 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">Model</td>
+  <td class="name">State</td>
 <td class="coverageStat">
   <span class="percent">
-    58.3%
+    100%
   </span>
   <span class="absValue">
-    (7/12)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    94%
+    100%
   </span>
   <span class="absValue">
-    (47/50)
+    (1/1)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    93.6%
+    100%
   </span>
   <span class="absValue">
-    (102/109)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    98.3%
-  </span>
-  <span class="absValue">
-    (740/753)
+    (47/47)
   </span>
 </td>
 </tr>
-  <tr>
-    <td class="name">Model$1</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-    <td class="coverageStat"/>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (6/6)
-  </span>
-</td>
-  </tr>
-  <tr>
-    <td class="name">Model$2</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-    <td class="coverageStat"/>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (2/2)
-  </span>
-</td>
-  </tr>
-  <tr>
-    <td class="name">Model$3</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-    <td class="coverageStat"/>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (2/2)
-  </span>
-</td>
-  </tr>
-<tr>
-  <td class="name"><strong>Total</strong></td>
-<td class="coverageStat">
-  <span class="percent">
-    66.7%
-  </span>
-  <span class="absValue">
-    (10/15)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    94%
-  </span>
-  <span class="absValue">
-    (47/50)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    93.8%
-  </span>
-  <span class="absValue">
-    (105/112)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    98.3%
-  </span>
-  <span class="absValue">
-    (750/763)
-  </span>
-</td>
-</tr>
+
 </table>
 
 <br/>
@@ -209,192 +95,194 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import com.github.h0tk3y.betterParse.grammar.parseToEnd
 &nbsp;import itmo.verifier.*
-&nbsp;import itmo.verifier.formula.CTLGrammar
 &nbsp;import itmo.verifier.formula.CTLFormula
+&nbsp;import itmo.verifier.formula.CTLGrammar
 &nbsp;
 &nbsp;enum class VariableType(s: String) {
 &nbsp;    VOLATILE(&quot;volatile&quot;), PLAIN(&quot;&quot;)
 &nbsp;}
 &nbsp;
-&nbsp;val DEFAULT_STATE_NAME: String = &quot;DEFAULT&quot;
+&nbsp;const val DEFAULT_STATE_NAME: String = &quot;DEFAULT&quot;
 &nbsp;
-<b class="fc">&nbsp;class Model(diagram:Diagram) {</b>
-<b class="fc">&nbsp;    lateinit var startState: State</b>
-<b class="nc">&nbsp;    val name: String</b>
-<b class="nc">&nbsp;    val autoReject: Boolean</b>
-<b class="nc">&nbsp;    val events: List&lt;EventKripke&gt;</b>
-<b class="nc">&nbsp;    val variables: Map&lt;String, Variable&gt;</b>
-<b class="nc">&nbsp;    val variableOrder: MutableMap&lt;String, Int&gt;</b>
-<b class="fc">&nbsp;    val states: Map&lt;String, State&gt;</b>
-<b class="fc">&nbsp;    val transitions: Map&lt;String, Transition&gt;</b>
-<b class="fc">&nbsp;    val addedTransitions: MutableSet&lt;String&gt;</b>
+&nbsp;class Model(diagram: Diagram) {
+&nbsp;    lateinit var startState: State
+&nbsp;    val name: String
+&nbsp;    val autoReject: Boolean
+&nbsp;    val events: List&lt;EventKripke&gt;
+&nbsp;    val variables: Map&lt;String, Variable&gt;
+&nbsp;    val variableOrder: MutableMap&lt;String, Int&gt;
+&nbsp;    val states: Map&lt;String, State&gt;
+&nbsp;    val transitions: Map&lt;String, Transition&gt;
+&nbsp;    val addedTransitions: MutableSet&lt;String&gt;
 &nbsp;
-<b class="fc">&nbsp;    init {</b>
-<b class="fc">&nbsp;        addedTransitions = mutableSetOf()</b>
-<b class="fc">&nbsp;        autoReject = diagram.data.stateMachine.autoReject</b>
-<b class="fc">&nbsp;        events = mutableListOf()</b>
-<b class="fc">&nbsp;        for (e in diagram.data.stateMachine.events) {</b>
-<b class="fc">&nbsp;            events.add(EventKripke(e.name))</b>
+&nbsp;    init {
+&nbsp;        addedTransitions = mutableSetOf()
+&nbsp;        autoReject = diagram.data.stateMachine.autoReject
+&nbsp;        events = mutableListOf()
+&nbsp;        for (e in diagram.data.stateMachine.events) {
+&nbsp;            events.add(EventKripke(e.name))
 &nbsp;        }
 &nbsp;
-<b class="fc">&nbsp;        variables = mutableMapOf()</b>
-<b class="fc">&nbsp;        for (d in diagram.data.stateMachine.variables) {</b>
-<b class="fc">&nbsp;            val v = parseDeclaration(d.declaration)</b>
-<b class="fc">&nbsp;            variables[v.name] = v</b>
+&nbsp;        variables = mutableMapOf()
+&nbsp;        for (d in diagram.data.stateMachine.variables) {
+&nbsp;            val v = parseDeclaration(d.declaration)
+&nbsp;            variables[v.name] = v
 &nbsp;        }
-<b class="fc">&nbsp;        variableOrder = variables.keys.asSequence().withIndex().map { it.value to it.index }.toMap().toMutableMap()</b>
+&nbsp;        variableOrder = variables.keys.asSequence().withIndex().map { it.value to it.index }.toMap().toMutableMap()
 &nbsp;
-<b class="fc">&nbsp;        name = diagram.name</b>
-<b class="fc">&nbsp;        states = mutableMapOf()</b>
-<b class="fc">&nbsp;        transitions = mutableMapOf()</b>
-<b class="fc">&nbsp;        for (w in diagram.widgets) {</b>
-<b class="fc">&nbsp;            if (w.type == &quot;Transition&quot;) {</b>
-<b class="fc">&nbsp;                val eventsList = mutableListOf&lt;EventKripke&gt;()</b>
-<b class="fc">&nbsp;                val actionsList = mutableListOf&lt;ActionKripke&gt;()</b>
-<b class="fc">&nbsp;                var codeList = listOf&lt;Assign&gt;()</b>
-<b class="fc">&nbsp;                var guardList = mutableListOf&lt;GuardKripke&gt;()</b>
-<b class="fc">&nbsp;                for (a in w.attributes.attributes) {</b>
-<b class="fc">&nbsp;                    if (a is Event) {</b>
-<b class="fc">&nbsp;                        eventsList.add(EventKripke(a.name))</b>
-<b class="fc">&nbsp;                    } else if (a is Action) {</b>
-<b class="fc">&nbsp;                        val synchroVal = a.synchro == &quot;1&quot;</b>
-<b class="fc">&nbsp;                        actionsList.add(ActionKripke(a.name, synchroVal))</b>
-<b class="fc">&nbsp;                    } else if (a is Code) {</b>
-<b class="fc">&nbsp;                        codeList = parseCode(a.code, variables)</b>
-<b class="pc">&nbsp;                    } else if (a is Guard) {</b>
-<b class="fc">&nbsp;                        if (a.guard.isEmpty()) {</b>
-<b class="fc">&nbsp;                            guardList.add(GuardKripke(&quot;1&quot;))</b>
+&nbsp;        name = diagram.name
+&nbsp;        states = mutableMapOf()
+&nbsp;        transitions = mutableMapOf()
+&nbsp;        for (w in diagram.widgets) {
+&nbsp;            if (w.type == &quot;Transition&quot;) {
+&nbsp;                val eventsList = mutableListOf&lt;EventKripke&gt;()
+&nbsp;                val actionsList = mutableListOf&lt;ActionKripke&gt;()
+&nbsp;                var codeList = listOf&lt;Assign&gt;()
+&nbsp;                val guardList = mutableListOf&lt;GuardKripke&gt;()
+&nbsp;                for (a in w.attributes.attributes) {
+&nbsp;                    if (a is Event) {
+&nbsp;                        eventsList.add(EventKripke(a.name))
+&nbsp;                    } else if (a is Action) {
+&nbsp;                        val synchroVal = a.synchro == &quot;1&quot;
+&nbsp;                        actionsList.add(ActionKripke(a.name, synchroVal))
+&nbsp;                    } else if (a is Code) {
+&nbsp;                        codeList = parseCode(a.code, variables)
+&nbsp;                    } else if (a is Guard) {
+&nbsp;                        if (a.guard.isEmpty()) {
+&nbsp;                            guardList.add(GuardKripke(&quot;1&quot;))
 &nbsp;                        } else {
-<b class="fc">&nbsp;                            guardList.add(GuardKripke(a.guard))</b>
+&nbsp;                            guardList.add(GuardKripke(a.guard))
 &nbsp;                        }
 &nbsp;                    }
 &nbsp;                }
 &nbsp;
-<b class="fc">&nbsp;                var from = w.id + &quot;in&quot;</b>
-<b class="fc">&nbsp;                var to = w.id + &quot;out&quot;</b>
-<b class="fc">&nbsp;                addedTransitions.add(from)</b>
-<b class="fc">&nbsp;                addedTransitions.add(to)</b>
-<b class="fc">&nbsp;                states[w.id] = State(</b>
-<b class="fc">&nbsp;                    w.id,</b>
-<b class="fc">&nbsp;                    w.id,</b>
-<b class="fc">&nbsp;                    0,</b>
-<b class="fc">&nbsp;                    mutableSetOf(from),</b>
-<b class="fc">&nbsp;                    mutableSetOf(to),</b>
-<b class="fc">&nbsp;                    eventsList.asSequence().map { it.name }.toSet() +</b>
-<b class="fc">&nbsp;                        actionsList.asSequence().map { it.name }.toSet(),</b>
+&nbsp;                val from = w.id + &quot;in&quot;
+&nbsp;                val to = w.id + &quot;out&quot;
+&nbsp;                addedTransitions.add(from)
+&nbsp;                addedTransitions.add(to)
+&nbsp;                states[w.id] = State(
+&nbsp;                    w.id,
+&nbsp;                    w.id,
+&nbsp;                    0,
+&nbsp;                    mutableSetOf(from),
+&nbsp;                    mutableSetOf(to),
+&nbsp;                    eventsList.asSequence().map { it.name }.toSet() +
+&nbsp;                            actionsList.asSequence().map { it.name }.toSet(),
 &nbsp;                )
 &nbsp;
-<b class="fc">&nbsp;                transitions[w.id] = Transition(w.id, from, to, eventsList, codeList, actionsList, guardList)</b>
-<b class="fc">&nbsp;                transitions[from] = Transition(from, &quot;&quot;, &quot;&quot;, eventsList, codeList, actionsList, guardList)</b>
-<b class="fc">&nbsp;                transitions[to] = Transition(to, &quot;&quot;, &quot;&quot;, eventsList, codeList, actionsList, guardList)</b>
+&nbsp;                transitions[w.id] = Transition(w.id, from, to, eventsList, codeList, actionsList, guardList)
+&nbsp;                transitions[from] = Transition(from, &quot;&quot;, &quot;&quot;, eventsList, codeList, actionsList, guardList)
+&nbsp;                transitions[to] = Transition(to, &quot;&quot;, &quot;&quot;, eventsList, codeList, actionsList, guardList)
 &nbsp;
-<b class="fc">&nbsp;                actionsList.forEach {</b>
-<b class="fc">&nbsp;                    variableOrder[it.name] = variableOrder.size</b>
-<b class="fc">&nbsp;                }</b>
+&nbsp;                actionsList.forEach {
+&nbsp;                    variableOrder[it.name] = variableOrder.size
+&nbsp;                }
 &nbsp;            } else {
-<b class="fc">&nbsp;                var name = DEFAULT_STATE_NAME</b>
-<b class="fc">&nbsp;                var type: Int = 0</b>
-<b class="fc">&nbsp;                var incoming = mutableSetOf&lt;String&gt;()</b>
-<b class="fc">&nbsp;                var outgoing = mutableSetOf&lt;String&gt;()</b>
-<b class="fc">&nbsp;                for (a in w.attributes.attributes) {</b>
-<b class="fc">&nbsp;                    if (a is Name) {</b>
-<b class="fc">&nbsp;                        name = a.name</b>
-<b class="fc">&nbsp;                    } else if (a is Type) {</b>
-<b class="fc">&nbsp;                        type = a.type</b>
-<b class="fc">&nbsp;                    } else if (a is Incoming) {</b>
-<b class="fc">&nbsp;                        incoming.add(a.id)</b>
-<b class="pc">&nbsp;                    } else if (a is Outgoing) {</b>
-<b class="fc">&nbsp;                        outgoing.add(a.id)</b>
+&nbsp;                var name = DEFAULT_STATE_NAME
+&nbsp;                var type: Int = 0
+&nbsp;                val incoming = mutableSetOf&lt;String&gt;()
+&nbsp;                val outgoing = mutableSetOf&lt;String&gt;()
+&nbsp;                for (a in w.attributes.attributes) {
+&nbsp;                    if (a is Name) {
+&nbsp;                        name = a.name
+&nbsp;                    } else if (a is Type) {
+&nbsp;                        type = a.type
+&nbsp;                    } else if (a is Incoming) {
+&nbsp;                        incoming.add(a.id)
+&nbsp;                    } else if (a is Outgoing) {
+&nbsp;                        outgoing.add(a.id)
 &nbsp;                    }
 &nbsp;                }
-<b class="fc">&nbsp;                states[w.id] = State(w.id, name, type, incoming, outgoing)</b>
-<b class="fc">&nbsp;                if (type == 1) {</b>
-<b class="fc">&nbsp;                    startState = states[w.id]!!</b>
+&nbsp;                states[w.id] = State(w.id, name, type, incoming, outgoing)
+&nbsp;                if (type == 1) {
+&nbsp;                    startState = states[w.id]!!
 &nbsp;                }
 &nbsp;            }
 &nbsp;        }
-<b class="fc">&nbsp;        for (s in states.values) {</b>
-<b class="fc">&nbsp;            if (!transitions.containsKey(s.id)) {</b>
-<b class="fc">&nbsp;                for (t in s.incomingTransitions) {</b>
-<b class="fc">&nbsp;                    transitions[t]!!.to = s.id</b>
-<b class="fc">&nbsp;                    transitions[t + &quot;out&quot;]!!.from = t</b>
-<b class="fc">&nbsp;                    transitions[t + &quot;out&quot;]!!.to = s.id</b>
+&nbsp;        for (s in states.values) {
+&nbsp;            if (!transitions.containsKey(s.id)) {
+&nbsp;                for (t in s.incomingTransitions) {
+&nbsp;                    transitions[t]!!.to = s.id
+&nbsp;                    transitions[t + &quot;out&quot;]!!.from = t
+&nbsp;                    transitions[t + &quot;out&quot;]!!.to = s.id
 &nbsp;                }
-<b class="fc">&nbsp;                s.incomingTransitions.addAll(s.incomingTransitions.map { it + &quot;out&quot; })</b>
-<b class="fc">&nbsp;                for (t in s.outgoingTransitions) {</b>
-<b class="fc">&nbsp;                    transitions[t]!!.from = s.id</b>
-<b class="fc">&nbsp;                    transitions[t + &quot;in&quot;]!!.from = s.id</b>
-<b class="fc">&nbsp;                    transitions[t + &quot;in&quot;]!!.to = t</b>
+&nbsp;                s.incomingTransitions.addAll(s.incomingTransitions.map { it + &quot;out&quot; })
+&nbsp;                for (t in s.outgoingTransitions) {
+&nbsp;                    transitions[t]!!.from = s.id
+&nbsp;                    transitions[t + &quot;in&quot;]!!.from = s.id
+&nbsp;                    transitions[t + &quot;in&quot;]!!.to = t
 &nbsp;                }
-<b class="fc">&nbsp;                s.outgoingTransitions.addAll(s.outgoingTransitions.map { it + &quot;in&quot; })</b>
+&nbsp;                s.outgoingTransitions.addAll(s.outgoingTransitions.map { it + &quot;in&quot; })
 &nbsp;
 &nbsp;            }
 &nbsp;        }
-<b class="fc">&nbsp;    }</b>
-&nbsp;
+&nbsp;    }
 &nbsp;
 &nbsp;
 &nbsp;    fun parseCode(s: String, vars: Map&lt;String, Variable&gt;): List&lt;Assign&gt; {
-<b class="fc">&nbsp;        val lines = s.split(&quot;;(\\s)+&quot;.toRegex())</b>
-<b class="fc">&nbsp;        val res = mutableListOf&lt;Assign&gt;()</b>
-<b class="fc">&nbsp;        for (l in lines) {</b>
-<b class="fc">&nbsp;            if (l.isEmpty())</b>
-<b class="fc">&nbsp;                continue</b>
-<b class="fc">&nbsp;            val lexList = l.split(&quot;(\\s)+&quot;.toRegex())</b>
-<b class="fc">&nbsp;            val name = lexList[0]</b>
-<b class="fc">&nbsp;            val value = lexList[2] == &quot;1&quot;</b>
-<b class="fc">&nbsp;            res.add(Assign(vars.get(name)!!, value))</b>
+&nbsp;        val lines = s.split(&quot;;(\\s)+&quot;.toRegex())
+&nbsp;        val res = mutableListOf&lt;Assign&gt;()
+&nbsp;        for (l in lines) {
+&nbsp;            if (l.isEmpty())
+&nbsp;                continue
+&nbsp;            val lexList = l.split(&quot;(\\s)+&quot;.toRegex())
+&nbsp;            val name = lexList[0]
+&nbsp;            val value = lexList[2] == &quot;1&quot;
+&nbsp;            res.add(Assign(vars.get(name)!!, value))
 &nbsp;        }
-<b class="fc">&nbsp;        return res</b>
+&nbsp;        return res
 &nbsp;    }
 &nbsp;
-&nbsp;    fun parseDeclaration(s: String):Variable {
-<b class="fc">&nbsp;        val decl = s.replace(&quot;;&quot;, &quot;&quot;)</b>
-<b class="fc">&nbsp;        val lexList = decl.split(&quot;(\\s)+&quot;.toRegex())</b>
-<b class="fc">&nbsp;        var type = VariableType.PLAIN;</b>
-<b class="fc">&nbsp;        var itemIdx = 1</b>
-<b class="pc">&nbsp;        if (lexList[0] == VariableType.VOLATILE.name) {</b>
-<b class="nc">&nbsp;            type = VariableType.VOLATILE</b>
-<b class="nc">&nbsp;            itemIdx++</b>
+&nbsp;    fun parseDeclaration(s: String): Variable {
+&nbsp;        val decl = s.replace(&quot;;&quot;, &quot;&quot;)
+&nbsp;        val lexList = decl.split(&quot;(\\s)+&quot;.toRegex())
+&nbsp;        var type = VariableType.PLAIN;
+&nbsp;        var itemIdx = 1
+&nbsp;        if (lexList[0] == VariableType.VOLATILE.name) {
+&nbsp;            type = VariableType.VOLATILE
+&nbsp;            itemIdx++
 &nbsp;        }
-<b class="fc">&nbsp;        val name = lexList[itemIdx]</b>
-<b class="fc">&nbsp;        val value = lexList[itemIdx + 2] == &quot;1&quot;</b>
+&nbsp;        val name = lexList[itemIdx]
+&nbsp;        val value = lexList[itemIdx + 2] == &quot;1&quot;
 &nbsp;
-<b class="fc">&nbsp;        return Variable(name, type, value)</b>
+&nbsp;        return Variable(name, type, value)
 &nbsp;    }
 &nbsp;}
 &nbsp;
-&nbsp;class State(
-&nbsp;    val id: String,
-&nbsp;    val name: String,
-&nbsp;    val type: Int,
-&nbsp;    val incomingTransitions: MutableSet&lt;String&gt;,
-&nbsp;    val outgoingTransitions: MutableSet&lt;String&gt;,
-&nbsp;    val elements: Set&lt;String&gt; = setOf(name),
+<b class="fc">&nbsp;class State(</b>
+<b class="fc">&nbsp;    val id: String,</b>
+<b class="fc">&nbsp;    val name: String,</b>
+<b class="fc">&nbsp;    val type: Int,</b>
+<b class="fc">&nbsp;    val incomingTransitions: MutableSet&lt;String&gt;,</b>
+<b class="fc">&nbsp;    val outgoingTransitions: MutableSet&lt;String&gt;,</b>
+<b class="fc">&nbsp;    val elements: Set&lt;String&gt; = setOf(name),</b>
 &nbsp;)
 &nbsp;
-&nbsp;class Transition(val id: String, var from: String, var to: String, val events: List&lt;EventKripke&gt;, val code: List&lt;Assign&gt;, val actions: List&lt;ActionKripke&gt;, val guard: List&lt;GuardKripke&gt;) {
-&nbsp;}
+&nbsp;class Transition(
+&nbsp;    val id: String,
+&nbsp;    var from: String,
+&nbsp;    var to: String,
+&nbsp;    val events: List&lt;EventKripke&gt;,
+&nbsp;    val code: List&lt;Assign&gt;,
+&nbsp;    val actions: List&lt;ActionKripke&gt;,
+&nbsp;    val guard: List&lt;GuardKripke&gt;
+&nbsp;)
 &nbsp;
-&nbsp;class EventKripke(val name: String) {
-&nbsp;}
+&nbsp;class EventKripke(val name: String)
 &nbsp;
-&nbsp;class GuardKripke(val text: String) {
+&nbsp;class GuardKripke(text: String) {
 &nbsp;
 &nbsp;    private val formula: CTLFormula = CTLGrammar.parseToEnd(text).optimize()
 &nbsp;
-&nbsp;    fun compute(variables:Map&lt;String, Variable&gt;): Boolean {
+&nbsp;    fun compute(variables: Map&lt;String, Variable&gt;): Boolean {
 &nbsp;        return formula.compute(variables)
 &nbsp;    }
 &nbsp;
 &nbsp;}
 &nbsp;
-&nbsp;class ActionKripke(val name: String, val synchro: Boolean) {
+&nbsp;class ActionKripke(val name: String, val synchro: Boolean)
 &nbsp;
-&nbsp;}
-&nbsp;
-&nbsp;class Variable(val name: String, val type: VariableType, var value: Boolean) {
-&nbsp;}
+&nbsp;class Variable(val name: String, val type: VariableType, var value: Boolean)
 &nbsp;
 &nbsp;data class Assign(val t: Variable, val value: Boolean)
 </code>
@@ -420,7 +308,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-24 18:22</div>
+    <div style="float:right;">generated on 2023-01-25 13:00</div>
 </div>
 </body>
 </html>

@@ -83,10 +83,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    78.1%
+    78.5%
   </span>
   <span class="absValue">
-    (50/64)
+    (51/65)
   </span>
 </td>
 </tr>
@@ -111,17 +111,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        return mutableListOf()
 &nbsp;    }
 &nbsp;
-&nbsp;    fun check():List&lt;String&gt; {
+&nbsp;    fun check(): List&lt;String&gt; {
 <b class="fc">&nbsp;        formula.optimize()</b>
 <b class="fc">&nbsp;        val visitor = FormulaVisitor(formula, model)</b>
 <b class="fc">&nbsp;        formula.visit(visitor)</b>
 <b class="fc">&nbsp;        val state = visitor.eval[model.startState]!!</b>
-<b class="fc">&nbsp;        if (state[formula] == true) {</b>
-<b class="fc">&nbsp;            return listOf(&quot;Formula is true for model&quot;)</b>
+<b class="fc">&nbsp;        return if (state[formula] == true) {</b>
+<b class="fc">&nbsp;            listOf(&quot;Formula is true for model&quot;)</b>
 &nbsp;        } else {
-&nbsp;//            var currState = model.startState
-&nbsp;//            val way: List&lt;String&gt; = way(visitor, currState)!!
-<b class="fc">&nbsp;            return listOf(&quot;Formula is false for model&quot;)</b>
+&nbsp;    //            var currState = model.startState
+&nbsp;    //            val way: List&lt;String&gt; = way(visitor, currState)!!
+<b class="fc">&nbsp;            listOf(&quot;Formula is false for model&quot;)</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;}
@@ -148,7 +148,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-01-24 18:22</div>
+    <div style="float:right;">generated on 2023-01-25 13:00</div>
 </div>
 </body>
 </html>
